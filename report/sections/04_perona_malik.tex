@@ -1,0 +1,151 @@
+\section{Diffusion de Perona--Malik : adaptation et difficultés}
+\label{sec:perona-malik}
+
+\subsection{Un coefficient dépendant des variations locales}
+
+Le modèle continu proposé par Perona et Malik est
+\begin{equation}
+ \partial_t u=\operatorname{div}\bigl(c(|\nabla u|)\nabla u\bigr),
+ \qquad u(\cdot,0)=f,
+ \qquad c(|\nabla u|)\nabla u\cdot\boldsymbol n=0.
+ \label{eq:pm-continuous}
+\end{equation}
+Il vise à favoriser le lissage des régions peu variables tout en
+réduisant les échanges au voisinage des fortes variations
+\cite{perona1990}. Les deux lois étudiées sont
+\begin{equation}
+ c_{\mathrm{exp}}(s)=\exp\left(-\frac{s^2}{K^2}\right),\qquad
+ c_{\mathrm{rat}}(s)=\frac{1}{1+s^2/K^2},\qquad s\geq0,
+ \quad K>0.
+ \label{eq:pm-conductances}
+\end{equation}
+Elles valent un en $s=0$, sont décroissantes pour $s>0$ et restent
+strictement positives pour une valeur finie de $s$ dans le modèle
+mathématique. Dans le calcul flottant, l'exponentielle peut devenir
+numériquement nulle pour un très grand rapport $s/K$ ; cette valeur
+respecte encore la borne $0\leq c\leq1$ utilisée dans l'analyse discrète.
+
+Le paramètre $K$ est une échelle de variation d'intensité par unité de
+longueur. Avec un pas spatial égal à un pixel, il se lit dans la
+convention intensité par pixel. Ce n'est ni une probabilité de contour
+ni un seuil de segmentation. Pour $s\ll K$, les deux coefficients sont
+proches de un et le comportement local se rapproche de la chaleur.
+Pour $s\gg K$, la diffusion est freinée. L'exponentielle décroît plus
+rapidement que la loi rationnelle ; à $s=K$, les valeurs sont
+respectivement $\mathrm e^{-1}$ et $1/2$.
+
+La distinction entre contour et bruit n'est pas donnée au modèle.
+Une différence importante produite par le bruit peut également
+réduire le coefficient de diffusion. Un petit $K$ peut ainsi conserver
+des fluctuations que l'on souhaite éliminer. À l'inverse, un grand $K$
+rend davantage de transitions perméables et accroît le risque de
+lissage des structures. Comme les coefficients sont recalculés à
+chaque étape, leur effet dépend aussi du temps : les variations qui
+diminuent peuvent ensuite autoriser plus de diffusion. La comparaison
+doit donc porter conjointement sur $K$, la loi $c$ et l'arrêt, sans
+présupposer la supériorité d'une conductance sur l'autre.
+
+\subsection{Pourquoi une conductance positive ne suffit pas}
+
+Posons $g(s)=s c(s)$, amplitude du flux dans la direction du gradient.
+Une conductance positive n'implique pas que $g$ soit croissant.
+Le calcul direct donne
+\begin{align}
+ g'_{\mathrm{exp}}(s)
+ &=\exp(-s^2/K^2)\left(1-2s^2/K^2\right),
+ \label{eq:pm-flux-exp}\\
+ g'_{\mathrm{rat}}(s)
+ &=\frac{1-s^2/K^2}{(1+s^2/K^2)^2}.
+ \label{eq:pm-flux-rat}
+\end{align}
+La dérivée est nulle en $s=K/\sqrt2$ pour l'exponentielle et en $s=K$
+pour la rationnelle ; elle est négative au-delà. Ces seuils concernent
+la monotonie du flux, non la valeur à partir de laquelle la conductance
+s'annule. Les deux lois possèdent donc un régime où une augmentation
+de la pente diminue l'amplitude du flux.
+
+Pour préciser la difficulté en dimension deux, écrivons
+$A(p)=c(|p|)p$, $p\in\R^2$. Pour $p\ne0$ et $s=|p|$, sa matrice
+différentielle est
+\begin{equation}
+ D A(p)=c(s)I+\frac{c'(s)}{s}p p^{\mathsf T}.
+ \label{eq:pm-jacobian}
+\end{equation}
+Un vecteur orthogonal à $p$ est vecteur propre de valeur $c(s)$,
+tandis que $p$ est vecteur propre de valeur $c(s)+s c'(s)=g'(s)$.
+Dans une linéarisation autour d'un gradient suffisamment fort,
+la seconde valeur devient négative. L'opérateur n'est donc pas
+uniformément parabolique dans tous les régimes. Le problème continu
+présente des difficultés de type diffusion avant--arrière ; un
+argument fondé seulement sur $c>0$ serait insuffisant.
+
+Ces dérivées sont ici démontrées par calcul élémentaire. Elles
+éclairent la différence entre la motivation de préservation des
+structures et les exigences d'une théorie de bonne position. Le fait
+que les images numériques demeurent bornées sur une grille finie ne
+prouve ni existence ni unicité ni dépendance continue pour toutes
+les données du problème continu \eqref{eq:pm-continuous}.
+
+\subsection{Une interprétation variationnelle formelle}
+
+Une primitive adaptée est définie par $\Psi'(s)=s c(s)$ et
+$\Psi(0)=0$. L'intégration donne
+\begin{equation}
+ \Psi_{\mathrm{exp}}(s)=\frac{K^2}{2}
+    \left(1-\exp(-s^2/K^2)\right),\qquad
+ \Psi_{\mathrm{rat}}(s)=\frac{K^2}{2}
+    \log\left(1+s^2/K^2\right).
+ \label{eq:pm-potentials}
+\end{equation}
+Pour une fonction suffisamment régulière et des variations compatibles
+avec le flux nul, le premier accroissement de
+\begin{equation}
+ E_\Psi(u)=\int_\Omega\Psi(|\nabla u|)\,\dd x\,\dd y
+ \label{eq:pm-energy-formal}
+\end{equation}
+est
+\begin{equation}
+ \dd E_\Psi(u)[v]
+ =\int_\Omega c(|\nabla u|)\nabla u\cdot\nabla v
+ =-\int_\Omega
+    \operatorname{div}\bigl(c(|\nabla u|)\nabla u\bigr)v.
+ \label{eq:pm-firstvariation}
+\end{equation}
+Le modèle est donc formellement un flot de gradient négatif pour
+cette fonctionnelle. Le calcul s'étend au point $\nabla u=0$ puisque
+$\Psi'(0)=0$ et les deux densités sont régulières comme fonctions
+du vecteur gradient.
+
+Cependant, la Hessienne de $p\mapsto\Psi(|p|)$ est précisément
+$D A(p)$. Ses valeurs propres sont $c(s)$ dans les directions
+tangentielles et $g'(s)$ dans la direction radiale. D'après
+\eqref{eq:pm-flux-exp}--\eqref{eq:pm-flux-rat}, ces densités ne sont
+pas convexes globalement. Elles ne fournissent pas le cadre convexe
+de l'énergie de Dirichlet. Une identité de dissipation formelle, si
+une solution classique et les opérations de dérivation existent,
+ne construit pas cette solution et ne résout pas les difficultés
+de passage à la limite. Elle ne justifie pas non plus une décroissance
+de l'énergie pour l'algorithme explicite réellement utilisé, dont la
+conductance est directionnelle. Aucune telle décroissance non linéaire
+n'est revendiquée dans ce projet.
+
+\subsection{Ce qui est implémenté et ce qui reste une perspective}
+
+Le modèle \eqref{eq:pm-continuous} utilise la norme complète du
+gradient dans un coefficient scalaire. Le solveur étudié emploie,
+sur chaque interface, uniquement la différence dans la direction
+normale à cette interface. Il s'agit de la \emph{variante discrète
+directionnelle à quatre voisins}, détaillée dans la section suivante.
+Cette dénomination doit accompagner l'interprétation des résultats.
+Les motivations du modèle original restent pertinentes, mais le
+schéma ne doit pas être présenté comme une reconstruction isotrope
+exacte de $c(|\nabla u|)$.
+
+Catté, Lions, Morel et Coll proposent de régulariser la dépendance
+du coefficient en évaluant les variations sur une image spatialement
+lissée \cite{catte1992}. Cette approche sépare l'image diffusée du
+signal utilisé pour guider sa diffusion. Elle constitue une
+perspective bibliographique pour traiter les difficultés du modèle,
+et non une méthode expérimentée ici. Aucun noyau de régularisation
+ni paramètre de lissage supplémentaire n'a été ajouté aux deux
+solveurs étudiés.

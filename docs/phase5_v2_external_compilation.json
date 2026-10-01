@@ -1,0 +1,200 @@
+{
+  "recorded_date": "2026-10-01",
+  "edition": "phase5-v2 compiled externally",
+  "scope": "Compilation et revue documentaires seulement. Ce lot ne constitue pas une reproduction scientifique autonome complète.",
+  "received_archive": {
+    "name": "pde-image-denoising-audit-phase5-v2-sources.zip",
+    "size_bytes": 5571152,
+    "sha256": "a4dd74ed8b83596c8f55270ffa08a414bc5ca019381a02166f56d703651381e0",
+    "entries": 115,
+    "crc_ok": true
+  },
+  "environment": {
+    "os": "Linux",
+    "compiler": "pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian)",
+    "bibliography": "BibTeX 0.99d (TeX Live 2023/Debian)",
+    "temporary_french_support": [
+      {
+        "package": "babel-french-2023.tar.xz",
+        "sha256": "ea19463ef63486e9720b35c5b09827addcf2b09fe72f1b61dc5f88a234e2215b",
+        "url": "https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2023/tlnet-final/archive/babel-french.tar.xz"
+      },
+      {
+        "package": "hyphen-french-2023.tar.xz",
+        "sha256": "2364840c0774c675f22a49453cf555b7b7988cc3a9a02e408c6c196b601e62f8",
+        "url": "https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2023/tlnet-final/archive/hyphen-french.tar.xz"
+      }
+    ],
+    "global_installation": false,
+    "windows_security_policy_changed": false
+  },
+  "commands": [
+    {
+      "cwd": "/workspace/scratch/67e1aaf68ad5/pde-v2-tex-support",
+      "environment": {
+        "TEXINPUTS": "/workspace/scratch/67e1aaf68ad5/pde-v2-tex-support:/workspace/scratch/67e1aaf68ad5/pde-v2-tex-support/texmf/tex//:"
+      },
+      "argv": [
+        "pdftex",
+        "-ini",
+        "-etex",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-progname=pdflatex",
+        "-jobname=pde-v2-pdflatex",
+        "-output-directory=/workspace/scratch/67e1aaf68ad5/pde-v2-tex-support",
+        "pdflatex.ini"
+      ],
+      "purpose": "Format temporaire avec les motifs de césure français."
+    },
+    {
+      "cwd": "/workspace/scratch/67e1aaf68ad5/pde-phase5-v2-work/report",
+      "environment": {
+        "TEXINPUTS": "/workspace/scratch/67e1aaf68ad5/pde-v2-tex-support:/workspace/scratch/67e1aaf68ad5/pde-v2-tex-support/texmf/tex//:"
+      },
+      "argv": [
+        "pdflatex",
+        "-fmt=/workspace/scratch/67e1aaf68ad5/pde-v2-tex-support/pde-v2-pdflatex.fmt",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-output-directory=/workspace/scratch/67e1aaf68ad5/pde-v2-build/report",
+        "main.tex"
+      ],
+      "purpose": "Compilation réellement exécutée ; plusieurs passes jusqu’à stabilisation du sommaire et des références."
+    },
+    {
+      "cwd": "/workspace/scratch/67e1aaf68ad5/pde-phase5-v2-work/slides",
+      "environment": {
+        "TEXINPUTS": "/workspace/scratch/67e1aaf68ad5/pde-v2-tex-support:/workspace/scratch/67e1aaf68ad5/pde-v2-tex-support/texmf/tex//:"
+      },
+      "argv": [
+        "pdflatex",
+        "-fmt=/workspace/scratch/67e1aaf68ad5/pde-v2-tex-support/pde-v2-pdflatex.fmt",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-output-directory=/workspace/scratch/67e1aaf68ad5/pde-v2-build/slides",
+        "main.tex"
+      ],
+      "purpose": "Compilation réellement exécutée ; plusieurs passes jusqu’à stabilisation du sommaire et des références."
+    },
+    {
+      "cwd": "/workspace/scratch/67e1aaf68ad5/pde-v2-build/report",
+      "environment": {
+        "BIBINPUTS": "/workspace/scratch/67e1aaf68ad5/pde-phase5-v2-work/report//:"
+      },
+      "argv": [
+        "bibtex",
+        "main"
+      ],
+      "purpose": "Résolution réelle de la bibliographie."
+    },
+    {
+      "cwd": "/workspace/scratch/67e1aaf68ad5/pde-phase5-v2-work",
+      "argv": [
+        "python",
+        "-B",
+        "scripts/export_report_material.py",
+        "--check"
+      ],
+      "purpose": "Concordance exacte des 17 exports avec les CSV/JSON archivés ; aucune écriture d’export."
+    }
+  ],
+  "documentary_source_changes": [
+    {
+      "path": "report/main.tex",
+      "change": "Retrait de la réserve de couverture après compilation effective ; sommaire compact en une page, sans modification de la police du corps."
+    },
+    {
+      "path": "report/sections/appendices.tex",
+      "change": "Ajout du renvoi au compte rendu de compilation externe, distinct du blocage Windows historique."
+    },
+    {
+      "path": "slides/main.tex",
+      "change": "Légendes recomposées en LaTeX/TikZ avec les mêmes libellés, couleurs et styles ; huit panneaux restent tirés des PDF scientifiques inchangés. Précision de la phrase sur l’atténuation des hautes fréquences par la chaleur."
+    },
+    {
+      "path": "slides/speaker_notes.md",
+      "change": "Description des légendes actualisée ; ordre des 32 notes et budget de 23 minutes inchangés."
+    },
+    {
+      "path": "README.md",
+      "change": "Statut actuel et périmètre de l’archive actualisés ; preuves de l’ancien blocage conservées."
+    },
+    {
+      "path": "docs/PHASE_STATUS.md",
+      "change": "Ajout d’une entrée datée de compilation externe, sans réécriture des phases antérieures."
+    }
+  ],
+  "pdfs": {
+    "report": {
+      "bundle_path": "report/main.pdf",
+      "delivered_filename": "Rapport_EDP_Mhamed.pdf",
+      "pages": 49,
+      "size_bytes": 851960,
+      "sha256": "0b8f621179cc7e37646a6e5f1cfd699769a1470fabb769090213677ff805af8c",
+      "raw_compiler_pdf_sha256": "0b8f621179cc7e37646a6e5f1cfd699769a1470fabb769090213677ff805af8c",
+      "delivery_metadata_added": false,
+      "page_content_unchanged_after_delivery": true,
+      "valid_named_destinations": 220
+    },
+    "slides": {
+      "bundle_path": "slides/main.pdf",
+      "delivered_filename": "Presentation_EDP_Mhamed.pdf",
+      "pages": 32,
+      "size_bytes": 658265,
+      "sha256": "684267f28044ac4f4ec43f117e665ecee39d62596fd4e522adb905decda19912",
+      "raw_compiler_pdf_sha256": "684267f28044ac4f4ec43f117e665ecee39d62596fd4e522adb905decda19912",
+      "delivery_metadata_added": false,
+      "page_content_unchanged_after_delivery": true,
+      "valid_named_destinations": 136
+    }
+  },
+  "layout_review": {
+    "report_pages_rendered_and_inspected": 49,
+    "slides_rendered_and_inspected": 32,
+    "main_slides": 25,
+    "backup_slides": 7,
+    "indicative_main_minutes": 23.0,
+    "contents_page_physical_number": 4,
+    "contents_fits_one_page": true,
+    "slide_legend_footer_overlaps_resolved": true,
+    "archived_scientific_figure_files_modified": false
+  },
+  "final_latex_messages": {
+    "overfull_boxes": 0,
+    "undefined_references_or_citations": 0,
+    "duplicate_destinations": 0,
+    "missing_glyphs": 0,
+    "report_harmless_messages": [
+      "Un Underfull hbox, badness 1430, dans l’entrée bibliographique scikit-image.",
+      "La police T1/lmr/bx/sc est remplacée par la variante grasse normale ; aucune lettre manquante."
+    ],
+    "slides_warnings": [],
+    "logs": [
+      "docs/phase5_v2_build/external_report.txt",
+      "docs/phase5_v2_build/external_slides.txt",
+      "docs/phase5_v2_build/external_bibtex.txt"
+    ]
+  },
+  "checks": {
+    "documentary_errors": [],
+    "export_files": 17,
+    "metrics_rows": 4380,
+    "summary_groups": 438,
+    "documentary_negative_controls_detected": 4,
+    "included_protected_files_unchanged": 52,
+    "original_protected_entries_not_present": 74,
+    "full_scientific_manifest_checked": false,
+    "scientific_test_suite_rerun": false,
+    "previous_165_tests": "Validation de phase 4 et audit antérieur ; aucune nouvelle exécution dans cette édition.",
+    "detailed_documentary_checks": "docs/phase5_v2_external_documentary_checks.json",
+    "detailed_integrity": "docs/phase5_v2_external_protection.json"
+  },
+  "historical_records_preserved": true,
+  "scientific_execution": false,
+  "staging": false,
+  "commit": false,
+  "push": false,
+  "publication": false,
+  "next_scope": "Réintégration documentaire ciblée et revue locale, avant toute phase 6."
+}

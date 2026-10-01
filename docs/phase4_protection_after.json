@@ -1,0 +1,226 @@
+{
+  "recorded_date": "2026-10-01",
+  "status": "passed",
+  "files_checked": 35,
+  "quick_files_checked": 20,
+  "quick_inventory_unchanged": true,
+  "frozen_protocol_unchanged": true,
+  "common_table_rows_from_summary_checked": 420,
+  "figure_files_checked": 34,
+  "noisy_observation_range": {
+    "min": -0.32610818102067923,
+    "max": 1.3145549686526579
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "c12054e6241e515b3312c7901bd6387205b4ab48c1a16e3a97f5a0e06dc006c5",
+      "size_bytes": 422,
+      "unchanged": true
+    },
+    {
+      "path": "CITATION.cff",
+      "sha256": "1074e810abc04cf0cf0c5d4a3ee200b8021ffb18d797a9b7aef83256df525830",
+      "size_bytes": 264,
+      "unchanged": true
+    },
+    {
+      "path": "configs/quick.json",
+      "sha256": "1a45203ea0719cc4eb9696c64a869ea913d2d615ecf04d58129919617260b36f",
+      "size_bytes": 519,
+      "unchanged": true
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "65bd39683564eb0abf36597959e2535688be0fe47fb390e5d96b3c1f130e17f1",
+      "size_bytes": 683,
+      "unchanged": true
+    },
+    {
+      "path": "report/main.tex",
+      "sha256": "95b355220025bc1310304c58d8947839f3cade1d5a6307f322a0f90709787f52",
+      "size_bytes": 1985,
+      "unchanged": true
+    },
+    {
+      "path": "report/references.bib",
+      "sha256": "2b132a6bf8a85265d55c189992c2a6357d01c4c33da668457dceb551b90a409e",
+      "size_bytes": 1143,
+      "unchanged": true
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "529f4c5a66e347ba74f9e515403e97bd47ff101f7bdb2a8169b24fe5716adca1",
+      "size_bytes": 89,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/arrays/inputs.npz",
+      "sha256": "9c23c8f37183a0394e0bdea2e4a3a20d968dcac044dea84ea47560d80d7a24ff",
+      "size_bytes": 993593,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/arrays/representative_outputs.npz",
+      "sha256": "85c38f0f81ebd58522840a1094f7628092be016ac77bd7959509564adffd4672",
+      "size_bytes": 2584659,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/config_used.json",
+      "sha256": "6c3c27ca6fcffce74103f8b920c5b4c450df8f05b11de16f7823cb07129dfed0",
+      "size_bytes": 665,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/environment.json",
+      "sha256": "c2610b20a906bb07968ac488122e939d0d6664e083c08fe1499258e74e8fd1d8",
+      "size_bytes": 1027,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/figures/comparison.pdf",
+      "sha256": "1ff030ae5c75d32fb880d4a10fb55052244e19b43bd127f525573200840fc159",
+      "size_bytes": 75976,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/figures/comparison.png",
+      "sha256": "e378058fb6c64c7a2ffba5d568f1310f6f84a9e1aaa3cddd9606d72d639ccbde",
+      "size_bytes": 139732,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/figures/gradient_maps.pdf",
+      "sha256": "591d4e78149815097d93c7b74f14ae8636b8cae1be313c46044078f08c40144b",
+      "size_bytes": 77664,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/figures/gradient_maps.png",
+      "sha256": "3178024e936b00084038a7bc996a9587f5f06c576a060497b7eae4b57148b441",
+      "size_bytes": 199121,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/figures/intensity_profile.pdf",
+      "sha256": "2ff648d03f3f725f8431169ba09d9963560b071b932f51df81b9e5b63e09e6c7",
+      "size_bytes": 19440,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/figures/intensity_profile.png",
+      "sha256": "9ae45fcf7da24d2bac6ce5d3be83f952a3d551e1dc0451c3840d1ee80ea6f954",
+      "size_bytes": 147586,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/figures/k_comparison.pdf",
+      "sha256": "7e5972d05563f0d854cbdd3ecda60985ce92ff2d60b749cfebbdff3389d9700e",
+      "size_bytes": 98189,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/figures/k_comparison.png",
+      "sha256": "8a936210786191df816f210154bbb84da256a8f28c38d654593fdb46ad2f8680",
+      "size_bytes": 167806,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/figures/metric_curves.pdf",
+      "sha256": "87960cfe6fe371c151bb3afbbd17fb874fff238ec7f55609c9a808a1da101658",
+      "size_bytes": 25093,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/figures/metric_curves.png",
+      "sha256": "69af33c127e7c39fe420fbd8e4e9346f43287b9c97c214377323347d31463b4d",
+      "size_bytes": 164759,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/metrics.csv",
+      "sha256": "48995891253ab26e5090c6d9346ba0d1927a6a6923ab0203d7d5818e313408fe",
+      "size_bytes": 59770,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/run.log",
+      "sha256": "26e289e39312c352e77afe41ca881ac9c6465404c481cfbc51526c13280eddcd",
+      "size_bytes": 393,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/summary.csv",
+      "sha256": "8bdcc8a6148bb573fac240290236dd0827beb5d7c6edeb60a215f52045b681ed",
+      "size_bytes": 22293,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/tables/quick_summary.tex",
+      "sha256": "149a34dca9d8e64c1e2ec32e2d4a3501c01668ab67ff08e344c9cd564fc32f24",
+      "size_bytes": 599,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/verification.json",
+      "sha256": "26880119d3d21b23a4352a1e1f94c733b8eb3777315b46dfd97727a5b7b3e0df",
+      "size_bytes": 1849,
+      "unchanged": true
+    },
+    {
+      "path": "results/quick/verification_numerical.json",
+      "sha256": "7d986e6db95ff06bb9ddd8c2aee959cb647ba7555baffc3ba67e43816113c332",
+      "size_bytes": 1879,
+      "unchanged": true
+    },
+    {
+      "path": "slides/main.tex",
+      "sha256": "f522552c746bc7c1892c24778ab3033957dc5e2aa82c8de0a6ca2a3a95dad1f4",
+      "size_bytes": 2302,
+      "unchanged": true
+    },
+    {
+      "path": "src/pde_image_denoising/__init__.py",
+      "sha256": "f3e73197cb9b126bfffc492a99fbf9036c9c543f890ea657e05c982b8374d56b",
+      "size_bytes": 338,
+      "unchanged": true
+    },
+    {
+      "path": "src/pde_image_denoising/boundaries.py",
+      "sha256": "787e410465beaafd0aa1b301163ece108b36d12d5b559159b3cb092b088160d4",
+      "size_bytes": 3797,
+      "unchanged": true
+    },
+    {
+      "path": "src/pde_image_denoising/datasets.py",
+      "sha256": "03411f44d22af24da01c0c684b288dee1cb29de67dc324f48c16cc371c01344b",
+      "size_bytes": 2382,
+      "unchanged": true
+    },
+    {
+      "path": "src/pde_image_denoising/heat.py",
+      "sha256": "d51eebc5c387b6350976c85919c7ab50c48ffcbb0d49e01850cc2f9eacc87396",
+      "size_bytes": 2333,
+      "unchanged": true
+    },
+    {
+      "path": "src/pde_image_denoising/metrics.py",
+      "sha256": "f1bbd5951fb62da3fcd330b4c919a8e2908f83284aa1d95df383a75c7216198f",
+      "size_bytes": 4655,
+      "unchanged": true
+    },
+    {
+      "path": "src/pde_image_denoising/noise.py",
+      "sha256": "5fbb7ad1ef6cf98d2766759dfb0315b4eb11818c7ee462c0df40f4726217ca81",
+      "size_bytes": 837,
+      "unchanged": true
+    },
+    {
+      "path": "src/pde_image_denoising/perona_malik.py",
+      "sha256": "69cd056b4b98be37d9ab1b5ae3f56c0cad8afafa9c16c2490871d0b3d7949a2e",
+      "size_bytes": 4668,
+      "unchanged": true
+    }
+  ]
+}

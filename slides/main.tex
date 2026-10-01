@@ -1,0 +1,622 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{tikz}
+
+\usetheme{default}
+\definecolor{academicblue}{RGB}{28,61,88}
+\setbeamercolor{structure}{fg=academicblue}
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{frametitle}{fg=academicblue}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{title}{size=\Large,series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{%
+  \hspace{0.6cm}\scriptsize Mhamed Halhoul\hfill
+  \insertframenumber\hspace{0.6cm}\vspace{0.2cm}}
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
+\setlength{\emergencystretch}{1em}
+\hypersetup{colorlinks=true,urlcolor=academicblue,citecolor=academicblue}
+\newcommand{\utrue}{u_{\mathrm{true}}}
+\newcommand{\figpath}{../results/extended/figures/}
+\newcommand{\figcaption}[1]{\par\vspace{0.1cm}{\footnotesize #1\par}}
+\newcommand{\smallgap}{\vspace{0.18cm}}
+
+% Presentation-only legends: same series, colours and line/marker encodings
+% as the archived figures. The scientific PDF figures are never rewritten.
+\definecolor{legendExpA}{rgb}{0.579607843,0.770196078,0.873725490}
+\definecolor{legendExpB}{rgb}{0.331334102,0.622068435,0.804767397}
+\definecolor{legendExpC}{rgb}{0.146666667,0.460392157,0.718692810}
+\definecolor{legendExpD}{rgb}{0.031372549,0.289734717,0.570319108}
+\definecolor{legendRatA}{rgb}{0.992156863,0.656470588,0.382745098}
+\definecolor{legendRatB}{rgb}{0.966320646,0.475432526,0.147020377}
+\definecolor{legendRatC}{rgb}{0.863529412,0.299607843,0.013333333}
+\definecolor{legendRatD}{rgb}{0.617993080,0.199077278,0.012610534}
+\definecolor{legendStepA}{rgb}{0.273006000,0.204520000,0.501721000}
+\definecolor{legendStepB}{rgb}{0.127568000,0.566949000,0.550556000}
+\definecolor{legendStepC}{rgb}{0.606045000,0.850733000,0.236712000}
+\definecolor{legendNoisy}{gray}{0.45}
+\newcommand{\legendLine}[3]{%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \draw[color=#1,#2,line width=0.8pt] (0,0)--(0.44,0);
+    \ifcase#3\relax
+    \or\fill[color=#1] (0.22,0) circle (1.4pt);
+    \or\fill[color=#1] (0.18,-0.04) rectangle (0.26,0.04);
+    \fi
+  \end{tikzpicture}}
+\newcommand{\metricLegend}{%
+  {\footnotesize\renewcommand{\arraystretch}{1.08}%
+  \begin{tabular}{@{}l@{\hspace{0.35em}}l@{}}
+    \legendLine{black}{solid}{1} & Chaleur \\
+    \legendLine{legendExpA}{solid}{1} & PM exp., $K=0.025$ \\
+    \legendLine{legendExpB}{solid}{1} & PM exp., $K=0.05$ \\
+    \legendLine{legendExpC}{solid}{1} & PM exp., $K=0.1$ \\
+    \legendLine{legendExpD}{solid}{1} & PM exp., $K=0.2$ \\
+    \legendLine{legendRatA}{dashed}{1} & PM rat., $K=0.025$ \\
+    \legendLine{legendRatB}{dashed}{1} & PM rat., $K=0.05$ \\
+    \legendLine{legendRatC}{dashed}{1} & PM rat., $K=0.1$ \\
+    \legendLine{legendRatD}{dashed}{1} & PM rat., $K=0.2$ \\
+    \legendLine{legendNoisy}{densely dotted}{0} & Bruit\'ee (r\'ef.) \\
+  \end{tabular}}}
+\newcommand{\sensitivityLegend}{%
+  {\footnotesize\renewcommand{\arraystretch}{1.08}%
+  \begin{tabular}{@{}l@{\hspace{0.35em}}l@{}}
+    \legendLine{legendStepA}{densely dotted}{0} & Chaleur, $n=5$ \\
+    \legendLine{legendStepB}{densely dotted}{0} & Chaleur, $n=20$ \\
+    \legendLine{legendStepC}{densely dotted}{0} & Chaleur, $n=80$ \\
+    \legendLine{legendStepA}{solid}{1} & PM exp., $n=5$ \\
+    \legendLine{legendStepA}{dashed}{2} & PM rat., $n=5$ \\
+    \legendLine{legendStepB}{solid}{1} & PM exp., $n=20$ \\
+    \legendLine{legendStepB}{dashed}{2} & PM rat., $n=20$ \\
+    \legendLine{legendStepC}{solid}{1} & PM exp., $n=80$ \\
+    \legendLine{legendStepC}{dashed}{2} & PM rat., $n=80$ \\
+    \legendLine{legendNoisy}{densely dotted}{0} & Bruit\'ee (r\'ef.) \\
+  \end{tabular}}}
+
+\title{Traitement d'images par des équations aux dérivées partielles}
+\subtitle{Débruitage par diffusion linéaire\\et diffusion de Perona--Malik}
+\author{Mhamed Halhoul}
+\institute{M2 -- Modélisation, Mathématiques Appliquées et Apprentissage\\
+Abdelmalek Essaâdi University}
+\date{}
+
+\begin{document}
+
+% 25 diapositives principales. Les labels correspondent aux notes orales.
+\begin{frame}[label=titre,plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}[label=question]{Réduction du bruit et conservation des structures}
+  \large
+  Dans quelles conditions la diffusion dépendant des variations locales
+  modifie-t-elle le compromis entre réduction du bruit et préservation
+  des contours, par rapport à la chaleur ?
+  \smallgap
+  \normalsize
+  \begin{itemize}
+    \item Une comparaison de modèles et de schémas numériques.
+    \item Une étude reproductible sur deux images synthétiques.
+    \item Aucune supériorité de Perona--Malik posée à l'avance.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[label=observation]{Image propre et observation bruitée}
+  \[
+    \utrue:\Omega\longrightarrow[0,1],\qquad
+    f_{ij}=(\utrue)_{ij}+\sigma Z_{ij},\quad
+    Z_{ij}\overset{\mathrm{iid}}{\sim}\mathcal N(0,1).
+  \]
+  \begin{itemize}
+    \item Rectangle spatial, puis matrice de $128\times128$ pixels.
+    \item Une observation commune à toutes les méthodes pour chaque cas.
+    \item Calculs non tronqués : $f$ et les sorties peuvent dépasser $[0,1]$.
+  \end{itemize}
+  \smallgap
+  L'intervalle $[0,1]$ fixe l'échelle d'affichage des images.
+  Les profils et les métriques conservent les valeurs numériques.
+\end{frame}
+
+\begin{frame}[label=chaleur]{La chaleur diffuse toutes les variations}
+  \[
+    \partial_tu=\Delta u,\qquad u(\cdot,0)=f,\qquad
+    \partial_nu=0\ \text{sur }\partial\Omega.
+  \]
+  \begin{itemize}
+    \item La diffusion de chaleur atténue surtout les hautes fréquences.
+    \item Le flux nul conserve la moyenne.
+    \item Une diffusion prolongée élargit aussi les transitions utiles.
+  \end{itemize}
+  \smallgap
+  Sur $\mathbb R^2$, convolution par une gaussienne de variance $2t$.
+  Sur le rectangle, le bord de Neumann change le noyau de solution.
+\end{frame}
+
+\begin{frame}[label=pm]{Une conductance dépend de la variation locale}
+  \[
+    \partial_tu=\operatorname{div}\bigl(c(|\nabla u|)\nabla u\bigr),
+    \qquad u(\cdot,0)=f.
+  \]
+  \[
+    c_{\exp}(s)=e^{-(s/K)^2},\qquad
+    c_{\mathrm{rat}}(s)=\frac{1}{1+(s/K)^2},\qquad K>0.
+  \]
+  \begin{itemize}
+    \item Une forte variation réduit la conductance.
+    \item Un faible $K$ peut préserver les contours \emph{et} le bruit.
+    \item Le résultat dépend ensemble de $K$, de la conduction et du temps.
+  \end{itemize}
+  {\footnotesize Modèle de Perona et Malik \cite{perona1990}.
+  Le flux $s\,c(s)$ peut décroître : difficulté du modèle continu.}
+\end{frame}
+
+\begin{frame}[label=directionnel]{Le solveur emploie une variante directionnelle}
+  Entre deux pixels horizontaux :
+  \[
+    \delta_x=u^n_{i,j+1}-u^n_{ij},\qquad
+    a^n_{i,j+1/2}=c\!\left(\frac{|\delta_x|}{dx}\right).
+  \]
+  \begin{itemize}
+    \item Quatre voisins : deux différences horizontales et deux verticales.
+    \item La conductance utilise une différence directionnelle par arête.
+    \item Aucune reconstruction de la norme complète $|\nabla u|$ à l'interface.
+  \end{itemize}
+  \smallgap
+  Variante discrète directionnelle à quatre voisins, sensible à
+  l'orientation de la grille.
+\end{frame}
+
+\begin{frame}[label=flux]{Une arête intérieure partage un flux opposé}
+  Contribution à la divergence de l'arête $(i,j)$--$(i,j+1)$ :
+  \[
+    F_x= a^n_{i,j+1/2}\,\frac{u^n_{i,j+1}-u^n_{ij}}{dx^2}.
+  \]
+  \[
+    (L_hu^n)_{ij}\mathrel{+}=F_x,
+    \qquad (L_hu^n)_{i,j+1}\mathrel{-}=F_x.
+  \]
+  \begin{itemize}
+    \item Même conductance pour les deux pixels de l'arête.
+    \item Aucune arête extérieure : flux nul, sans connexion périodique.
+    \item Euler explicite : $u^{n+1}=u^n+dt\,L_h(u^n)$.
+  \end{itemize}
+  \smallgap
+  Tous les flux partent de $u^n$. Les checkpoints conservent des copies
+  d'états, sans mélange de deux niveaux temporels.
+\end{frame}
+
+\begin{frame}[label=stabilite]{Une condition suffisante donne le maximum discret}
+  \[
+    dt\left(\frac{1}{dx^2}+\frac{1}{dy^2}\right)\leq\frac12,
+    \qquad dx=dy=1,\quad dt=0{,}20.
+  \]
+  \[
+    u^{n+1}_p=
+    \left(1-\sum_{q\sim p}\alpha_{pq}^n\right)u^n_p
+      +\sum_{q\sim p}\alpha_{pq}^n u^n_q,
+    \qquad \alpha_{pq}^n=\frac{dt\,a_{pq}^n}{h_{pq}^2}.
+  \]
+  \begin{itemize}
+    \item $0\leq a_{pq}^n\leq1$ : coefficients non négatifs, somme égale à un.
+    \item Constantes conservées et valeurs entre les extrema initiaux.
+    \item Flux opposés : conservation de la somme et de la moyenne.
+  \end{itemize}
+  {\footnotesize Ces propriétés du schéma ne prouvent pas la bonne position
+  du modèle continu de Perona--Malik.}
+\end{frame}
+
+\begin{frame}[label=protocole]{Une grille fixée après l'exploration rapide}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.53\textwidth}
+    \begin{itemize}
+      \item Deux images synthétiques de $128\times128$.
+      \item $\sigma\in\{0{,}025;0{,}05;0{,}10\}$.
+      \item Dix graines : $0,\ldots,9$.
+      \item Chaleur et huit variantes PM.
+    \end{itemize}
+    \column{0.44\textwidth}
+    \begin{itemize}
+      \item $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$.
+      \item $n\in\{0,1,2,5,10,20,40,80\}$.
+      \item Temps de diffusion $t=n\,dt$.
+      \item $60$ observations, $540$ trajectoires.
+    \end{itemize}
+  \end{columns}
+  \smallgap
+  $4\,380$ lignes de mesures et $438$ groupes.
+  Dix réalisations de bruit par image, et non dix images.
+  Une graine recycle le même champ standardisé entre images et $\sigma$.
+\end{frame}
+
+\begin{frame}[label=metriques]{PSNR et SSIM décrivent des aspects différents}
+  \[
+    \mathrm{MSE}=\frac{\|u-\utrue\|_2^2}{N},\quad N=N_xN_y,\qquad
+    \mathrm{PSNR}=10\log_{10}\!\left(\frac{1}{\mathrm{MSE}}\right).
+  \]
+  \begin{itemize}
+    \item Erreur relative : $\|u-\utrue\|_2/\|\utrue\|_2$.
+    \item SSIM : luminance, contraste et structure dans des fenêtres $7\times7$.
+    \item Fenêtres uniformes valides, covariances échantillonnales.
+    \item $K_1=0{,}01$, $K_2=0{,}03$, \texttt{data\_range=1}.
+  \end{itemize}
+  \smallgap
+  SSIM peut être négatif. Moyennes des scores individuels.
+  Bandes et barres : un écart-type échantillonnal, sans intervalle de confiance.
+  {\footnotesize SSIM original : Wang et al. \cite{wang2004}.
+  Variante documentée : \cite{skimage_metrics}.}
+\end{frame}
+
+\begin{frame}[label=verification]{Vérification et reproductibilité ont deux niveaux}
+  \begin{itemize}
+    \item $165$ tests réussis lors des validations et de l'audit antérieurs.
+    \item Chaleur : mode propre discret de Neumann et contrôles de raffinement.
+    \item Mode strict : égalité exacte obtenue dans le Windows enregistré.
+    \item Audit communiqué : mode numerical inter-environnements,
+      $\mathrm{rtol}=10^{-10}$, $\mathrm{atol}=10^{-12}$.
+  \end{itemize}
+  \smallgap
+  Les manifestes contrôlent l'intégrité exacte des fichiers archivés.
+  Le mode numerical ne revendique pas une reproduction bit à bit.
+  \smallgap
+  {\footnotesize Pipeline enregistré : $44{,}407302$ s dans l'environnement
+  d'origine. Durées solveurs cumulatives aux checkpoints, distinctes du
+  temps de diffusion. Aucun nouveau calcul scientifique pour cet exposé.}
+\end{frame}
+
+\begin{frame}[label=comparaison]{Le cas visuel fixé avant calcul}
+  \centering
+  \includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]
+    {\figpath comparison.pdf}
+  \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, graine $0$.
+  Chaleur et PM : $n=20$, $t=4$, PM : $K=0{,}10$.
+  Même observation, affichage $[0,1]$, calculs non tronqués.}
+  \smallgap
+  \raggedright
+  La chaleur élargit les transitions. L'exponentielle laisse des pixels
+  isolés. La rationnelle atténue davantage ces fluctuations dans ce cas.
+\end{frame}
+
+\begin{frame}[label=profil]{Un profil révèle les pics et la largeur des transitions}
+  \centering
+  \includegraphics[width=\textwidth,height=0.64\textheight,keepaspectratio]
+    {\figpath intensity_profile.pdf}
+  \figcaption{Profil horizontal ligne $42$ : \texttt{geometric\_shapes},
+  $\sigma=0{,}10$, graine $0$, $n=20$, $K=0{,}10$.
+  Intensités non tronquées, sans agrégation.}
+\end{frame}
+
+\begin{frame}[label=gradients]{Les cartes de gradient visualisent les structures}
+  \centering
+  \includegraphics[width=\textwidth,height=0.48\textheight,keepaspectratio]
+    {\figpath gradient_maps.pdf}
+  \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, graine $0$,
+  $n=20$, $K=0{,}10$. Norme calculée par \texttt{np.gradient},
+  même échelle de couleurs, plafond au maximum des 99es percentiles.}
+  \smallgap
+  \raggedright
+  Le bruit résiduel apparaît aussi dans le gradient.
+  Cette visualisation n'ajoute aucune métrique quantitative de contours.
+\end{frame}
+
+\begin{frame}[label=courbes-formes]{Formes géométriques : PSNR et temps de diffusion}
+  % Recadrages du PDF archivé : panneau gauche ; légende recomposée à partir des mêmes séries.
+  % trim = gauche, bas, droite, haut, en points PDF (bp).
+  \begin{columns}[T,onlytextwidth]
+    \column{0.71\textwidth}
+    \includegraphics[width=\linewidth,trim=0bp 118bp 462bp 90bp,clip]
+      {\figpath metric_curves_geometric_shapes_sigma0p1.pdf}
+    \column{0.27\textwidth}
+    \centering
+    {\small Méthodes et seuils $K$\par}
+    \smallgap
+    \metricLegend
+  \end{columns}
+  \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
+  Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
+  $n\in\{0,1,2,5,10,20,40,80\}$. Toutes les configurations sont visibles.}
+\end{frame}
+
+\begin{frame}[label=courbes-formes-ssim]{Formes géométriques : SSIM et temps de diffusion}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.71\textwidth}
+    \includegraphics[width=\linewidth,trim=463bp 118bp 0bp 90bp,clip]
+      {\figpath metric_curves_geometric_shapes_sigma0p1.pdf}
+    \column{0.27\textwidth}
+    \centering
+    {\small Méthodes et seuils $K$\par}
+    \smallgap
+    \metricLegend
+  \end{columns}
+  \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
+  Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
+  $n\in\{0,1,2,5,10,20,40,80\}$. Mêmes trajectoires que le PSNR.}
+\end{frame}
+
+\begin{frame}[label=courbes-rampes]{Rampes et contours : PSNR et temps de diffusion}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.71\textwidth}
+    \includegraphics[width=\linewidth,trim=0bp 118bp 462bp 90bp,clip]
+      {\figpath metric_curves_ramps_and_edges_sigma0p1.pdf}
+    \column{0.27\textwidth}
+    \centering
+    {\small Méthodes et seuils $K$\par}
+    \smallgap
+    \metricLegend
+  \end{columns}
+  \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
+  Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
+  $n\in\{0,1,2,5,10,20,40,80\}$. Toutes les configurations sont visibles.}
+\end{frame}
+
+\begin{frame}[label=courbes-rampes-ssim]{Rampes et contours : SSIM et temps de diffusion}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.71\textwidth}
+    \includegraphics[width=\linewidth,trim=463bp 118bp 0bp 90bp,clip]
+      {\figpath metric_curves_ramps_and_edges_sigma0p1.pdf}
+    \column{0.27\textwidth}
+    \centering
+    {\small Méthodes et seuils $K$\par}
+    \smallgap
+    \metricLegend
+  \end{columns}
+  \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
+  Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
+  $n\in\{0,1,2,5,10,20,40,80\}$. Mêmes trajectoires que le PSNR.}
+\end{frame}
+
+\begin{frame}[label=sensibilite]{Formes géométriques : sensibilité du PSNR à K}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.71\textwidth}
+    \includegraphics[width=\linewidth,trim=0bp 118bp 462bp 90bp,clip]
+      {\figpath k_sensitivity_geometric_shapes_sigma0p1.pdf}
+    \column{0.27\textwidth}
+    \centering
+    {\small Méthodes et checkpoints\par}
+    \smallgap
+    \sensitivityLegend
+  \end{columns}
+  \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
+  $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
+  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.}
+\end{frame}
+
+\begin{frame}[label=sensibilite-ssim]{Formes géométriques : sensibilité du SSIM à K}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.71\textwidth}
+    \includegraphics[width=\linewidth,trim=463bp 118bp 0bp 90bp,clip]
+      {\figpath k_sensitivity_geometric_shapes_sigma0p1.pdf}
+    \column{0.27\textwidth}
+    \centering
+    {\small Méthodes et checkpoints\par}
+    \smallgap
+    \sensitivityLegend
+  \end{columns}
+  \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
+  $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
+  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.}
+\end{frame}
+
+\begin{frame}[label=desaccord]{PSNR et SSIM peuvent classer différemment}
+  \centering
+  {\small\renewcommand{\arraystretch}{1.35}
+  \input{../report/generated/slides_fixed_case.tex}}
+  \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$.
+  Chaleur et PM : $n=20$ ($t=4$), PM : $K=0{,}10$.
+  Bruitée : $n=0$. Moyennes $\pm$ écarts-types sur dix graines.}
+  \smallgap
+  \raggedright
+  L'exponentielle dépasse la chaleur en PSNR, mais son SSIM est inférieur.
+  La rationnelle est meilleure selon les deux scores dans cette comparaison
+  à paramètres fixés.
+\end{frame}
+
+\begin{frame}[label=oracle]{Oracles exploratoires sur la grille étudiée}
+  \[
+    \theta_{\mathrm{oracle}}
+      \in\arg\max_{\theta\in\mathcal G,\ n(\theta)>0}
+        \frac1{10}\sum_{r=0}^{9}
+          \mathrm{PSNR}(u^{(r)}_{\theta},\utrue).
+  \]
+  \begin{itemize}
+    \item $\mathcal G$ : chaleur et PM, checkpoints et paramètres prédéfinis.
+    \item Sélection avec accès à l'image propre, après mesure.
+    \item Un oracle SSIM peut choisir un autre réglage.
+    \item Un maximum à $n=80$ reste à la frontière de la grille.
+  \end{itemize}
+  \smallgap
+  Cet oracle exploratoire décrit les configurations étudiées.
+  Il ne fournit pas une règle de choix de $K$ ou d'arrêt en pratique.
+\end{frame}
+
+\begin{frame}[label=limites]{Portée de l'étude et limites}
+  \begin{itemize}
+    \item Deux images synthétiques et bruit gaussien seulement.
+    \item Dix bruits par image, cas liés par la réutilisation des graines.
+    \item Grille limitée de paramètres, construite après exploration.
+    \item Variante directionnelle, métriques avec accès à la référence.
+    \item Aucune validation sur images naturelles, aucun test de supériorité.
+  \end{itemize}
+  \smallgap
+  Perspectives : provenance vérifiée d'images naturelles, sélection sans
+  référence, autres schémas et régularisation de Catté et al.
+  \cite{catte1992,weickert1998}.
+\end{frame}
+
+\begin{frame}[label=conclusion]{Une réponse conditionnelle à la question scientifique}
+  \large
+  La diffusion dépendant des variations locales change le compromis,
+  mais son intérêt dépend du seuil, du temps, de l'image et du critère.
+  \smallgap
+  \normalsize
+  \begin{itemize}
+    \item Dans le cas fixé, la rationnelle conserve mieux les structures
+      visibles tout en réduisant le bruit.
+    \item Un faible $K$ peut préserver du bruit, un temps long peut sur-lisser.
+    \item Un gain en PSNR n'impose pas un gain en SSIM.
+  \end{itemize}
+  \smallgap
+  Ces constats portent sur la grille mesurée et les deux images synthétiques.
+\end{frame}
+
+\begin{frame}[label=references]{Références mobilisées}
+  \footnotesize
+  \setbeamertemplate{bibliography item}[text]
+  \begin{thebibliography}{5}
+    \bibitem{perona1990} P. Perona et J. Malik.
+      \emph{Scale-Space and Edge Detection Using Anisotropic Diffusion}.
+      IEEE TPAMI, 1990.
+      \href{https://doi.org/10.1109/34.56205}{doi:10.1109/34.56205}.
+    \bibitem{weickert1998} J. Weickert.
+      \emph{Anisotropic Diffusion in Image Processing}.
+      Teubner, 1998.
+      \href{https://www.mia.uni-saarland.de/weickert/book.html}{Texte sur le site de l'auteur}.
+    \bibitem{catte1992} F. Catté, P.-L. Lions, J.-M. Morel et T. Coll.
+      \emph{Image Selective Smoothing and Edge Detection by Nonlinear Diffusion}.
+      SIAM J. Numer. Anal., 1992.
+      \href{https://doi.org/10.1137/0729012}{doi:10.1137/0729012}.
+    \bibitem{wang2004} Z. Wang, A. C. Bovik, H. R. Sheikh et E. P. Simoncelli.
+      \emph{Image Quality Assessment: From Error Visibility to Structural Similarity}.
+      IEEE Trans. Image Process., 2004.
+      \href{https://doi.org/10.1109/TIP.2003.819861}{doi:10.1109/TIP.2003.819861}.
+    \bibitem{skimage_metrics} Documentation officielle scikit-image.
+      \href{https://scikit-image.org/docs/stable/api/skimage.metrics.html}{Métriques PSNR et SSIM}.
+  \end{thebibliography}
+\end{frame}
+
+\appendix
+\section{Réserves}
+
+\begin{frame}[label=reserve-conservation]{Réserve : conservation par annulation des flux}
+  \[
+    \begin{aligned}
+      \sum_p u^{n+1}_p-\sum_p u^n_p
+      &=dt\sum_{\{p,q\}\in\mathcal E}
+       \left(a_{pq}^n\frac{u_q^n-u_p^n}{h_{pq}^2}
+            +a_{pq}^n\frac{u_p^n-u_q^n}{h_{pq}^2}\right)\\
+      &=0.
+    \end{aligned}
+  \]
+  \begin{itemize}
+    \item Une arête non orientée apparaît une fois, avec deux contributions.
+    \item La grille est uniforme et les volumes des cellules sont identiques.
+    \item Pas de contribution extérieure au bord.
+  \end{itemize}
+  \smallgap
+  Pour $u^n$ constant, chaque différence est nulle : $u^{n+1}=u^n$.
+  Les égalités sont algébriques, à l'arrondi près en virgule flottante.
+\end{frame}
+
+\begin{frame}[label=reserve-maximum]{Réserve : coefficients de la combinaison convexe}
+  \[
+    \sum_{q\sim p}\alpha_{pq}^n
+     \leq 2dt\left(\frac1{dx^2}+\frac1{dy^2}\right)\leq1.
+  \]
+  \[
+    m_n\leq u_p^{n+1}\leq M_n,
+    \qquad m_n=\min_pu_p^n,\quad M_n=\max_pu_p^n.
+  \]
+  \begin{itemize}
+    \item Au bord, il y a moins de voisins : la même borne suffit.
+    \item Pour PM, les poids dépendent de $u^n$, mais restent dans $[0,1]$.
+    \item Les extrema de l'observation peuvent être hors de $[0,1]$.
+  \end{itemize}
+  \smallgap
+  Aucune contraction entre deux solutions ni décroissance d'une énergie
+  non linéaire n'est déduite de cette seule démonstration.
+\end{frame}
+
+\begin{frame}[label=reserve-ssim]{Réserve : définition exacte du SSIM calculé}
+  \[
+    S_W(x,y)=
+    \frac{(2\mu_x\mu_y+C_1)(2s_{xy}+C_2)}
+    {(\mu_x^2+\mu_y^2+C_1)(s_x^2+s_y^2+C_2)},
+    \qquad C_1=0{,}01^2,\quad C_2=0{,}03^2.
+  \]
+  \begin{itemize}
+    \item Moyennes uniformes sur $49$ pixels, variances avec dénominateur $48$.
+    \item Moyenne de $S_W$ sur les seules fenêtres complètes $7\times7$.
+    \item Une covariance négative peut produire un SSIM négatif.
+    \item Différence avec la fenêtre gaussienne de la publication d'origine.
+  \end{itemize}
+  \smallgap
+  Le PSNR moyen est la moyenne des logarithmes individuels.
+  Il diffère en général du PSNR de la MSE moyenne.
+\end{frame}
+
+\begin{frame}[label=reserve-neumann]{Réserve : un mode propre discret de Neumann}
+  \[
+    \phi_{pq}[i,j]=
+      \cos\!\left(\frac{\pi p(i+1/2)}{N_y}\right)
+      \cos\!\left(\frac{\pi q(j+1/2)}{N_x}\right),
+  \]
+  \[
+    \lambda_{pq}=-\frac4{dy^2}\sin^2\!\left(\frac{\pi p}{2N_y}\right)
+                 -\frac4{dx^2}\sin^2\!\left(\frac{\pi q}{2N_x}\right),
+    \qquad u^n=(1+dt\,\lambda_{pq})^n\phi_{pq}.
+  \]
+  Cette amplitude fournit une référence indépendante du solveur.
+  \smallgap
+  Deux niveaux de raffinement contrôlent séparément une diminution d'erreur
+  spatiale et temporelle. Ils ne prouvent pas un ordre général de convergence.
+\end{frame}
+
+\begin{frame}[label=reserve-sensibilite-rampes]{Réserve : sensibilité du PSNR sur les rampes}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.71\textwidth}
+    \includegraphics[width=\linewidth,trim=0bp 118bp 462bp 90bp,clip]
+      {\figpath k_sensitivity_ramps_and_edges_sigma0p1.pdf}
+    \column{0.27\textwidth}
+    \centering
+    {\small Méthodes et checkpoints\par}
+    \smallgap
+    \sensitivityLegend
+  \end{columns}
+  \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
+  $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
+  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.}
+\end{frame}
+
+\begin{frame}[label=reserve-sensibilite-rampes-ssim]{Réserve : sensibilité du SSIM sur les rampes}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.71\textwidth}
+    \includegraphics[width=\linewidth,trim=463bp 118bp 0bp 90bp,clip]
+      {\figpath k_sensitivity_ramps_and_edges_sigma0p1.pdf}
+    \column{0.27\textwidth}
+    \centering
+    {\small Méthodes et checkpoints\par}
+    \smallgap
+    \sensitivityLegend
+  \end{columns}
+  \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
+  $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
+  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.}
+\end{frame}
+
+\begin{frame}[label=reserve-continu]{Réserve : dérivée du flux et modèle continu}
+  Poser $g(s)=s\,c(s)$, $s\geq0$ :
+  \[
+    g'_{\exp}(s)=e^{-(s/K)^2}\bigl(1-2(s/K)^2\bigr),
+    \qquad
+    g'_{\mathrm{rat}}(s)=\frac{1-(s/K)^2}{(1+(s/K)^2)^2}.
+  \]
+  \begin{itemize}
+    \item Dérivées négatives pour $s>K/\sqrt2$ et $s>K$, respectivement.
+    \item Le modèle continu peut perdre la parabolicité dans la direction
+      du gradient.
+    \item $0\leq c\leq1$ et la condition de pas donnent le maximum discret,
+      sans résoudre cette difficulté continue.
+  \end{itemize}
+  \smallgap
+  Catté et al. évaluent la conductance sur un gradient spatialement lissé.
+  Cette régularisation bibliographique n'a pas été implémentée.
+\end{frame}
+
+\end{document}

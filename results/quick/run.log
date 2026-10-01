@@ -1,0 +1,14 @@
+experiment=quick
+started_and_completed_utc=2026-09-30T01:55:22.497689+00:00
+compute_device=CPU
+dtype=float64
+observations=8
+solver_trajectories=40
+metrics_rows=168
+summary_rows=84
+latex_table_rows=6
+terminal_solver_time_sum_seconds=0.690897500
+whole_pipeline_wall_time_seconds=7.299541800
+figure_files=10
+noise_and_solver_outputs_clipped=false
+display_clipped_to_unit_range=true

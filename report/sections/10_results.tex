@@ -1,0 +1,264 @@
+\section{Résultats : une efficacité dépendant du réglage et du critère}
+\label{sec:results}
+
+Les valeurs proviennent exclusivement des CSV de l'exécution étendue
+archivée. Les tableaux ciblés sont exportés automatiquement depuis
+\texttt{summary.csv} ; l'arrondi est appliqué seulement à l'affichage.
+Les figures PDF existantes sont réutilisées sans régénération. Les
+observations suivantes portent sur la grille étudiée, et non sur une
+supériorité universelle de Perona--Malik.
+
+\subsection{Comparaison au cas fixé}
+
+La figure~\ref{fig:comparison} compare la vérité terrain, l'observation
+commune et les trois sorties au même checkpoint. Les plateaux de la
+chaleur deviennent plus réguliers, mais les frontières du rectangle sont
+élargies. Avec $K=0{,}10$, la PM exponentielle conserve des pixels isolés
+et des fluctuations visibles dans les régions constantes. La rationnelle
+atténue davantage ces fluctuations tout en conservant des transitions
+visuellement plus localisées. C'est une observation de ce cas, pas une
+preuve de préservation exacte des contours.
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=\linewidth]{comparison.pdf}
+ \caption{Cas individuel préfixé : \texttt{geometric\_shapes},
+ $\sigma=0{,}10$, graine~$0$, $n=20$, $t=4$ ; $K=0{,}10$ pour les deux PM,
+ $\dx=\dy=1$, $\dt=0{,}20$. Échelle d'affichage commune $[0,1]$,
+ sans troncature des tableaux évalués. L'exponentielle conserve ici des
+ fluctuations que la rationnelle atténue davantage ; aucune bande statistique.}
+ \label{fig:comparison}
+\end{figure}
+
+Le profil de la figure~\ref{fig:profile} traverse le rectangle à la
+ligne~$42$ (indices commençant à zéro). Contrairement aux images en gris,
+il affiche les intensités non tronquées : les pics résiduels et la largeur
+des transitions sont directement visibles. La figure~\ref{fig:gradients}
+complète cette lecture par une visualisation de
+$\sqrt{(D_xu)^2+(D_yu)^2}$ calculée avec \texttt{numpy.gradient}.
+Ce gradient de visualisation n'est ni une métrique nouvelle ni le gradient
+aux interfaces utilisé pour calculer les conductances directionnelles.
+L'échelle colorée est commune ; son maximum est le plus grand des
+$99$\textsuperscript{e} percentiles des cinq cartes, de sorte que certaines fortes
+valeurs peuvent saturer à l'affichage sans être modifiées numériquement.
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=0.95\linewidth]{intensity_profile.pdf}
+ \caption{Profil horizontal, ligne~$42$, du même cas individuel
+ \texttt{geometric\_shapes}, $\sigma=0{,}10$, graine~$0$, $n=20$, $t=4$,
+ $K=0{,}10$, $\dx=\dy=1$, $\dt=0{,}20$. Intensités non tronquées :
+ élargissement des transitions par la chaleur et pics résiduels de la PM
+ exponentielle. Il ne s'agit pas d'une moyenne sur les graines.}
+ \label{fig:profile}
+\end{figure}
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=\linewidth]{gradient_maps.pdf}
+ \caption{Cartes de gradient du cas individuel \texttt{geometric\_shapes},
+ $\sigma=0{,}10$, graine~$0$, $n=20$, $t=4$, $K=0{,}10$,
+ $\dx=\dy=1$, $\dt=0{,}20$. Échelle commune, plafonnée pour l'affichage
+ par les percentiles décrits dans le texte. Les réponses hors des frontières
+ illustrent des fluctuations résiduelles ; ce n'est pas une mesure
+ quantitative de qualité des contours.}
+ \label{fig:gradients}
+\end{figure}
+
+Le tableau~\ref{tab:fixed-case}, lui, rapporte les dix graines.
+La PM exponentielle améliore le PSNR par rapport à la chaleur
+($28{,}3449$ contre $23{,}6482$~dB), tout en donnant un SSIM plus faible
+($0{,}6254$ contre $0{,}8017$). L'erreur quadratique globale et les
+statistiques structurelles locales ne classent donc pas nécessairement
+les sorties de la même manière. La PM rationnelle avec ce $K$ atteint
+ici les meilleurs scores des trois solveurs sélectionnés, sans que cette
+comparaison à $K$ fixé désigne le meilleur réglage de toute la grille.
+
+\begin{table}[htbp]
+ \centering
+ \caption{Comparaison agrégée fixée : \texttt{geometric\_shapes},
+ $\sigma=0{,}10$, $n=20$, $t=4$, $K=0{,}10$ pour PM ; bruitée à $n=0$.
+ Moyenne $\pm$ écart-type échantillonnal sur dix graines, non intervalle
+ de confiance. Valeurs exportées depuis \texttt{summary.csv}.}
+ \label{tab:fixed-case}
+ \input{generated/fixed_case.tex}
+\end{table}
+
+\subsection{Toutes les valeurs de \texorpdfstring{$K$}{K} à budget commun}
+
+Le tableau~\ref{tab:common-n20} conserve les huit variantes PM à $n=20$.
+L'exponentielle avec $K=0{,}025$ reste proche de l'observation brute :
+PSNR $20{,}1269$~dB, SSIM $0{,}2196$, contre $19{,}9989$~dB et $0{,}2168$
+pour le bruit. Des différences dues au bruit dépassent elles aussi le
+seuil, et leur diffusion devient très faible. Un petit $K$ ne distingue
+donc pas automatiquement contour utile et fluctuation indésirable.
+Avec $K=0{,}05$, l'exponentielle n'atteint encore que $21{,}1646$~dB.
+Ces cas défavorables restent inclus, plutôt que supprimés au profit d'une
+seule image flatteuse.
+
+\begin{table}[htbp]
+ \centering
+ \caption{Toutes les méthodes à budget commun pour
+ \texttt{geometric\_shapes}, $\sigma=0{,}10$, $n=20$, $t=4$ ;
+ ligne bruitée de référence à $n=0$. Moyennes $\pm$ écarts-types
+ échantillonnaux sur dix graines. $K=0{,}025$ est conservé exactement
+ comme paramètre, sans arrondi en $0{,}03$.}
+ \label{tab:common-n20}
+ \input{generated/common_n20.tex}
+\end{table}
+
+\subsection{Temps de diffusion et sur-lissage}
+
+Les figures~\ref{fig:curves025}--\ref{fig:curves10} couvrent les six cas.
+Le suffixe image/bruit des fichiers identifie les agrégats sur dix
+graines. Le fichier \texttt{metric\_curves.pdf} sans suffixe, qui concerne
+uniquement la graine représentative, n'est pas utilisé comme courbe
+agrégée. Chaque méthode dispose des mêmes checkpoints ; les bandes
+expriment un écart-type, non une incertitude sur une population d'images.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\linewidth]{metric_curves_geometric_shapes_sigma0p025.pdf}
+ \par\medskip
+ \includegraphics[width=0.98\linewidth]{metric_curves_ramps_and_edges_sigma0p025.pdf}
+ \caption{PSNR et SSIM agrégés pour $\sigma=0{,}025$ :
+ \texttt{geometric\_shapes} en haut, \texttt{ramps\_and\_edges} en bas.
+ Moyennes sur dix graines ; bandes $\pm$ un écart-type échantillonnal.
+ Chaleur et deux conductances PM, $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$,
+ $\dx=\dy=1$, $\dt=0{,}20$, $n=0,1,2,5,10,20,40,80$.
+ Au faible bruit, un lissage plus intense peut dégrader la fidélité
+ quadratique alors que les fluctuations locales diminuent.}
+ \label{fig:curves025}
+\end{figure}
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\linewidth]{metric_curves_geometric_shapes_sigma0p05.pdf}
+ \par\medskip
+ \includegraphics[width=0.98\linewidth]{metric_curves_ramps_and_edges_sigma0p05.pdf}
+ \caption{PSNR et SSIM agrégés pour $\sigma=0{,}05$ :
+ \texttt{geometric\_shapes} en haut, \texttt{ramps\_and\_edges} en bas.
+ Dix graines, moyenne $\pm$ écart-type échantillonnal, non intervalle
+ de confiance. Chaleur et PM exponentielle/rationnelle, quatre $K$
+ prédéfinis de $0{,}025$ à $0{,}20$ ; $\dx=\dy=1$, $\dt=0{,}20$,
+ checkpoints $0,1,2,5,10,20,40,80$. Les évolutions dépendent de la
+ conductance et du seuil, et ne sont pas monotones pour toutes les variantes.}
+ \label{fig:curves05}
+\end{figure}
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\linewidth]{metric_curves_geometric_shapes_sigma0p1.pdf}
+ \par\medskip
+ \includegraphics[width=0.98\linewidth]{metric_curves_ramps_and_edges_sigma0p1.pdf}
+ \caption{PSNR et SSIM agrégés pour $\sigma=0{,}10$ :
+ \texttt{geometric\_shapes} en haut, \texttt{ramps\_and\_edges} en bas.
+ Moyennes et bandes $\pm$ un écart-type échantillonnal sur dix graines.
+ Chaleur et huit PM avec $K=0{,}025;0{,}05;0{,}10;0{,}20$ ;
+ $\dx=\dy=1$, $\dt=0{,}20$, huit checkpoints jusqu'à $t=16$.
+ Les petits $K$ exponentiels conservent du bruit ; la poursuite des
+ variantes plus diffusives peut conduire au sur-lissage.}
+ \label{fig:curves10}
+\end{figure}
+
+Pour \texttt{geometric\_shapes}, $\sigma=0{,}10$, la chaleur atteint
+$26{,}7244$~dB à $n=2$, mais seulement $20{,}6655$~dB à $n=80$.
+Son SSIM passe de $0{,}8017$ à $n=20$ à $0{,}7138$ à $n=80$.
+Le tableau~\ref{tab:time-case} montre que PM peut également sur-lisser :
+la rationnelle $K=0{,}20$ passe de $31{,}3253$~dB à $n=5$ à
+$21{,}1999$~dB à $n=80$. La stabilité n'implique donc pas que chaque
+itération rapproche de la vérité terrain. Le schéma continue à diffuser,
+mais les erreurs de structure peuvent prendre le dessus sur le gain
+obtenu par réduction du bruit.
+
+\begin{table}[htbp]
+ \centering
+ \caption{Interaction seuil/temps sur \texttt{geometric\_shapes},
+ $\sigma=0{,}10$, aux checkpoints $n=2,5,20,80$ ($t=0{,}4;1;4;16$).
+ Moyennes $\pm$ écarts-types échantillonnaux sur dix graines ;
+ sous-ensemble explicite des variantes, sans budgets cachés.}
+ \label{tab:time-case}
+ \input{generated/time_case.tex}
+\end{table}
+
+La figure~\ref{fig:k-sensitivity} compare les deux conductances aux
+mêmes $K$ et aux mêmes temps. La rationnelle $K=0{,}025$, sur le premier
+cas à $\sigma=0{,}10$, atteint $23{,}7556$~dB à $n=20$ puis
+$36{,}4457$~dB à $n=80$ : un petit seuil peut demander un temps plus long
+et n'est pas intrinsèquement défavorable. En revanche, augmenter $K$
+favorise une diffusion plus forte et peut nécessiter un arrêt plus tôt.
+Une comparaison de seuils détachée de la conductance et du temps serait
+donc incomplète.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\linewidth]{k_sensitivity_geometric_shapes_sigma0p1.pdf}
+ \par\medskip
+ \includegraphics[width=0.98\linewidth]{k_sensitivity_ramps_and_edges_sigma0p1.pdf}
+ \caption{Sensibilité à $K$ pour $\sigma=0{,}10$ :
+ \texttt{geometric\_shapes} en haut, \texttt{ramps\_and\_edges} en bas.
+ Deux conductances, $n=5,20,80$ ($t=1,4,16$),
+ $K=0{,}025;0{,}05;0{,}10;0{,}20$, $\dx=\dy=1$, $\dt=0{,}20$.
+ Points : moyennes sur dix graines ; barres : un écart-type échantillonnal.
+ Les références de chaleur sont aux mêmes checkpoints. L'évolution avec
+ $K$ change avec le temps : aucun seuil universel n'est identifié.}
+ \label{fig:k-sensitivity}
+\end{figure}
+
+\subsection{Désaccords entre critères}
+
+Le cas fixé n'est pas isolé. À $\sigma=0{,}025$ sur
+\texttt{geometric\_shapes}, une seule itération de chaleur réduit le
+PSNR moyen de $32{,}0401$ à $30{,}4691$~dB, mais augmente le SSIM de
+$0{,}6646$ à $0{,}8740$. Sur \texttt{ramps\_and\_edges},
+$\sigma=0{,}10$, $n=20$, la rationnelle $K=0{,}05$ donne
+$32{,}5651\pm0{,}1841$~dB et $0{,}8422\pm0{,}0070$ en SSIM ;
+l'exponentielle $K=0{,}20$ donne $32{,}3930\pm0{,}2530$~dB et
+$0{,}9209\pm0{,}0023$. Les dispersions invitent à ne pas surinterpréter
+le faible écart de PSNR ; les moyennes inversent leur ordre selon le critère,
+sans qu'un test de significativité soit effectué ici.
+
+Sur les $42$ couples cas/checkpoint positif, le meilleur réglage selon
+le PSNR moyen et celui selon le SSIM moyen diffèrent $13$ fois.
+Le compte rendu \texttt{analysis.json} relève aussi $172$ paires
+discordantes sur $1\,512$ comparaisons de paires sans égalité.
+Ces comptes décrivent la grille, sans test statistique. Enfin,
+l'exponentielle $K=0{,}20$ sur \texttt{geometric\_shapes},
+$\sigma=0{,}10$, passe entre $n=20$ et $80$ de $35{,}7056$ à
+$34{,}7866$~dB, tandis que son SSIM augmente de $0{,}9378$ à $0{,}9525$.
+Même le choix d'arrêt peut donc dépendre du critère.
+
+\subsection{Meilleurs réglages observés : un oracle exploratoire}
+
+Le tableau~\ref{tab:oracle-psnr} maximise le PSNR \emph{moyen sur les dix
+graines}, parmi les configurations de solveur et checkpoints $n>0$
+prédéfinis. C'est un \emph{oracle exploratoire}, puisqu'il utilise
+l'image propre. Ce n'est ni un réglage sélectionnable sur une observation
+seule ni une performance de généralisation. Il ne maximise pas
+séparément chaque graine avant de moyenner : la règle de sélection doit
+rester explicite.
+
+\begin{table}[htbp]
+ \centering
+ \caption{Oracle exploratoire PSNR : maximum de la moyenne sur dix
+ graines, parmi la grille figée avec $n>0$. Images et bruits indiqués
+ dans chaque ligne ; dispersions échantillonnales. Tout $n=80$ est
+ à la frontière temporelle étudiée, pas un optimum global.}
+ \label{tab:oracle-psnr}
+ \input{generated/oracle_psnr.tex}
+\end{table}
+
+Les choix PSNR/SSIM coïncident dans cinq des six cas. Pour
+\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, l'oracle SSIM est en
+revanche la rationnelle $K=0{,}05$, $n=40$, alors que l'oracle PSNR
+choisit $K=0{,}025$, $n=80$ (tableau~\ref{tab:oracle-difference}).
+Plusieurs maxima sont à $n=80$ ; aucun résultat ne permet de les appeler
+optima globaux en temps, et aucune expérience supplémentaire n'est
+introduite pour prolonger les courbes.
+
+\begin{table}[htbp]
+ \centering
+ \caption{Deux oracles exploratoires distincts pour
+ \texttt{ramps\_and\_edges}, $\sigma=0{,}10$ : sélection selon PSNR ou
+ SSIM moyen. Dix graines ; scores et écarts-types issus du CSV,
+ $\dx=\dy=1$, $\dt=0{,}20$.}
+ \label{tab:oracle-difference}
+ \input{generated/oracle_ssim_difference.tex}
+\end{table}

@@ -1,0 +1,167 @@
+\section{Du modèle aux flux numériques}
+\label{sec:schemes}
+
+\subsection{Grille, indices et trois niveaux de description}
+
+Une image numérique possède $N_y$ lignes et $N_x$ colonnes. L'indice $i$
+désigne la direction verticale, de pas $\dy$, et $j$ la direction
+horizontale, de pas $\dx$. On peut interpréter les valeurs $U_{ij}$
+comme celles de centres de cellules
+\begin{equation}
+ x_j=(j+\tfrac12)\dx,\qquad y_i=(i+\tfrac12)\dy,
+ \quad 0\leq j<N_x,\quad 0\leq i<N_y,
+ \label{eq:cell-centres}
+\end{equation}
+sur $\Omega=(0,N_x\dx)\times(0,N_y\dy)$. Dans les expériences,
+$N_x=N_y=128$ et $\dx=\dy=1$ pixel. La matrice est convertie en
+\texttt{float64} et copiée avant toute évolution. Les données doivent
+être finies, à deux dimensions et comporter au moins deux pixels dans
+chaque direction.
+
+Il convient de séparer trois objets. L'EDP continue décrit une fonction
+de l'espace et du temps. Le système \emph{semi-discret} est une équation
+différentielle sur les $N_xN_y$ valeurs, après remplacement des
+dérivées spatiales par des échanges sur la grille. Le schéma
+\emph{entièrement discret} remplace ensuite cette équation différentielle
+par une suite d'états $U^n$ au temps $t_n=n\dt$. Les propriétés de l'un
+ne se transmettent pas automatiquement aux deux autres.
+
+\subsection{Une conductance unique par interface intérieure}
+
+Entre deux pixels horizontalement voisins, on définit
+\begin{equation}
+ \delta^x_{i,j+1/2}=U_{i,j+1}-U_{ij},\qquad
+ a^x_{i,j+1/2}=c\left(\frac{|\delta^x_{i,j+1/2}|}{\dx}\right).
+ \label{eq:horizontal-interface}
+\end{equation}
+Les interfaces verticales sont décrites de même par
+\begin{equation}
+ \delta^y_{i+1/2,j}=U_{i+1,j}-U_{ij},\qquad
+ a^y_{i+1/2,j}=c\left(\frac{|\delta^y_{i+1/2,j}|}{\dy}\right).
+ \label{eq:vertical-interface}
+\end{equation}
+Pour la chaleur, toutes les conductances intérieures valent un.
+Pour Perona--Malik, on utilise l'une des deux lois
+\eqref{eq:pm-conductances}. La conductance d'une interface est
+partagée par ses deux pixels ; on ne calcule pas deux coefficients
+indépendants selon le sens d'échange.
+
+Le flux de gradient orienté dans le sens des indices croissants est
+$F^x=a^x\delta^x/\dx$, et de même $F^y=a^y\delta^y/\dy$.
+Le flux physique de diffusion est son opposé. Le code stocke
+directement les contributions à la divergence,
+\begin{equation}
+ Q^x_{i,j+1/2}=\frac{a^x_{i,j+1/2}\delta^x_{i,j+1/2}}{\dx^2},
+ \qquad
+ Q^y_{i+1/2,j}=\frac{a^y_{i+1/2,j}\delta^y_{i+1/2,j}}{\dy^2}.
+ \label{eq:edge-contributions}
+\end{equation}
+Une contribution $Q^x$ est ajoutée au pixel gauche et soustraite
+au pixel droit ; $Q^y$ est ajoutée au pixel supérieur et soustraite
+au pixel inférieur. Par exemple, si le pixel droit est plus clair,
+$Q^x>0$ : le pixel gauche augmente et le droit diminue. Cette convention
+de signe réalise le lissage tout en conservant la somme.
+
+\subsection{Frontières et actualisation d'Euler}
+
+Seules les interfaces entre pixels du domaine sont créées. On pose
+les contributions des interfaces extérieures égales à zéro :
+\begin{equation}
+ Q^x_{i,-1/2}=Q^x_{i,N_x-1/2}=0,\qquad
+ Q^y_{-1/2,j}=Q^y_{N_y-1/2,j}=0.
+ \label{eq:boundary-edges}
+\end{equation}
+Il n'existe donc ni raccordement périodique ni échange avec une valeur
+extérieure. Pour la chaleur, cela revient à utiliser un pixel fantôme
+égal au pixel frontière, dans l'interprétation cellulaire
+\eqref{eq:cell-centres}. Un pixel de coin possède deux voisins,
+un pixel de bord non situé dans un coin en possède trois, et un pixel
+intérieur en possède quatre.
+
+Le système semi-discret est
+\begin{equation}
+ \frac{\dd U_{ij}}{\dd t}=(L_h(U))_{ij}
+ =Q^x_{i,j+1/2}-Q^x_{i,j-1/2}
+  +Q^y_{i+1/2,j}-Q^y_{i-1/2,j}.
+ \label{eq:semidiscrete-directional}
+\end{equation}
+Euler explicite donne
+\begin{equation}
+ U^{n+1}_{ij}=U^n_{ij}+\dt(L_h(U^n))_{ij}.
+ \label{eq:explicit-euler}
+\end{equation}
+Toutes les différences et toutes les conductances proviennent de
+$U^n$. Le tableau $U^{n+1}$ est distinct ; une actualisation pixel
+par pixel en place mélangerait deux niveaux temporels et ne serait
+plus ce schéma. Pour un pixel intérieur, la chaleur est explicitement
+\begin{align}
+ U^{n+1}_{ij}=U^n_{ij}
+ &+\frac{\dt}{\dx^2}
+    (U^n_{i,j+1}-2U^n_{ij}+U^n_{i,j-1})\notag\\
+ &+\frac{\dt}{\dy^2}
+    (U^n_{i+1,j}-2U^n_{ij}+U^n_{i-1,j}).
+ \label{eq:heat-stencil}
+\end{align}
+Sur le bord, les termes correspondant à un voisin extérieur sont
+simplement absents dans la forme conservative.
+
+\subsection{Un algorithme et des sorties fidèles à l'évolution}
+
+Le pseudocode suivant expose les opérations essentielles. Les signes
+opposés sont appliqués à une divergence initialement nulle, non au
+tableau courant pendant le calcul des flux.
+
+\begin{lstlisting}[basicstyle=\ttfamily\small,frame=single]
+U = finite_float64_copy(f)
+save_copy(U, n=0) if 0 is requested
+for n in 1, ..., largest_checkpoint:
+    delta_x = U[:, 1:] - U[:, :-1]
+    delta_y = U[1:, :] - U[:-1, :]
+    a_x = c(abs(delta_x)/dx)   # or ones for heat
+    a_y = c(abs(delta_y)/dy)
+    q_x = a_x * delta_x / dx**2
+    q_y = a_y * delta_y / dy**2
+    D = zeros_like(U)
+    D[:, :-1] += q_x; D[:, 1:] -= q_x
+    D[:-1, :] += q_y; D[1:, :] -= q_y
+    U_new = U + dt*D
+    U = U_new
+    save_copy(U, n) if n is requested
+\end{lstlisting}
+
+Une trajectoire est poursuivie jusqu'au plus grand checkpoint demandé.
+Les états intermédiaires sont copiés, et non recalculés en repartant
+de l'observation. Cela assure une comparaison à budget d'itérations
+commun. Le checkpoint zéro est une copie de la donnée initiale pour
+chaque trajectoire ; le CSV conserve ces lignes par méthode et une
+ligne bruitée commune, sans générer de nouvelles observations.
+Aucune étape ne borne les intensités dans $[0,1]$.
+
+Le chronométrage des solveurs commence après la copie initiale et
+l'éventuelle sauvegarde à $n=0$. Il comprend les étapes d'évolution
+et les copies des checkpoints positifs. Les durées enregistrées sont
+cumulatives depuis ce départ ; elles ne doivent donc pas être
+additionnées entre checkpoints. Elles n'incluent ni création du
+bruit, ni calcul des métriques, ni figures, ni sérialisation finale.
+
+\subsection{Portée de la variante directionnelle}
+
+Une différence $|\delta^x|/\dx$ approche $|\partial_xu|$ sur une
+interface horizontale, non $\sqrt{(\partial_xu)^2+(\partial_yu)^2}$.
+Même pour une image régulière, les deux coefficients évalués aux
+interfaces horizontales et verticales peuvent donc être différents.
+À grille raffinée et pour une fonction suffisamment régulière,
+la forme directionnelle correspond formellement, à l'intérieur,
+à l'opérateur
+\begin{equation}
+ \partial_x\bigl(c(|\partial_xu|)\partial_xu\bigr)
+ +\partial_y\bigl(c(|\partial_yu|)\partial_yu\bigr),
+ \label{eq:directional-limit}
+\end{equation}
+et non à l'opérateur scalaire isotrope de
+\eqref{eq:pm-continuous}. Cette différence ne disparaît pas en
+diminuant seulement $\dt$. Une rotation de l'image par rapport aux
+axes peut modifier les conductances et les résultats. La variante
+est simple, conservative et courante pour une première étude,
+mais cette dépendance directionnelle est une limite intrinsèque
+de l'objet numérique évalué.

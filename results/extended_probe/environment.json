@@ -1,0 +1,25 @@
+{
+  "generated_at_utc": "2026-09-30T23:13:10.277481+00:00",
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "D:\\academic-projects\\pde-image-denoising\\.venv\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+  "implementation": "CPython",
+  "packages": {
+    "numpy": "2.5.3",
+    "matplotlib": "3.11.2",
+    "pytest": "9.1.1",
+    "pde-image-denoising": "0.0.0"
+  },
+  "metric_implementation": {
+    "psnr": "NumPy formula with explicit data_range=1.0",
+    "ssim": "NumPy mean local SSIM, uniform valid 7x7 windows, sample covariances, K1=0.01, K2=0.03"
+  },
+  "optional_packages_not_used": {
+    "scikit-image": "0.26.0",
+    "scipy": "1.18.1",
+    "reason": "skimage.metrics transitively loaded a SciPy DLL blocked by Windows Application Control; NumPy metrics are used instead"
+  },
+  "numeric_dtype": "float64",
+  "compute_device": "CPU"
+}

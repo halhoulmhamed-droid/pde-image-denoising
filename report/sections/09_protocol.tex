@@ -1,0 +1,98 @@
+\section{Un protocole synthétique figé et traçable}
+\label{sec:protocol}
+
+\subsection{Deux images aux structures complémentaires}
+
+Les images sont construites par \path{datasets.py}, sans téléchargement.
+La première, identifiée par \path{geometric_shapes}, comporte un fond d'intensité
+$0{,}15$, une moitié droite à $0{,}32$, un rectangle à $0{,}72$ et un
+disque à $0{,}92$. Avec $H=W=128$, le rectangle utilise les lignes
+d'indices $H//6$ à $H//2-1$ et les colonnes $W//10$ à $2W//5-1$.
+Le disque a pour centre $(2H/3,3W/4)$ en coordonnées ligne/colonne et
+pour rayon $\min(H,W)/6$. Cette image teste principalement des plateaux
+et des ruptures nettes, horizontales, verticales et courbes.
+
+La seconde, identifiée par \path{ramps_and_edges}, introduit une variation régulière.
+En coordonnées normalisées $x=j/(W-1)$ et $y=i/(H-1)$, son fond est
+$0{,}08+0{,}48x$ ; un saut de $0{,}16$ est ajouté pour $y\geq0{,}55$.
+Une ellipse centrée en $(0{,}28,0{,}70)$, de demi-axes $0{,}16$ et
+$0{,}18$, est remplacée par l'intensité $0{,}88$. Enfin, la bande
+$|y-(0{,}12+0{,}68x)|\leq0{,}025$ est fixée à $0{,}04$.
+Le code borne cette \emph{construction de vérité terrain} dans $[0,1]$.
+Cela ne doit pas être confondu avec une troncature du bruit ou des sorties,
+qui n'est jamais pratiquée. L'image confronte le schéma directionnel à
+une rampe, une ellipse et une structure oblique ; elle ne constitue pas
+une validation exhaustive de l'invariance par rotation.
+
+\subsection{Grille de paramètres}
+
+Le plan étendu a été construit \emph{après} l'exploration rapide de
+phase~3, puis enregistré avant le calcul de phase~4. Ce n'est pas une
+évaluation prospective sur un ensemble d'images indépendant. Les
+paramètres de \path{configs/extended.json} sont :
+\begin{table}[htbp]
+ \centering
+ \caption{Protocole étendu figé avant exécution ; temps de diffusion en
+ convention pixel, sans unité physique en secondes.}
+ \label{tab:protocol}
+ \begin{tabular}{ll}
+  \toprule
+  Élément & Valeurs \\
+  \midrule
+  Images et taille & Deux images synthétiques, $128\times128$ \\
+  Bruit gaussien & $\sigma\in\{0{,}025;\,0{,}05;\,0{,}10\}$ \\
+  Graines & $0,1,\ldots,9$ \\
+  Pas spatiaux et temporel & $\dx=\dy=1$, $\dt=0{,}20$ \\
+  Checkpoints $n$ & $0,1,2,5,10,20,40,80$ \\
+  Conductions PM & Exponentielle et rationnelle \\
+  Valeurs de $K$ & $0{,}025;\,0{,}05;\,0{,}10;\,0{,}20$ \\
+  Plage des métriques & $L=1$ \\
+  \bottomrule
+ \end{tabular}
+\end{table}
+
+Pour chaque tuple image/$\sigma$/graine, une unique observation
+$f=u_{\mathrm{true}}+\sigma\xi$ est générée, avec des composantes
+gaussiennes standard indépendantes à l'intérieur de $\xi$. Ce même
+tableau est fourni à la chaleur et aux huit variantes PM. L'observation
+non traitée sert de référence commune à $n=0$.
+
+Le générateur est réinitialisé avec la même graine pour chaque tuple.
+Comme toutes les images ont la même taille, une graine donnée réutilise
+le même champ gaussien standardisé entre images et niveaux de bruit.
+Les comparaisons entre méthodes sont donc appariées de façon contrôlée,
+mais les six cas image/$\sigma$ ne sont pas entièrement indépendants.
+Les dix graines représentent dix réalisations de bruit sur chaque image,
+non dix images différentes.
+
+\subsection{Comptages et budgets comparables}
+
+Le plan contient $2\times3\times10=60$ observations et
+$60\times(1+2\times4)=540$ trajectoires. Chaque trajectoire est poursuivie
+jusqu'à $n=80$, avec copies aux huit checkpoints ; il ne s'agit pas de
+relancer un solveur pour chaque checkpoint. Une observation contribue
+une ligne bruitée et $9\times8$ lignes de solveur, soit $73$ lignes.
+Les fichiers contiennent ainsi $60\times73=4\,380$ lignes de métriques
+et $6\times73=438$ groupes, chacun sur dix graines.
+
+Les tableaux à checkpoint commun comparent le même nombre d'itérations
+et le même $t=n\dt$. Cette égalité de budget numérique ne signifie pas
+que les conductances produisent le même lissage effectif ni la même durée
+machine. Tous les paramètres prédéfinis restent disponibles, y compris
+les configurations défavorables. Les tables exhaustives sont séparées
+des tableaux ciblés du corps du rapport.
+
+\subsection{Cas représentatif et calcul pilote}
+
+Avant exécution, le cas visuel a été fixé à
+\path{geometric_shapes}, $\sigma=0{,}10$, graine~$0$, $n=20$ et
+$K=0{,}10$ pour les deux PM. Ce choix n'a pas été modifié pour montrer
+a posteriori le meilleur résultat. Ses figures décrivent une réalisation
+individuelle, contrairement aux courbes agrégées sur dix graines.
+
+Un pilote séparé, portant sur cette image, ce bruit et cette graine, mais
+avec toute la grille de méthodes, $K$ et checkpoints, a pris
+$6{,}8015153$~s. L'estimation conservative $60$ fois cette durée était
+$408{,}090918$~s, inférieure au seuil préalable de $1\,200$~s. Le plan
+complet n'a donc pas été réduit. Le pilote n'est pas ajouté comme une
+onzième réalisation aux statistiques de l'étude.

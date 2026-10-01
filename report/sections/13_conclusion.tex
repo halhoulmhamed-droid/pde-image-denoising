@@ -1,0 +1,32 @@
+\section{Conclusion}
+\label{sec:conclusion}
+La question initiale ne reçoit pas une réponse de supériorité uniforme.
+Dans les cas synthétiques étudiés, la dépendance des échanges aux
+variations locales modifie le compromis entre bruit et structures,
+mais cet effet dépend fortement de $K$, de la conductance et du temps.
+À paramètres fixés, la loi rationnelle avec $K=0{,}10$ et $n=20$
+sur l'image géométrique bruitée à $\sigma=0{,}10$ améliore les deux
+mesures principales par rapport à la chaleur. La loi exponentielle
+au même réglage améliore le PSNR mais diminue le SSIM relatif à la
+chaleur. Ce désaccord montre pourquoi le jugement ne peut être réduit
+à une unique métrique.
+Les faibles conductances peuvent protéger des différences dues au
+bruit ; une diffusion trop longue peut au contraire effacer des
+transitions. Le profil et les cartes illustrent ces mécanismes sans
+constituer une nouvelle mesure quantitative de contours. Les meilleurs
+réglages de la grille ont une valeur exploratoire : leur sélection
+utilise l'image propre et certains maxima atteignent la frontière
+temporelle étudiée. Ils ne définissent donc ni optimum global ni
+règle de déploiement.
+
+Sur le plan numérique, le partage des flux garantit la conservation,
+et la borne sur le pas explicite donne le principe du maximum discret.
+Ces propriétés sont établies pour le schéma réellement exécuté et
+confortées par les tests existants. Elles ne prouvent pas la bonne
+position de l'EDP de Perona--Malik ni une approximation isotrope de
+son gradient : l'objet évalué est une variante directionnelle.
+Le résultat principal de ce mini-projet est ainsi une comparaison
+conditionnelle et traçable, articulant modèle, démonstration discrète,
+vérification et interprétation. L'extension à des images naturelles
+et le choix des paramètres sans référence propre restent des
+perspectives, au-delà du périmètre synthétique étudié.

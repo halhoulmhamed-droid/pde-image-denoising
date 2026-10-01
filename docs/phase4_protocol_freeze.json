@@ -1,0 +1,20 @@
+{
+  "recorded_date": "2026-10-01",
+  "stage": "before pilot and full experiment",
+  "full_run_gate_seconds": 1200,
+  "estimate_rule": "60 * measured total pilot pipeline seconds",
+  "files": [
+    {
+      "path": "configs/extended.json",
+      "sha256": "ba86358c753e1949062c02a81bc1187c7a090bd2b6d291e6cbbb449fc35175ba"
+    },
+    {
+      "path": "configs/extended_probe.json",
+      "sha256": "10129020864d736935877fbac2cff256162d56d5ad82eca4573162422c7ce143"
+    },
+    {
+      "path": "docs/extended_protocol.md",
+      "sha256": "e8f7620e4bea6a61d7b6aa3bf5518f824b3bd322dd4a0581740e2293fd83cf85"
+    }
+  ]
+}

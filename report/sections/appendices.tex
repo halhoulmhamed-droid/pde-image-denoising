@@ -1,0 +1,74 @@
+\chapter{Traçabilité et reproduction documentaire}
+\label{app:reproduction}
+\section{Organisation des fichiers et commandes}
+Le point d'entrée est \path{report/main.tex}. Les chapitres utilisent
+les sections de \path{report/sections/}, les tableaux issus de
+\path{report/generated/} et les PDF déjà archivés dans
+\path{results/extended/figures/}. La bibliographie est locale au
+rapport. La présentation a pour point d'entrée \path{slides/main.tex}
+et ses notes sont dans \path{slides/speaker_notes.md}.
+Depuis la racine du projet, les commandes documentaires suivantes
+n'appellent aucun solveur, runner ou calcul de métriques :
+\begin{lstlisting}
+.\.venv\Scripts\python.exe -B scripts/export_report_material.py
+.\.venv\Scripts\python.exe -B scripts/export_report_material.py --check
+.\.venv\Scripts\python.exe -B scripts/check_documentation.py
+\end{lstlisting}
+Le premier script lit les CSV et JSON archivés, contrôle les agrégats
+et exporte les valeurs sélectionnées. Le mode \texttt{--check} compare
+en mémoire tous les exports existants aux sources sans les réécrire.
+Le second contrôle notamment les références, chemins et empreintes
+protégées. Les résultats de ces contrôles ne valent pas compilation LaTeX.
+Avec une distribution LaTeX fournissant les outils nécessaires, la
+compilation peut être effectuée depuis la racine :
+\begin{lstlisting}
+latexmk -cd -pdf -interaction=nonstopmode -halt-on-error report/main.tex
+latexmk -cd -pdf -interaction=nonstopmode -halt-on-error slides/main.tex
+\end{lstlisting}
+L'option \texttt{-cd} respecte les chemins relatifs depuis le répertoire
+de chaque point d'entrée. Les alternatives avec \texttt{pdflatex},
+\texttt{bibtex} ou Tectonic, les commandes effectivement exécutées et
+les contrôles des journaux et de la mise en page sont consignés dans
+\path{docs/phase5_build.md}. Ce suivi distingue la validation des
+sources, la compilation et l'inspection du rendu ; leurs garanties ne
+sont pas interchangeables.
+
+Les PDF de cette édition ont été compilés et inspectés dans un
+\emph{environnement externe} ; le blocage du compilateur Windows reste
+consigné séparément. Les commandes, versions, vérifications et corrections
+purement documentaires de cette édition figurent dans
+\path{docs/phase5_v2_external_compilation.json}. Aucun solveur ni
+calcul expérimental nouveau n'accompagne cette compilation.
+
+\section{Correspondance des valeurs et limites de l'archive}
+Les CSV documentaires conservent les chaînes numériques originales,
+sans arrondi préalable. Le fichier
+\path{report/generated/source_values.json} donne pour chaque ligne
+sélectionnée la ligne de \path{summary.csv}, les valeurs sources et
+les empreintes des sept fichiers qui alimentent les exports. L'arrondi
+des tableaux LaTeX n'intervient qu'à l'affichage. Les paramètres $K$
+sont conservés explicitement, notamment $K=0{,}025$.
+Les contrôles documentaires recalculent les moyennes et écarts-types
+à partir des valeurs déjà présentes dans \path{metrics.csv}, y compris
+les durées enregistrées. Ils ne créent pas de mesures de solveur nouvelles.
+La vérification scientifique stricte archivée reste celle de phase 4 ;
+la reproduction numérique inter-environnements mentionnée dans le
+rapport provient de l'audit indépendant communiqué.
+L'archive de revue de phase 5 réunit les sources documentaires et les
+sorties nécessaires à leur lecture. Elle exclut volontairement les
+grands tableaux NPZ déjà audités. Un manifeste expérimental peut donc
+y référencer un NPZ absent : cette archive documentaire n'est pas une
+copie complète permettant de relancer seule le vérificateur scientifique.
+Les fichiers protégés sont contrôlés dans le projet d'origine, avant
+et après rédaction.
+
+\chapter{Grille exhaustive des mesures agrégées}
+\label{app:all-tables}
+Les six tables suivantes reproduisent les 438 groupes du CSV agrégé.
+Chaque valeur est une moyenne accompagnée de l'écart-type
+échantillonnal sur dix graines. Les lignes à $n=0$ des solveurs sont
+conservées telles qu'archivées : elles évaluent la même observation,
+sans constituer des réalisations supplémentaires. Le bruit non traité
+est également référencé à $n=0$. Les durées, MSE et erreurs relatives
+complètes restent disponibles dans le CSV associé à cet export.
+\input{generated/exhaustive}

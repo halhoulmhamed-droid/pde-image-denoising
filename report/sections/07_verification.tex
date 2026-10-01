@@ -1,0 +1,157 @@
+\section{Vérification des solveurs et portée des contrôles}
+\label{sec:verification}
+
+\subsection{Tester des propriétés plutôt qu'une supériorité attendue}
+
+Les tests scientifiques interrogent les opérations numériques avant
+d'interpréter un classement des méthodes. Une image constante doit
+rester identique pour la chaleur et les deux conductances. Zéro
+itération doit restituer une copie indépendante de la donnée initiale.
+Des entrées finies doivent produire des sorties finies de même
+dimension et de type \texttt{float64}, sans modifier le tableau fourni.
+Ces contrôles détectent des erreurs de gestion mémoire ou d'indices
+que des images visuellement plausibles pourraient masquer.
+
+La conservation est contrôlée sur une grille non carrée et une donnée
+aléatoire déterministe. Les tests utilisent une tolérance absolue de
+$2\times10^{-13}$ pour la somme et de $2\times10^{-15}$ pour la moyenne.
+Ces seuils concernent les petits tableaux de test et les nombres
+fixés d'itérations, non une borne universelle pour des tailles
+arbitraires. Le principe du maximum est contrôlé à
+$2\times10^{-14}$ près, par rapport aux extrema de l'entrée et sans
+réduire artificiellement les sorties à $[0,1]$.
+
+Un pixel isolé au bord gauche d'une image $5\times9$ ne doit pas
+influencer le bord droit après un seul pas. Ce cas teste directement
+l'absence de périodicité ; le caractère non carré aide à repérer une
+confusion entre axes. Un autre test utilise $\dx=2$ et $\dy=1$,
+pour distinguer explicitement les contributions horizontales et
+verticales. Les paramètres inadmissibles sont rejetés : pas spatial
+ou temporel non positif, pas temporel hors de la condition suffisante,
+nombre d'étapes négatif ou non entier, $K\leq0$, données non finies
+et nom de conductance inconnu.
+
+Les valeurs des deux conductances sont contrôlées dans $[0,1]$.
+Avec $K=10^9$, une petite image après cinq étapes doit rejoindre
+numériquement la chaleur à $2\times10^{-15}$ près en tolérance
+absolue. Ce test vérifie le régime $c\simeq1$ dans le code ; il ne
+déclare pas qu'une valeur finie de $K$ rend exactement les modèles
+identiques. Le bruit et les sorties déterministes sont également
+contrôlés à graines fixées. Aucun test n'exige que Perona--Malik
+obtienne un PSNR ou un SSIM supérieur à la chaleur.
+
+La suite comporte aussi des tests fonctionnels de configurations,
+agrégats, manifestes et modes de vérification. Les 165 tests ont
+réussi dans l'exécution finale de phase 4 et dans l'audit indépendant
+signalé pour cette phase. Aucun test ni calcul scientifique n'a été
+relancé pour la rédaction du présent rapport.
+
+\subsection{Une solution exacte du problème entièrement discret}
+
+Une validation indépendante du solveur de chaleur utilise les modes
+propres du Laplacien discret à flux nul. Pour
+$0\leq p<N_y$ et $0\leq q<N_x$, définissons
+\begin{equation}
+ \phi_{pq}[i,j]=
+ \cos\left(\frac{\pi p(i+1/2)}{N_y}\right)
+ \cos\left(\frac{\pi q(j+1/2)}{N_x}\right).
+ \label{eq:discrete-neumann-mode}
+\end{equation}
+Pour une suite $v_j=\cos(\theta(j+1/2))$, l'identité trigonométrique
+$v_{j+1}+v_{j-1}=2\cos(\theta)v_j$ donne
+$v_{j+1}-2v_j+v_{j-1}=-4\sin^2(\theta/2)v_j$.
+Lorsque $\theta=\pi q/N_x$, le prolongement vérifie
+$v_{-1}=v_0$ et $v_{N_x}=v_{N_x-1}$ : la même relation s'applique
+au traitement du bord. En combinant les deux directions, on obtient
+\begin{equation}
+ L\phi_{pq}=\lambda_{pq}\phi_{pq},\qquad
+ \lambda_{pq}=
+ -\frac{4}{\dy^2}\sin^2\left(\frac{\pi p}{2N_y}\right)
+ -\frac{4}{\dx^2}\sin^2\left(\frac{\pi q}{2N_x}\right).
+ \label{eq:discrete-neumann-eigenvalue}
+\end{equation}
+La trajectoire d'Euler correspondante est donc exactement, en
+arithmétique réelle,
+\begin{equation}
+ U^n=(1+\dt\lambda_{pq})^n\phi_{pq}.
+ \label{eq:discrete-neumann-amplitude}
+\end{equation}
+La comparaison utilise une formule analytique indépendante de
+l'implémentation des échanges, et non un second appel au même stencil.
+
+Le cas enregistré prend $N_y=17$, $N_x=19$, $p=2$, $q=3$,
+$\dy=1{,}1$, $\dx=0{,}8$, $\dt=0{,}2$ et sept pas.
+La valeur propre enregistrée est $-0{,}488260677224588$ ; l'erreur
+maximale entre le solveur et \eqref{eq:discrete-neumann-amplitude}
+vaut $3{,}608224830031759\times10^{-16}$, très inférieure au seuil
+de test $5\times10^{-13}$. Ces valeurs proviennent du bloc
+\texttt{heat\_discrete\_neumann\_mode} de
+\texttt{results/extended/verification.json}. Elles valident cette
+réalisation du Laplacien et d'Euler pour un mode non constant,
+notamment avec une grille non carrée et des pas différents.
+Elles ne mesurent pas encore une erreur par rapport à une EDP continue.
+
+\subsection{Deux contrôles d'amplitude séparant espace et temps}
+
+Le contrôle spatial considère le mode cosinus $(p,q)=(1,1)$ sur le
+carré unité, avec $\dx=\dy=1/N$ et $T=0{,}01$.
+L'amplitude continue exacte est $\exp(T\lambda)$, avec
+$\lambda=-2\pi^2$. On lui compare l'amplitude semi-discrète exacte
+$\exp(T\lambda_h)$ : il n'y a donc aucune erreur d'Euler dans cette
+comparaison. Les erreurs enregistrées sont
+$5{,}200695560823032\times10^{-4}$ pour $N=16$ et
+$1{,}3011185809019832\times10^{-4}$ pour $N=32$.
+
+Le contrôle temporel fixe au contraire la grille $N_y=16$, $N_x=20$
+sur le carré unité, les pas $\dy=1/16$, $\dx=1/20$, le mode
+$(p,q)=(1,2)$ et $T=0{,}001$. Il compare
+$(1+(T/m)\lambda_h)^m$ à $\exp(T\lambda_h)$, pour $m=8$ puis
+$m=16$ pas. Les erreurs sont respectivement
+$1{,}4342037335590696\times10^{-4}$ et
+$7{,}156608836045297\times10^{-5}$.
+Ces quatre erreurs, lues dans le bloc \texttt{refinement\_checks}
+du même compte rendu, diminuent dans les deux comparaisons séparées.
+Il s'agit de contrôles d'amplitude fondés sur les expressions
+spectrales, non d'un nouveau benchmark d'images.
+
+Deux niveaux ne constituent pas une preuve expérimentale d'un ordre
+général de convergence. De plus, les modes cosinus sont très réguliers
+et particulièrement compatibles avec le bord de Neumann. Ils ne
+représentent pas les discontinuités géométriques et le bruit des images
+du protocole. Le rapport se limite donc au constat de diminution
+mesurée dans ces contrôles précis.
+
+\subsection{Consistance : intérieur, bord et régularité}
+
+Pour la chaleur, sur une fonction suffisamment régulière à l'intérieur,
+les différences centrées donnent une erreur spatiale
+$O(\dx^2+\dy^2)$ par développement de Taylor. Euler explicite possède
+une erreur de consistance temporelle $O(\dt)$ lorsque la solution
+dispose des dérivées temporelles nécessaires. Ces énoncés locaux ne
+prouvent pas, à eux seuls, la convergence globale pour toute donnée.
+
+Le bord mérite une réserve explicite. En une dimension, au premier
+centre $x=h/2$, le flux nul impose
+$(u(3h/2)-u(h/2))/h^2$ comme contribution du Laplacien.
+Pour $u'(0)=0$ et une fonction assez régulière, son développement est
+\begin{equation}
+ \frac{u(3h/2)-u(h/2)}{h^2}
+ =u''(h/2)+\frac{h}{24}u'''(0)+O(h^2).
+ \label{eq:boundary-consistency}
+\end{equation}
+La précision ponctuelle générique est donc seulement du premier
+ordre au bord sous la seule condition de Neumann. Si la compatibilité
+supplémentaire $u'''(0)=0$ est satisfaite, ce terme disparaît ; c'est
+le cas des modes cosinus utilisés. Un énoncé d'ordre deux sur tout
+le rectangle, sans mention de ces hypothèses ou d'une analyse globale
+adaptée, serait excessif.
+
+Enfin, pour la variante Perona--Malik, les développements intérieurs
+sur des fonctions régulières doivent être rapportés à l'opérateur
+directionnel \eqref{eq:directional-limit}. Ils ne peuvent pas être
+utilisés pour revendiquer une consistance isotrope avec
+\eqref{eq:pm-continuous}. Aux frontières et pour des images bruitées
+ou discontinues, les mêmes exigences de régularité doivent être
+réexaminées. La vérification du code et la preuve de ses propriétés
+discrètes restent ainsi distinguées d'une théorie complète du
+problème continu.

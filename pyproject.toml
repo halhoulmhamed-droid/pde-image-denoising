@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pde-image-denoising"
+version = "0.0.0"
+description = "Reproducible course project comparing linear heat and Perona-Malik image diffusion."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Mhamed Halhoul" },
+]
+dependencies = [
+  "numpy>=2.0",
+  "matplotlib>=3.9",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+]
+
+[project.scripts]
+pde-denoise = "pde_image_denoising.run:main"
+pde-denoise-verify = "pde_image_denoising.verify:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]

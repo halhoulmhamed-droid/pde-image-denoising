@@ -1,0 +1,28 @@
+{
+  "recorded_date": "2026-10-01",
+  "scope": "phase5 read-only Git checks; no staging, commit or push",
+  "commands": [
+    {
+      "command": "git status --short",
+      "exit_code": 0,
+      "output": "?? .gitignore\n?? CITATION.cff\n?? README.md\n?? configs/\n?? docs/\n?? pyproject.toml\n?? references/\n?? report/\n?? requirements.txt\n?? results/\n?? scripts/\n?? slides/\n?? src/\n?? tests/\n"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "command": "git ls-files --stage",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "command": "git remote -v",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "diff_check_does_not_cover_untracked_files": true,
+  "separate_text_control": "scripts/check_documentation.py; documentary text outside protected baseline"
+}

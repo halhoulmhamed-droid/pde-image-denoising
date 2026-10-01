@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "experiment_name": "extended",
+  "manifest_files_checked": 27,
+  "manifest_integrity_exact": true,
+  "verification_mode": "strict",
+  "tolerances": {
+    "rtol": 0.0,
+    "atol": 0.0
+  },
+  "exact_reproduction": true,
+  "reproduction_claim": "exact",
+  "generated_at_utc": "2026-10-01T01:35:50.044923+00:00",
+  "metrics_rows": 73,
+  "summary_rows": 73,
+  "summary_groups_checked": 73,
+  "summary_statistics_checked": 730,
+  "summary_aggregation_source": "recorded metrics.csv values",
+  "duration_statistics_checked_from_recorded_values": true,
+  "deterministic_columns_recomputed": true,
+  "duration_columns_compared": false,
+  "shared_noisy_observations": 1,
+  "input_arrays_compared": 2,
+  "representative_arrays_compared": 74,
+  "archived_array_integrity_exact": true,
+  "archived_output_hashes_checked": 73,
+  "unarchived_outputs_integrity_note": "Only checkpoint-zero and representative outputs have archived arrays. Other output hashes are compared to recalculation only.",
+  "recomputed_output_hash_differences": [],
+  "recomputed_array_hash_differences": [],
+  "required_artifacts_present": 28,
+  "heat_discrete_neumann_mode": {
+    "height": 17,
+    "width": 19,
+    "p": 2,
+    "q": 3,
+    "n_steps": 7,
+    "eigenvalue": -0.488260677224588,
+    "max_abs_error": 3.608224830031759e-16
+  },
+  "refinement_checks": {
+    "spatial_semidiscrete_vs_continuous_amplitude_errors": {
+      "16": 0.0005200695560823032,
+      "32": 0.00013011185809019832
+    },
+    "temporal_euler_vs_semidiscrete_amplitude_errors": {
+      "8": 0.00014342037335590696,
+      "16": 7.156608836045297e-05
+    },
+    "spatial_error_decreases": true,
+    "temporal_error_decreases": true,
+    "claim": "Separate amplitude checks only: spatial comparison uses the exact semi-discrete exponential, temporal comparison fixes the grid. No convergence order is inferred from two levels."
+  }
+}

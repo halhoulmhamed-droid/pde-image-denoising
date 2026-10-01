@@ -1,0 +1,141 @@
+{
+  "experiment_name": "extended",
+  "config_sha256": "4088f17146d1d81444f8e5e523ffafbe41eeb2f0df43fda22b4c1f9a5cc38bdf",
+  "files": [
+    {
+      "path": "analysis.json",
+      "sha256": "040e91301e54d48ca7e92953863cae6ae2adc8576e1d933f660c777ad5e74d28",
+      "size_bytes": 15363
+    },
+    {
+      "path": "arrays/inputs.npz",
+      "sha256": "4f82c44cc7a84c2b79ef1c388f241b5090614b48a2564720fbf5f64d8f4cb60d",
+      "size_bytes": 124882
+    },
+    {
+      "path": "arrays/representative_outputs.npz",
+      "sha256": "3455efcc23971d40858afe4103585d95041ab373754bff683d77e51401e47ac5",
+      "size_bytes": 8969647
+    },
+    {
+      "path": "config_used.json",
+      "sha256": "4088f17146d1d81444f8e5e523ffafbe41eeb2f0df43fda22b4c1f9a5cc38bdf",
+      "size_bytes": 694
+    },
+    {
+      "path": "environment.json",
+      "sha256": "67c3a3be7794a38d51ae2f5311c879b01be7a832ffc06f66cdba0387598945f4",
+      "size_bytes": 1027
+    },
+    {
+      "path": "figures/comparison.pdf",
+      "sha256": "6c9bd452ab3dd5dd36028fa3086c880572e5800473c1af3525bb6faa25c7ef6d",
+      "size_bytes": 75976
+    },
+    {
+      "path": "figures/comparison.png",
+      "sha256": "e378058fb6c64c7a2ffba5d568f1310f6f84a9e1aaa3cddd9606d72d639ccbde",
+      "size_bytes": 139732
+    },
+    {
+      "path": "figures/gradient_maps.pdf",
+      "sha256": "edb1a024167cf54fdc27337d5e43e7c0d6cb9afbdc6b78188556724304094572",
+      "size_bytes": 77664
+    },
+    {
+      "path": "figures/gradient_maps.png",
+      "sha256": "3178024e936b00084038a7bc996a9587f5f06c576a060497b7eae4b57148b441",
+      "size_bytes": 199121
+    },
+    {
+      "path": "figures/intensity_profile.pdf",
+      "sha256": "c13b4f68051ccbca00daf72108e440da757cceec4f3a89a1f8dfefb87ace404e",
+      "size_bytes": 19440
+    },
+    {
+      "path": "figures/intensity_profile.png",
+      "sha256": "9ae45fcf7da24d2bac6ce5d3be83f952a3d551e1dc0451c3840d1ee80ea6f954",
+      "size_bytes": 147586
+    },
+    {
+      "path": "figures/k_comparison.pdf",
+      "sha256": "c536aab901c94f331bf8f113f592c25cd98e24aa4b264284bb1b860690f011bb",
+      "size_bytes": 175574
+    },
+    {
+      "path": "figures/k_comparison.png",
+      "sha256": "9358d731b034429b5fd6eb943250c61c3acaf6c8213678b1c13093248098a9ec",
+      "size_bytes": 291550
+    },
+    {
+      "path": "figures/k_sensitivity_geometric_shapes_sigma0p1.pdf",
+      "sha256": "4886d7269adac02c558f9c7766a6accef69a1248ef043efbcf28a45631037b41",
+      "size_bytes": 28956
+    },
+    {
+      "path": "figures/k_sensitivity_geometric_shapes_sigma0p1.png",
+      "sha256": "f86cdb965e50419f44e6486c3714eebea016b1c2ab4d57d6e2b21825908c553a",
+      "size_bytes": 247926
+    },
+    {
+      "path": "figures/metric_curves.pdf",
+      "sha256": "fc47d9debb630b0a8789ae410f3dfa5138edd4b4147a7409e723ca0ff1141785",
+      "size_bytes": 29960
+    },
+    {
+      "path": "figures/metric_curves.png",
+      "sha256": "bdb2a45b258fe7939ca1f257fdebb154859af422e31cae3c520fbac670f7bdb9",
+      "size_bytes": 237424
+    },
+    {
+      "path": "figures/metric_curves_geometric_shapes_sigma0p1.pdf",
+      "sha256": "d954293839dce483ca97d39a834998dd34d206c433e312402d11023111748c8d",
+      "size_bytes": 34401
+    },
+    {
+      "path": "figures/metric_curves_geometric_shapes_sigma0p1.png",
+      "sha256": "336b9a8cf3a6400fd4dd24ac032db51f3b14bac8b713e523827d328de422cdad",
+      "size_bytes": 282120
+    },
+    {
+      "path": "metrics.csv",
+      "sha256": "f6523a97298489443b8a0981bc7cd6ff98ca9ee51a250dc84d10e4824a36a371",
+      "size_bytes": 26431
+    },
+    {
+      "path": "run.log",
+      "sha256": "5d5ed76ff13cbadd9d6b91123fd8982a234c0b6866e41d746e456c7d687219f0",
+      "size_bytes": 395
+    },
+    {
+      "path": "summary.csv",
+      "sha256": "3b7c89e8a1824377da6d292ccf52e710afd175144c0ab162c65241bf1267d25e",
+      "size_bytes": 13708
+    },
+    {
+      "path": "tables/extended_common_checkpoints.csv",
+      "sha256": "017aa19b85ff82850ec35285cda08b3ec90dde2df7be784ae6465984a2598188",
+      "size_bytes": 13287
+    },
+    {
+      "path": "tables/extended_common_checkpoints.tex",
+      "sha256": "a447f6a4399c0c2a0e529ea9488f794922bb456a1fcf88a3ac4f344a1efa94d8",
+      "size_bytes": 11382
+    },
+    {
+      "path": "tables/oracle_exploratory.csv",
+      "sha256": "61ab6bb87b51daa21a508352efd97fc45042afee1e37805aae0f58a74d874a02",
+      "size_bytes": 604
+    },
+    {
+      "path": "tables/oracle_exploratory.tex",
+      "sha256": "03a0d5e236897abd8c0f3f5ce7d2d08a75fa6456df51965a6facd02983223043",
+      "size_bytes": 584
+    },
+    {
+      "path": "tables/representative_summary.tex",
+      "sha256": "488f8428f2f3707a7d880c23eeb86fb648b5b6424126eab8a8f7f78ef4ace026",
+      "size_bytes": 890
+    }
+  ]
+}

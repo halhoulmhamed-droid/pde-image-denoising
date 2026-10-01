@@ -1,0 +1,88 @@
+\section{Reproductibilité : fichiers, nombres et temps machine}
+\label{sec:reproducibility}
+
+\subsection{Environnement enregistré et formats}
+
+Le calcul étendu a été exécuté sur CPU sous Windows, dans l'environnement
+Python local du projet, avec tableaux NumPy \texttt{float64}. Les versions
+du tableau~\ref{tab:environment} proviennent du fichier
+\path{environment.json}, et non de versions supposées disponibles au
+moment de la lecture du rapport. Le paquet porte la version interne
+$0.0.0$, qui n'est pas une publication.
+
+\begin{table}[htbp]
+ \centering
+ \caption{Environnement du calcul étendu archivé ; versions enregistrées,
+ sans installation ni nouvelle expérience pour la rédaction.}
+ \label{tab:environment}
+ \input{generated/environment.tex}
+\end{table}
+
+Une tentative initiale d'import de \path{skimage.metrics} avait chargé
+une DLL SciPy refusée par Windows Application Control. La restriction
+n'a pas été contournée. Les mesures finales utilisent donc les formules
+NumPy documentées en section~\ref{sec:metrics} ; les paquets optionnels
+\texttt{scikit-image} et SciPy, présents après cette tentative, ne sont
+pas utilisés par le calcul. Cette différence d'implémentation est
+consignée pour éviter une attribution trompeuse à une bibliothèque.
+
+Chaque ligne de \path{metrics.csv} identifie image, bruit, graine,
+méthode, conductance, $K$, pas, checkpoint, temps de diffusion, quatre
+scores et durée cumulative. Des hashes identifient les observations et
+sorties. \path{summary.csv} regroupe sans perdre la définition des
+métriques individuelles. Les fichiers NPZ archivent les entrées et les
+sorties nécessaires aux exemples ; les PDF/PNG, tables, configuration,
+environnement, journal et manifeste complètent la chaîne de provenance.
+
+\subsection{Intégrité et modes de vérification}
+
+Le manifeste énumère les fichiers de résultats, leurs tailles et SHA-256,
+et relie la configuration utilisée à son empreinte. Les hashes d'arrays
+sont calculés sur une représentation canonique \texttt{float64} de
+boutisme fixé, avec forme et type inclus. Le vérificateur contrôle la
+structure des CSV, les clés de regroupement, les graines, les observations
+communes, les métriques recalculées et toutes les moyennes et dispersions.
+Les statistiques de durée sont recalculées depuis les durées enregistrées,
+jamais comparées à un nouveau chronométrage.
+
+Deux constats doivent être distingués. Le compte rendu local archivé
+\path{results/extended/verification.json} atteste une reproduction
+\emph{stricte} dans l'environnement Windows enregistré : égalité exacte
+et aucune différence de hash recalculé. L'audit indépendant communiqué
+pour cette phase atteste une reproduction \emph{numérique}
+inter-environnements, avec \texttt{rtol=1e-10} et \texttt{atol=1e-12}.
+Ce second constat est celui de l'audit fourni, et non une vérification
+relancée pendant la rédaction.
+
+Le mode numérique conserve des contrôles exacts de structure et
+d'intégrité des fichiers archivés, mais accepte de faibles différences
+des quantités recalculées sous la règle
+$|a-b|\leq10^{-12}+10^{-10}|b|$. Il signale leurs éventuels hashes
+différents sans annoncer une reproduction exacte. L'intégrité d'un
+ZIP ou d'un manifeste et la proximité numérique entre environnements
+sont donc deux garanties différentes. Le tableau~\ref{tab:verification}
+résume les contrôles locaux réellement enregistrés ; les $165$ tests
+réussis appartiennent à la validation antérieure, sans relance de la
+suite scientifique pour cette rédaction.
+
+\begin{table}[htbp]
+ \centering
+ \caption{Contrôles consignés dans la vérification stricte locale de
+ phase~4 ; durée et horodatage ne sont pas assimilés à des quantités
+ déterministes.}
+ \label{tab:verification}
+ \input{generated/verification.tex}
+\end{table}
+
+\subsection{Lire correctement les durées}
+
+La durée enregistrée du pipeline expérimental est
+$44{,}407302$~s dans son environnement d'origine. Elle inclut calculs,
+métriques, écritures et figures ; elle n'est pas une mesure universelle
+de coût. La somme des durées \emph{terminales} des $540$ trajectoires
+est $16{,}5264453$~s. Le chronométrage du solveur inclut les copies
+d'états aux checkpoints, mais pas la génération du bruit, les métriques,
+les hashes ou les figures. Les durées aux checkpoints sont cumulatives :
+les additionner sur tous les checkpoints compterait plusieurs fois le
+même calcul. Enfin, $t=n\dt$ est un temps de diffusion dans une convention
+numérique, sans relation d'identité avec ces secondes machine.

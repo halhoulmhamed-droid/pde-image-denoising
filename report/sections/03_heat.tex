@@ -1,0 +1,115 @@
+\section{La diffusion linéaire : un modèle de référence}
+\label{sec:heat}
+
+\subsection{Évolution, flux et conditions aux limites}
+
+Le modèle de chaleur part de l'observation bruitée $f$ et recherche une
+famille d'images $u(\cdot,t)$ vérifiant
+\begin{equation}
+ \partial_t u=\Delta u \quad\text{dans }\Omega,\qquad
+ u(\cdot,0)=f,\qquad \partial_{\boldsymbol n}u=0
+ \quad\text{sur }\partial\Omega.
+ \label{eq:heat-continuous}
+\end{equation}
+Le Laplacien $\Delta u=\partial_{xx}u+\partial_{yy}u$ mesure la différence
+entre une valeur et ses environs immédiats : une pointe isolée tend à
+diminuer et un creux isolé tend à augmenter. L'équation ne distingue pas
+l'origine de ces variations. Elle atténue donc une fluctuation de bruit,
+mais également une transition appartenant réellement à l'image.
+Le coefficient de diffusion est fixé à un ; toute modification de ce
+coefficient changerait l'échelle temporelle de comparaison.
+
+En introduisant le flux physique $\boldsymbol J=-\nabla u$, on écrit
+$\partial_t u+\operatorname{div}\boldsymbol J=0$.
+La condition $\partial_{\boldsymbol n}u=0$ impose
+$\boldsymbol J\cdot\boldsymbol n=0$ : aucune quantité n'est échangée avec
+l'extérieur. Pour une solution suffisamment régulière, l'intégration
+sur le rectangle donne
+\begin{equation}
+ \frac{\dd}{\dd t}\int_\Omega u\,\dd x\,\dd y
+ =\int_{\partial\Omega}\nabla u\cdot\boldsymbol n\,\dd S=0.
+ \label{eq:heat-mass}
+\end{equation}
+Ainsi, la moyenne spatiale reste celle de l'observation. En particulier,
+le débruitage ne supprime pas la moyenne du bruit effectivement tiré :
+même si son espérance statistique est nulle, sa moyenne sur un échantillon
+fini n'est généralement pas exactement nulle.
+
+\subsection{Échelles et fréquences}
+
+Sur l'espace entier $\R^2$, pour une donnée initiale dans un cadre où la
+convolution est bien définie, par exemple $f\in L^1(\R^2)\cap L^2(\R^2)$,
+la solution à $t>0$ s'exprime par
+\begin{equation}
+ u(x,y,t)=(G_t*f)(x,y),\qquad
+ G_t(z)=\frac{1}{4\pi t}\exp\left(-\frac{|z|^2}{4t}\right).
+ \label{eq:heat-gaussian}
+\end{equation}
+La variance de ce noyau est $2t$ dans chacune des deux directions.
+Avec la convention angulaire pour la transformation de Fourier,
+on obtient le multiplicateur
+$\exp(-t|\xi|^2)$ : les composantes de grande fréquence spatiale sont
+atténuées plus rapidement. Cette représentation éclaire l'intérêt de la
+chaleur pour un bruit fluctuant à l'échelle du pixel. Elle explique aussi
+pourquoi une frontière nette s'élargit avec le temps.
+
+Le problème effectivement étudié n'est toutefois pas posé sur $\R^2$.
+Sur un rectangle avec conditions de Neumann, la solution est engendrée
+par le Laplacien de Neumann ; sa représentation utilise ses modes propres
+ou un noyau adapté aux frontières. Des réflexions de la donnée peuvent
+permettre une représentation équivalente dans un cadre approprié, mais
+la convolution de la seule image finie avec $G_t$ sur tout l'espace
+n'est pas, sans traitement du bord, la solution exacte de
+\eqref{eq:heat-continuous}. Une extension par zéro imposerait notamment
+un comportement différent aux frontières. Cette distinction est
+essentielle pour relier le modèle au code conservatif.
+
+\subsection{Deux dissipations et leurs hypothèses}
+
+Pour une solution régulière, l'énergie de Dirichlet
+\begin{equation}
+ E_D(u)=\frac12\int_\Omega |\nabla u|^2\,\dd x\,\dd y
+ \label{eq:dirichlet-energy}
+\end{equation}
+mesure la variation spatiale. Si une perturbation $v$ respecte le cadre
+variationnel de Neumann, son premier accroissement s'écrit
+\begin{equation}
+ \dd E_D(u)[v]
+ =\int_\Omega \nabla u\cdot\nabla v
+ =-\int_\Omega (\Delta u)v,
+ \label{eq:dirichlet-firstvariation}
+\end{equation}
+le terme de bord étant nul. L'équation de chaleur est donc formellement
+le flot de gradient négatif de $E_D$ pour la métrique $L^2$.
+Pour une solution assez régulière pour dériver l'énergie et effectuer
+l'intégration par parties, ce calcul donne
+\begin{equation}
+ \frac{\dd}{\dd t}E_D(u(t))
+ =-\int_\Omega (\Delta u)^2\,\dd x\,\dd y\leq0.
+ \label{eq:dirichlet-dissipation}
+\end{equation}
+Ce sont des identités pour le modèle continu régulier ; une donnée
+pixelisée et bruitée n'est pas supposée posséder initialement toutes
+les dérivées utilisées. Elles motivent le modèle, sans remplacer une
+analyse du schéma entièrement discret.
+
+Une seconde quantité, distincte de $E_D$, est la variance spatiale
+quadratique. Avec $\bar f=|\Omega|^{-1}\int_\Omega f$, la conservation de
+la moyenne et l'intégration par parties donnent
+\begin{equation}
+ \frac{\dd}{\dd t}\frac12\int_\Omega (u-\bar f)^2
+ =-\int_\Omega |\nabla u|^2\leq0.
+ \label{eq:heat-variance}
+\end{equation}
+La chaleur réduit les variations par rapport à la moyenne, et non
+nécessairement l'erreur par rapport à $\utrue$ à chaque instant. Lorsque
+les détails de l'image propre sont suffisamment atténués, l'erreur de
+reconstruction peut augmenter alors même que l'énergie continue de
+décroître. Le sur-lissage ne constitue donc pas une instabilité du
+modèle : il révèle un choix de temps inadapté à l'objectif de débruitage.
+
+Cette lecture en termes d'échelles et de diffusion constitue le point
+de comparaison des modèles dépendant des variations locales
+\cite{weickert1998}. Dans les expériences, le temps d'arrêt est par
+conséquent un paramètre scientifique aussi important que le choix de
+l'équation.

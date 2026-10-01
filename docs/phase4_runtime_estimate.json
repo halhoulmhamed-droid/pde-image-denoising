@@ -1,0 +1,17 @@
+{
+  "source": "results/extended_probe/run.log",
+  "pilot_observations": 1,
+  "pilot_solver_trajectories": 9,
+  "pilot_metrics_rows": 73,
+  "pilot_whole_pipeline_seconds": 6.801515300,
+  "pilot_terminal_solver_time_sum_seconds": 0.294918900,
+  "full_observations": 60,
+  "scale_factor": 60,
+  "conservative_pipeline_estimate_seconds": 408.090918000,
+  "solver_only_estimate_seconds": 17.695134000,
+  "stop_threshold_seconds": 1200,
+  "gate": "passed; one full timed execution permitted",
+  "pilot_verification_mode": "strict",
+  "pilot_verification_status": "passed",
+  "note": "Whole-pipeline scaling overestimates fixed plot and table costs. No intermediate cumulative checkpoint durations are summed."
+}

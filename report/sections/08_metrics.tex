@@ -1,0 +1,116 @@
+\section{Mesurer la fidélité à l'image propre}
+\label{sec:metrics}
+
+L'image propre est connue dans cette expérience synthétique : elle fournit
+une référence de mesure, non une information disponible dans une situation
+réelle de débruitage. Plusieurs scores sont nécessaires, car une faible
+erreur pixel à pixel ne garantit ni des transitions nettes ni une texture
+visuellement satisfaisante. Aucune des mesures suivantes ne constitue une
+mesure quantitative dédiée aux contours.
+
+\subsection{Erreur quadratique et erreur relative}
+
+Pour deux matrices $a$ et $b$ de même taille, comportant $P$ pixels, les
+mesures implémentées sont
+\begin{align}
+ \operatorname{MSE}(a,b)
+   &=\frac{1}{P}\sum_{i,j}(a_{i,j}-b_{i,j})^2,
+   \label{eq:mse}\\
+ E_{\mathrm{rel}}(a,b)
+   &=\frac{\left(\sum_{i,j}(a_{i,j}-b_{i,j})^2\right)^{1/2}}
+           {\left(\sum_{i,j}a_{i,j}^2\right)^{1/2}}.
+   \label{eq:relative-error}
+\end{align}
+Dans les résultats, $a=u_{\mathrm{true}}$ et $b$ est l'observation ou un
+état diffusé. Le dénominateur de \eqref{eq:relative-error} est non nul
+pour les deux images étudiées. L'implémentation traite néanmoins le cas
+limite : deux images nulles donnent une erreur relative nulle ; une
+référence nulle et une estimation non nulle donnent $+\infty$.
+Ces conventions sont testées, plutôt que masquées par une petite constante
+ajoutée au dénominateur.
+
+\subsection{PSNR et plage de référence}
+
+Avec une plage de référence fixée à $L=1$, le rapport signal sur bruit de
+crête est
+\begin{equation}
+ \operatorname{PSNR}(a,b)
+   =10\log_{10}\!\left(\frac{L^2}{\operatorname{MSE}(a,b)}\right)
+   \quad\text{en décibels}.
+ \label{eq:psnr}
+\end{equation}
+Une MSE nulle donne $+\infty$. La plage $L$ ne dépend ni des extrema de
+chaque sortie ni de ceux de l'observation bruitée : les vérités terrain
+sont normalisées dans $[0,1]$ et \texttt{data\_range=1.0} est conservé
+pour toutes les méthodes. Les valeurs hors de $[0,1]$ entrent donc
+effectivement dans les erreurs. Cette convention rend les comparaisons
+cohérentes avec la documentation officielle des métriques
+\cite{skimage_metrics}.
+
+Pour une configuration, le PSNR publié est la moyenne des dix PSNR
+individuels. Il ne s'agit pas du PSNR de la MSE moyenne. Le logarithme est
+non linéaire : pour des MSE positives $e_r$, la convexité de $-\log$
+donne
+\begin{equation}
+ \frac1{10}\sum_{r=0}^{9}10\log_{10}(1/e_r)
+ \ \geq\ 10\log_{10}\!\left(1/\left(\frac1{10}\sum_{r=0}^{9}e_r\right)\right).
+ \label{eq:psnr-mean}
+\end{equation}
+L'égalité exige des erreurs identiques. L'export documentaire conserve
+les colonnes agrégées du CSV sans changer cette définition.
+
+\subsection{Le SSIM effectivement utilisé}
+
+L'indice de similarité structurelle reprend l'idée de comparer localement
+luminance, contraste et structure \cite{wang2004}. Il faut cependant
+préciser sa variante numérique. Ici, chaque fenêtre valide uniforme
+$7\times7$ contient $m=49$ pixels. Pour une fenêtre $W$,
+\begin{align}
+ \mu_a&=\frac1m\sum_{p\in W}a_p,
+ &s_a^2&=\frac1{m-1}\sum_{p\in W}(a_p-\mu_a)^2,\\
+ \mu_b&=\frac1m\sum_{p\in W}b_p,
+ &s_{ab}&=\frac1{m-1}\sum_{p\in W}(a_p-\mu_a)(b_p-\mu_b).
+\end{align}
+La contribution locale et le score global sont
+\begin{align}
+ S_W(a,b)&=
+ \frac{(2\mu_a\mu_b+C_1)(2s_{ab}+C_2)}
+      {(\mu_a^2+\mu_b^2+C_1)(s_a^2+s_b^2+C_2)},
+ \label{eq:ssim-local}\\
+ \operatorname{SSIM}(a,b)&=\frac1{|\mathcal W|}\sum_{W\in\mathcal W}S_W(a,b),
+ \qquad C_1=(0{,}01L)^2,\quad C_2=(0{,}03L)^2.
+ \label{eq:ssim-global}
+\end{align}
+Seules les fenêtres entièrement contenues dans l'image sont moyennées :
+il y en a $122\times122$ pour une image $128\times128$. Il n'y a pas de
+prolongement artificiel au bord. Les covariances sont échantillonnales,
+avec dénominateur $m-1$. Les moyennes locales sont calculées par sommes
+cumulées NumPy. Les très petites variances négatives dues à l'annulation
+en virgule flottante sont ramenées à zéro ; le score SSIM lui-même n'est
+jamais borné à zéro. Une covariance négative peut produire un SSIM
+négatif. Des tests indépendants vérifient notamment ce cas.
+
+Cette définition n'est pas la configuration gaussienne $11\times11$,
+d'écart-type $1{,}5$, présentée dans l'article original
+\cite{wang2004}, dont les statistiques pondérées n'utilisent pas la
+correction échantillonnale $m/(m-1)$. Elle est explicitement documentée et maintenue à
+l'identique dans toutes les comparaisons ; la bibliothèque
+\texttt{scikit-image} n'est pas utilisée pour calculer les scores de cette
+exécution.
+
+\subsection{Dispersion et limites de l'interprétation}
+
+Pour chaque métrique $z$, les tableaux et bandes utilisent la moyenne et
+l'écart-type échantillonnal des dix réalisations :
+\begin{equation}
+ \begin{aligned}
+  \bar z&=\frac1{10}\sum_{r=0}^{9}z_r,\\
+  s_z&=\left(\frac1{9}\sum_{r=0}^{9}(z_r-\bar z)^2\right)^{1/2}.
+ \end{aligned}
+ \label{eq:sample-aggregation}
+\end{equation}
+Les bandes représentent $\bar z\pm s_z$, un écart-type échantillonnal,
+\emph{pas} un intervalle de confiance. Les dix réalisations renseignent
+la variabilité due au bruit sur une image fixée ; elles ne mesurent pas
+la variabilité entre images naturelles. Un classement numérique n'est
+donc pas, à lui seul, un test de supériorité statistique ou perceptuelle.

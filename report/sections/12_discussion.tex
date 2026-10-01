@@ -1,0 +1,73 @@
+\section{Portée des résultats, limites et perspectives}
+\label{sec:discussion}
+
+\subsection{Réponse conditionnelle à la question de comparaison}
+
+La diffusion dépendant des variations locales modifie effectivement le
+compromis entre réduction du bruit et maintien de structures dans la
+grille étudiée, mais cette modification dépend du seuil, de la conductance,
+du temps et du critère. Au cas fixé, la rationnelle $K=0{,}10$ obtient
+de meilleurs PSNR et SSIM que la chaleur à $n=20$. L'exponentielle au
+même seuil améliore seulement le premier de ces deux critères.
+À faible $K$, la limitation des flux peut aussi conserver le bruit ;
+à forte diffusion ou après trop d'itérations, PM comme la chaleur peut
+sur-lisser. Le gain potentiel n'est donc pas une propriété inconditionnelle
+du nom de la méthode.
+
+Ces observations sont compatibles avec le mécanisme des flux, sans
+valoir démonstration d'une théorie de performance. La conservation de
+la moyenne et le principe du maximum concernent l'évolution discrète
+elle-même ; la fidélité à une image propre donnée relève d'une autre
+question. Une évolution qui reste bornée entre les extrema de l'entrée
+peut néanmoins éloigner les contours de leur position ou de leur largeur
+de référence. De même, la dissipation de la chaleur ne garantit pas une
+diminution de l'erreur de reconstruction à chaque étape.
+
+\subsection{Ce que le plan ne permet pas d'affirmer}
+
+Deux images synthétiques mettent en évidence des mécanismes, mais ne
+représentent pas la diversité des images naturelles, de leurs textures
+et de leurs appareils d'acquisition. Dix réalisations de bruit sur une
+image ne remplacent pas dix images. Le bruit est exclusivement gaussien
+additif indépendant par pixel ; les bruits dépendant de l'intensité,
+impulsionnels ou spatialement corrélés ne sont pas étudiés. La réutilisation
+du champ standardisé par graine et la construction du protocole après
+la phase exploratoire limitent également l'interprétation statistique.
+
+La grille de $K$ et de temps est finie. Ses maxima ne sont pas des
+optima globaux, surtout lorsqu'ils atteignent le dernier checkpoint.
+Les oracles exploratoires utilisent la vérité terrain : ils renseignent
+le potentiel observé sur cette grille, sans proposer une règle applicable
+à une photographie inconnue. Les PSNR et SSIM portent des notions de
+fidélité différentes ; aucun ne remplace une validation perceptuelle ni
+une analyse géométrique dédiée des contours. Les cartes de gradient
+restent un support d'interprétation visuelle.
+
+Enfin, la PM exécutée est directionnelle à quatre voisins. Ses flux ne
+reconstruisent pas une norme isotrope complète du gradient aux interfaces,
+et l'orientation de la grille peut intervenir. La stabilité démontrée
+sur cette grille ne résout pas les difficultés du problème continu
+non linéaire. Aucune contraction entre solutions, convergence globale
+ou décroissance d'une énergie PM entièrement discrète n'est déduite des
+figures et tests réalisés.
+
+\subsection{Perspectives non réalisées}
+
+Une prolongation pertinente serait de valider les observations sur des
+images naturelles dont la provenance et les conditions d'utilisation
+sont vérifiées. Elle devrait distinguer réglage des paramètres et
+évaluation sur de nouvelles images. La régularisation proposée par
+Catté et collaborateurs \cite{catte1992}, ainsi que d'autres approches
+de diffusion discutées par Weickert \cite{weickert1998}, offrent des
+pistes pour traiter les difficultés du modèle continu et la dépendance
+à la grille ; elles n'ont pas été implémentées ici.
+
+Une sélection de $K$ et de l'arrêt sans accès à l'image propre est un
+problème à part entière. Elle pourrait mobiliser une estimation du bruit,
+des critères de discrépance ou une autre stratégie explicitement validée.
+Les liens avec problèmes inverses et optimisation permettraient aussi
+de distinguer l'évolution de lissage d'une reconstruction guidée par un
+modèle d'observation. Des comparaisons avec d'autres schémas numériques
+ou des méthodes apprises exigeraient un protocole nouveau et des budgets
+comparables. Ces pistes sont des perspectives, non des résultats de ce
+mini-projet.

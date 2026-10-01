@@ -1,0 +1,399 @@
+--- received/report/main.tex
++++ compiled/report/main.tex
+@@ -52,9 +52,6 @@
+ \vfill
+ {\normalsize Mini-projet scientifique de Master\par
+ Modélisation, analyse numérique et expérimentation reproductible\par}
+-\vspace{0.5cm}
+-{\small Compilation, pagination et mise en page PDF\par
+-non validées dans l'environnement de rédaction.\par}
+ \end{titlepage}
+ \pagenumbering{roman}
+ \hypersetup{pageanchor=true}
+@@ -121,7 +118,11 @@
+ Mathematics and Machine Learning (descriptive English translation,
+ not asserted as an official programme name).
+ \selectlanguage{french}
++\begingroup
++\small
++\setlength{\parskip}{0pt}
+ \tableofcontents
++\endgroup
+ \chapter*{Notations et conventions de lecture}
+ \addcontentsline{toc}{chapter}{Notations et conventions de lecture}
+ \noindent
+--- received/report/sections/appendices.tex
++++ compiled/report/sections/appendices.tex
+@@ -33,6 +33,13 @@
+ sources, la compilation et l'inspection du rendu ; leurs garanties ne
+ sont pas interchangeables.
+ 
++Les PDF de cette édition ont été compilés et inspectés dans un
++\emph{environnement externe} ; le blocage du compilateur Windows reste
++consigné séparément. Les commandes, versions, vérifications et corrections
++purement documentaires de cette édition figurent dans
++\path{docs/phase5_v2_external_compilation.json}. Aucun solveur ni
++calcul expérimental nouveau n'accompagne cette compilation.
++
+ \section{Correspondance des valeurs et limites de l'archive}
+ Les CSV documentaires conservent les chaînes numériques originales,
+ sans arrondi préalable. Le fichier
+--- received/slides/main.tex
++++ compiled/slides/main.tex
+@@ -8,6 +8,7 @@
+ \usepackage{booktabs}
+ \usepackage{tabularx}
+ \usepackage{xcolor}
++\usepackage{tikz}
+ 
+ \usetheme{default}
+ \definecolor{academicblue}{RGB}{28,61,88}
+@@ -29,6 +30,57 @@
+ \newcommand{\figcaption}[1]{\par\vspace{0.1cm}{\footnotesize #1\par}}
+ \newcommand{\smallgap}{\vspace{0.18cm}}
+ 
++% Presentation-only legends: same series, colours and line/marker encodings
++% as the archived figures. The scientific PDF figures are never rewritten.
++\definecolor{legendExpA}{rgb}{0.579607843,0.770196078,0.873725490}
++\definecolor{legendExpB}{rgb}{0.331334102,0.622068435,0.804767397}
++\definecolor{legendExpC}{rgb}{0.146666667,0.460392157,0.718692810}
++\definecolor{legendExpD}{rgb}{0.031372549,0.289734717,0.570319108}
++\definecolor{legendRatA}{rgb}{0.992156863,0.656470588,0.382745098}
++\definecolor{legendRatB}{rgb}{0.966320646,0.475432526,0.147020377}
++\definecolor{legendRatC}{rgb}{0.863529412,0.299607843,0.013333333}
++\definecolor{legendRatD}{rgb}{0.617993080,0.199077278,0.012610534}
++\definecolor{legendStepA}{rgb}{0.273006000,0.204520000,0.501721000}
++\definecolor{legendStepB}{rgb}{0.127568000,0.566949000,0.550556000}
++\definecolor{legendStepC}{rgb}{0.606045000,0.850733000,0.236712000}
++\definecolor{legendNoisy}{gray}{0.45}
++\newcommand{\legendLine}[3]{%
++  \begin{tikzpicture}[baseline=-0.6ex]
++    \draw[color=#1,#2,line width=0.8pt] (0,0)--(0.44,0);
++    \ifcase#3\relax
++    \or\fill[color=#1] (0.22,0) circle (1.4pt);
++    \or\fill[color=#1] (0.18,-0.04) rectangle (0.26,0.04);
++    \fi
++  \end{tikzpicture}}
++\newcommand{\metricLegend}{%
++  {\footnotesize\renewcommand{\arraystretch}{1.08}%
++  \begin{tabular}{@{}l@{\hspace{0.35em}}l@{}}
++    \legendLine{black}{solid}{1} & Chaleur \\
++    \legendLine{legendExpA}{solid}{1} & PM exp., $K=0.025$ \\
++    \legendLine{legendExpB}{solid}{1} & PM exp., $K=0.05$ \\
++    \legendLine{legendExpC}{solid}{1} & PM exp., $K=0.1$ \\
++    \legendLine{legendExpD}{solid}{1} & PM exp., $K=0.2$ \\
++    \legendLine{legendRatA}{dashed}{1} & PM rat., $K=0.025$ \\
++    \legendLine{legendRatB}{dashed}{1} & PM rat., $K=0.05$ \\
++    \legendLine{legendRatC}{dashed}{1} & PM rat., $K=0.1$ \\
++    \legendLine{legendRatD}{dashed}{1} & PM rat., $K=0.2$ \\
++    \legendLine{legendNoisy}{densely dotted}{0} & Bruit\'ee (r\'ef.) \\
++  \end{tabular}}}
++\newcommand{\sensitivityLegend}{%
++  {\footnotesize\renewcommand{\arraystretch}{1.08}%
++  \begin{tabular}{@{}l@{\hspace{0.35em}}l@{}}
++    \legendLine{legendStepA}{densely dotted}{0} & Chaleur, $n=5$ \\
++    \legendLine{legendStepB}{densely dotted}{0} & Chaleur, $n=20$ \\
++    \legendLine{legendStepC}{densely dotted}{0} & Chaleur, $n=80$ \\
++    \legendLine{legendStepA}{solid}{1} & PM exp., $n=5$ \\
++    \legendLine{legendStepA}{dashed}{2} & PM rat., $n=5$ \\
++    \legendLine{legendStepB}{solid}{1} & PM exp., $n=20$ \\
++    \legendLine{legendStepB}{dashed}{2} & PM rat., $n=20$ \\
++    \legendLine{legendStepC}{solid}{1} & PM exp., $n=80$ \\
++    \legendLine{legendStepC}{dashed}{2} & PM rat., $n=80$ \\
++    \legendLine{legendNoisy}{densely dotted}{0} & Bruit\'ee (r\'ef.) \\
++  \end{tabular}}}
++
+ \title{Traitement d'images par des équations aux dérivées partielles}
+ \subtitle{Débruitage par diffusion linéaire\\et diffusion de Perona--Malik}
+ \author{Mhamed Halhoul}
+@@ -79,7 +131,7 @@
+     \partial_nu=0\ \text{sur }\partial\Omega.
+   \]
+   \begin{itemize}
+-    \item Le Laplacien atténue les variations et les hautes fréquences.
++    \item La diffusion de chaleur atténue surtout les hautes fréquences.
+     \item Le flux nul conserve la moyenne.
+     \item Une diffusion prolongée élargit aussi les transitions utiles.
+   \end{itemize}
+@@ -255,7 +307,7 @@
+ \end{frame}
+ 
+ \begin{frame}[label=courbes-formes]{Formes géométriques : PSNR et temps de diffusion}
+-  % Recadrages du PDF archivé : panneau gauche et trois colonnes de légende.
++  % Recadrages du PDF archivé : panneau gauche ; légende recomposée à partir des mêmes séries.
+   % trim = gauche, bas, droite, haut, en points PDF (bp).
+   \begin{columns}[T,onlytextwidth]
+     \column{0.71\textwidth}
+@@ -265,12 +317,7 @@
+     \centering
+     {\small Méthodes et seuils $K$\par}
+     \smallgap
+-    \includegraphics[width=\linewidth,trim=293bp 3bp 518bp 430bp,clip]
+-      {\figpath metric_curves_geometric_shapes_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=411bp 3bp 403bp 430bp,clip]
+-      {\figpath metric_curves_geometric_shapes_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=525bp 3bp 291bp 430bp,clip]
+-      {\figpath metric_curves_geometric_shapes_sigma0p1.pdf}
++    \metricLegend
+   \end{columns}
+   \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
+   Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
+@@ -286,12 +333,7 @@
+     \centering
+     {\small Méthodes et seuils $K$\par}
+     \smallgap
+-    \includegraphics[width=\linewidth,trim=293bp 3bp 518bp 430bp,clip]
+-      {\figpath metric_curves_geometric_shapes_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=411bp 3bp 403bp 430bp,clip]
+-      {\figpath metric_curves_geometric_shapes_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=525bp 3bp 291bp 430bp,clip]
+-      {\figpath metric_curves_geometric_shapes_sigma0p1.pdf}
++    \metricLegend
+   \end{columns}
+   \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
+   Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
+@@ -307,12 +349,7 @@
+     \centering
+     {\small Méthodes et seuils $K$\par}
+     \smallgap
+-    \includegraphics[width=\linewidth,trim=293bp 3bp 518bp 430bp,clip]
+-      {\figpath metric_curves_ramps_and_edges_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=411bp 3bp 403bp 430bp,clip]
+-      {\figpath metric_curves_ramps_and_edges_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=525bp 3bp 291bp 430bp,clip]
+-      {\figpath metric_curves_ramps_and_edges_sigma0p1.pdf}
++    \metricLegend
+   \end{columns}
+   \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
+   Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
+@@ -328,12 +365,7 @@
+     \centering
+     {\small Méthodes et seuils $K$\par}
+     \smallgap
+-    \includegraphics[width=\linewidth,trim=293bp 3bp 518bp 430bp,clip]
+-      {\figpath metric_curves_ramps_and_edges_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=411bp 3bp 403bp 430bp,clip]
+-      {\figpath metric_curves_ramps_and_edges_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=525bp 3bp 291bp 430bp,clip]
+-      {\figpath metric_curves_ramps_and_edges_sigma0p1.pdf}
++    \metricLegend
+   \end{columns}
+   \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
+   Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
+@@ -349,12 +381,7 @@
+     \centering
+     {\small Méthodes et checkpoints\par}
+     \smallgap
+-    \includegraphics[width=\linewidth,trim=305bp 3bp 503bp 430bp,clip]
+-      {\figpath k_sensitivity_geometric_shapes_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=425bp 3bp 399bp 430bp,clip]
+-      {\figpath k_sensitivity_geometric_shapes_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=529bp 3bp 303bp 430bp,clip]
+-      {\figpath k_sensitivity_geometric_shapes_sigma0p1.pdf}
++    \sensitivityLegend
+   \end{columns}
+   \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
+   $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
+@@ -370,12 +397,7 @@
+     \centering
+     {\small Méthodes et checkpoints\par}
+     \smallgap
+-    \includegraphics[width=\linewidth,trim=305bp 3bp 503bp 430bp,clip]
+-      {\figpath k_sensitivity_geometric_shapes_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=425bp 3bp 399bp 430bp,clip]
+-      {\figpath k_sensitivity_geometric_shapes_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=529bp 3bp 303bp 430bp,clip]
+-      {\figpath k_sensitivity_geometric_shapes_sigma0p1.pdf}
++    \sensitivityLegend
+   \end{columns}
+   \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
+   $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
+@@ -555,12 +577,7 @@
+     \centering
+     {\small Méthodes et checkpoints\par}
+     \smallgap
+-    \includegraphics[width=\linewidth,trim=305bp 3bp 503bp 430bp,clip]
+-      {\figpath k_sensitivity_ramps_and_edges_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=425bp 3bp 399bp 430bp,clip]
+-      {\figpath k_sensitivity_ramps_and_edges_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=529bp 3bp 303bp 430bp,clip]
+-      {\figpath k_sensitivity_ramps_and_edges_sigma0p1.pdf}
++    \sensitivityLegend
+   \end{columns}
+   \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
+   $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
+@@ -576,12 +593,7 @@
+     \centering
+     {\small Méthodes et checkpoints\par}
+     \smallgap
+-    \includegraphics[width=\linewidth,trim=305bp 3bp 503bp 430bp,clip]
+-      {\figpath k_sensitivity_ramps_and_edges_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=425bp 3bp 399bp 430bp,clip]
+-      {\figpath k_sensitivity_ramps_and_edges_sigma0p1.pdf}\par
+-    \includegraphics[width=\linewidth,trim=529bp 3bp 303bp 430bp,clip]
+-      {\figpath k_sensitivity_ramps_and_edges_sigma0p1.pdf}
++    \sensitivityLegend
+   \end{columns}
+   \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
+   $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
+--- received/slides/speaker_notes.md
++++ compiled/slides/speaker_notes.md
+@@ -275,9 +275,9 @@
+ diminue avec le lissage prolongé. Les courbes PM diffèrent fortement selon
+ K. L'exponentielle aux faibles K reste près de la baseline bruitée.
+ 
+-Le panneau PSNR est recadré depuis le PDF original. La légende originale,
+-avec chaleur, bruitée et les huit variantes PM, figure à droite en trois
+-colonnes empilées. Aucun tracé ni checkpoint n'a été retiré.
++Le panneau PSNR est recadré depuis le PDF original. La légende,
++avec chaleur, bruitée et les huit variantes PM, est recomposée à droite
++avec les mêmes couleurs, traits et marqueurs que la figure archivée. Aucun tracé ni checkpoint n'a été retiré.
+ 
+ Les bandes représentent un écart-type échantillonnal. Une petite dispersion
+ sur dix bruits d'une même image n'établit pas une performance sur une
+@@ -312,7 +312,7 @@
+ Les axes et la référence bruitée doivent se lire conjointement. Les cas
+ à faible sigma figurent dans le rapport et dans les archives, même s'ils
+ ne sont pas tous projetés. Le recadrage agrandit seulement le panneau
+-PSNR et conserve la légende originale complète à droite.
++PSNR et conserve toutes les entrées de légende à droite, recomposées avec les mêmes codes visuels.
+ 
+ Source : metric_curves_ramps_and_edges_sigma0p1.pdf, summary.csv.
+ Transition : observer maintenant le critère local sur les mêmes rampes.
+@@ -343,7 +343,7 @@
+ accélérer le débruitage puis conduire au sur-lissage.
+ 
+ Ces courbes publient les paramètres préfixés, sans enlever les cas
+-défavorables. Le panneau PSNR est agrandi ; la légende originale à droite
++défavorables. Le panneau PSNR est agrandi ; la légende recomposée à droite
+ identifie les deux conductions, les checkpoints, la chaleur et la baseline.
+ La réserve correspondante fournit la sensibilité des rampes.
+ 
+@@ -514,15 +514,15 @@
+ 
+ Le panneau PSNR recadré conserve les deux conductions, les quatre K,
+ les trois checkpoints, la chaleur et la référence bruitée. La légende
+-originale se lit dans les trois vues empilées à droite.
++recomposée à droite conserve les couleurs, traits et marqueurs des courbes archivées.
+ 
+ Source : k_sensitivity_ramps_and_edges_sigma0p1.pdf, panneau PSNR, summary.csv.
+ 
+ ## Réserve 6. Sensibilité SSIM des rampes (reserve-sensibilite-rampes-ssim) — hors budget
+ 
+ Même cas ramps_and_edges, sigma=0,10, dix graines, K=0,025/0,05/0,10/0,20
+-et checkpoints 5, 20 et 80 que la réserve PSNR. Le panneau SSIM et la légende
+-proviennent du même PDF archivé. Les barres décrivent un écart-type
++et checkpoints 5, 20 et 80 que la réserve PSNR. Le panneau SSIM provient du même PDF archivé ; la légende
++est recomposée avec les mêmes couleurs, traits et marqueurs. Les barres décrivent un écart-type
+ échantillonnal. Aucun paramètre n'a été éliminé.
+ 
+ Comparer les évolutions des deux scores sans utiliser leur maximum pour
+--- received/README.md
++++ compiled/README.md
+@@ -21,12 +21,16 @@
+ benchmark. Phase 5 now supplies the complete French report sources,
+ a 16:9 Beamer presentation and oral notes. The phase-5 v2 sources correct
+ report composition and split dense graphs into separate PSNR/SSIM views.
+-Compilation remains **blocked**: no existing LaTeX compiler was found, and
+-Windows Application Control prevents the downloaded official stable
+-Tectonic 0.17.0 executable from launching. Its download SHA-256 matches
+-the publisher's release metadata. No report or slide PDF was produced;
+-the required compiled-document v2 ZIP has therefore not been created.
+-Work stops before phase 6/publication.
++The report and Beamer have now been compiled and visually inspected in an
++external Linux environment: 49 report pages and 32 slides (25 main frames
++plus seven backup frames). The compiled PDFs accompany the documentary
++sources. Layout corrections address slide legends and the report contents
++page; the archived scientific figures and values are unchanged.
++The original Windows compilation attempt remains blocked by Application
++Control, and its historical evidence is retained without alteration.
++See docs/phase5_v2_external_compilation.json for actual commands, versions,
++PDF checks and the limited scope of the archive. Work stops before
++phase 6/publication.
+ 
+ The extended run contains 60 shared noisy observations, 540 solver trajectories,
+ 4,380 metric rows and 438 summary groups. It took 44.4073 seconds for the whole
+@@ -131,22 +135,31 @@
+     .\.venv\Scripts\python.exe -B scripts/export_report_material.py --check
+     .\.venv\Scripts\python.exe -B scripts/check_documentation.py --report docs/phase5_v2_documentary_checks.json
+ 
+-With existing LaTeX tools in the chosen environment (not executed here):
++To rebuild with an existing LaTeX installation including French Babel,
++French hyphenation, Latin Modern, Beamer and TikZ:
+ 
+     latexmk -cd -pdf -interaction=nonstopmode -halt-on-error report/main.tex
+     latexmk -cd -pdf -interaction=nonstopmode -halt-on-error slides/main.tex
+ 
+-See [docs/phase5_build.md](docs/phase5_build.md) for fallback commands,
+-detected tools, the actual launch failure and remaining PDF/layout checks.
++See [docs/phase5_build.md](docs/phase5_build.md) for the original Windows
++attempt and fallback commands. Its unresolved checks describe that earlier
++attempt, not the subsequent external compilation.
+ The compiler download/version metadata are in
+ [docs/phase5_v2_build/compiler.json](docs/phase5_v2_build/compiler.json).
+-Static source validation is not successful compilation. The slide notes
+-allocate 23 minutes, excluding backup frames and questions; report
+-pagination, PDF navigation and rendered slide legibility are unvalidated.
++Static source validation is separate from successful compilation. The
++external edition has been compiled, all 49 pages and 32 slides rendered
++and inspected, and internal PDF destinations checked. The slide notes
++allocate 23 minutes, excluding backup frames and questions. Actual delivery
++time still depends on the speaker. See the external compilation record for
++the two harmless report typography warnings.
+ 
+-The phase-5 review ZIP is documentary: it omits the already audited large
+-NPZ arrays and is not a standalone full scientific reproduction bundle.
+-For a future authorized completion, the v2 archive command is:
++The compiled phase-5 review ZIP is documentary: it omits scientific src,
++tests, quick results and the already audited large NPZ arrays. It supplies
++the report, presentation, figures and source records needed for documentary
++review and is not a standalone full scientific reproduction bundle. The
++external integrity check covers the 52 protected files actually present;
++the other 74 entries in the original inventory are outside this archive.
++The following archive command applies to the complete original repository:
+ 
+     .\.venv\Scripts\python.exe -B scripts/archive_phase5.py --name phase5-v2
+ 
+--- received/docs/PHASE_STATUS.md
++++ compiled/docs/PHASE_STATUS.md
+@@ -533,3 +533,40 @@
+ Ne pas changer la politique de sécurité ni relancer le calcul scientifique.
+ Arrêt avant phase 6, sans staging, commit, push ou publication ;
+ portfolio, profil GitHub et autres projets non touchés.
++
++## Phase 5 v2 — compilation externe réalisée, 2026-10-01
++
++Le ZIP sources reçu, SHA-256
++`a4dd74ed8b83596c8f55270ffa08a414bc5ca019381a02166f56d703651381e0`,
++a été vérifié puis compilé dans une copie externe sous Linux avec
++pdfTeX 1.40.25 et BibTeX 0.99d. Les dépendances françaises manquantes ont
++été chargées dans un espace temporaire, sans installation globale ni
++modification de la sécurité Windows. Le blocage local antérieur et les
++comptes rendus de phases précédentes conservent leur contexte.
++
++Le rapport final compte 49 pages et le Beamer 32 diapositives, dont 25
++principales et 7 réserves. Toutes les pages ont été rendues et examinées.
++Le sommaire tient sur une page et les destinations internes PDF sont
++résolues. Les légendes de huit panneaux ont été recomposées en LaTeX/TikZ ;
++les quatre débordements de légende détectés à la première compilation
++sont résolus. Les couleurs, styles et libellés correspondent aux figures
++archivées, qui n’ont pas été modifiées. La réserve de couverture a été
++retirée après compilation effective. Les notes restent synchronisées avec
++les 32 labels, pour 23 minutes indicatives hors réserves et questions.
++
++Les 17 exports documentaires correspondent exactement aux CSV/JSON :
++4 380 lignes de métriques, 438 groupes, 4 380 statistiques contrôlées et
++60 observations partagées. Quatre contrôles négatifs documentaires sont
++détectés. Les 52 fichiers protégés disponibles dans ce lot ont les mêmes
++empreintes que l’inventaire original ; les 74 autres entrées sont absentes
++de l’archive documentaire. Aucun contrôle complet des arrays omis ni
++nouveau lancement des 165 tests scientifiques n’est revendiqué.
++
++Les deux messages typographiques mineurs du rapport sont détaillés dans
++`docs/phase5_v2_external_compilation.json`. Aucun débordement, caractère
++manquant, référence ou citation non résolue n’apparaît au journal final.
++Le Beamer n’a aucun avertissement final. Les journaux réels, les PDF,
++les sources corrigées et les contrôles accompagnent l’édition compilée.
++Aucun calcul scientifique, staging, commit, push ou publication.
++Arrêt avant la phase 6. Prochaine étape : revue et réintégration
++documentaire ciblée dans le projet complet sur le PC.

@@ -1,0 +1,140 @@
+\section{Stabilité et propriétés discrètes démontrées}
+\label{sec:discrete-properties}
+
+\subsection{Condition suffisante et coefficients de mise à jour}
+
+Écrivons $\mathcal N(P)$ pour l'ensemble des voisins d'un pixel $P$.
+Si l'interface $PQ$ est horizontale, posons $h_{PQ}=\dx$ ; si elle
+est verticale, $h_{PQ}=\dy$. La conductance partagée est
+$a^n_{PQ}=a^n_{QP}$, égale à un pour la chaleur et comprise entre zéro
+et un pour la variante Perona--Malik. Le schéma peut s'écrire
+\begin{equation}
+ U^{n+1}_P=
+ \left(1-\sum_{Q\in\mathcal N(P)}\alpha^n_{PQ}\right)U^n_P
+ +\sum_{Q\in\mathcal N(P)}\alpha^n_{PQ}U^n_Q,
+ \qquad
+ \alpha^n_{PQ}=\frac{\dt\,a^n_{PQ}}{h_{PQ}^2}.
+ \label{eq:convex-update}
+\end{equation}
+Tous les $\alpha^n_{PQ}$ sont non négatifs et
+\begin{equation}
+ \sum_{Q\in\mathcal N(P)}\alpha^n_{PQ}
+ \leq 2\dt\left(\frac1{\dx^2}+\frac1{\dy^2}\right).
+ \label{eq:weight-bound}
+\end{equation}
+La présence de moins de voisins sur le bord ne peut qu'abaisser cette
+somme. La condition suffisante
+\begin{equation}
+ \boxed{\dt\left(\frac1{\dx^2}+\frac1{\dy^2}\right)\leq\frac12}
+ \label{eq:cfl}
+\end{equation}
+rend donc le coefficient central non négatif. Les coefficients de
+\eqref{eq:convex-update} somment à un. Avec $\dx=\dy=1$ et
+$\dt=0{,}20$, le membre de gauche vaut $0{,}40<0{,}50$ ; la somme
+maximale des poids des voisins vaut $0{,}80$ et le poids central
+est au moins $0{,}20$.
+
+Cette condition est volontairement suffisante et commune aux trois
+solveurs ; des conductances faibles pourraient autoriser ponctuellement
+une borne moins restrictive, mais aucun pas adaptatif n'est utilisé.
+Le programme rejette un pas invalide au lieu de le réduire silencieusement.
+La comparaison de la borne inclut seulement une marge de
+$32\varepsilon_{\mathrm{machine}}$ pour l'arrondi flottant du calcul
+de stabilité, et non une permission de dépasser matériellement la
+condition.
+
+\subsection{Conservation des constantes et de la moyenne}
+
+\paragraph{Constantes.}
+Si $U^n_P=b$ pour tous les pixels, chaque différence d'interface est
+nulle. Toutes les contributions $Q^x,Q^y$ sont donc nulles, quelle
+que soit la conductance. Ainsi $U^{n+1}_P=b$. Par récurrence, une image
+constante demeure constante pour tout nombre d'étapes. Cette propriété
+n'impose pas que $b$ appartienne à $[0,1]$.
+
+\paragraph{Somme.}
+En sommant \eqref{eq:explicit-euler} sur les pixels, une interface
+intérieure contribue une fois par $+\dt Q$ et une fois par
+$-\dt Q$. Les deux termes s'annulent. Il n'existe aucune contribution
+extérieure selon \eqref{eq:boundary-edges}. En arithmétique exacte,
+\begin{equation}
+ \sum_P U^{n+1}_P=\sum_P U^n_P=\sum_P f_P,
+ \qquad \overline U^{n+1}=\overline U^n=\overline f.
+ \label{eq:discrete-mass}
+\end{equation}
+Sur une grille uniforme, la masse pondérée par l'aire des cellules,
+$\dx\dy\sum_P U_P$, est également conservée. Le résultat reste
+valable lorsque les conductances dépendent de l'état : l'annulation
+requiert leur partage sur l'interface, pas leur constance dans le
+temps. En machine, les additions dans des cases distinctes puis la
+sommation peuvent introduire un arrondi ; les tests contrôlent donc
+la conservation à une tolérance absolue adaptée.
+
+\subsection{Principe du maximum discret}
+
+Sous \eqref{eq:cfl}, chaque valeur nouvelle est une combinaison
+convexe de valeurs anciennes. Si $m_n=\min_P U^n_P$ et
+$M_n=\max_P U^n_P$, alors
+\begin{equation}
+ m_n\leq U^{n+1}_P\leq M_n\quad\text{pour tout }P,
+ \qquad m_{n+1}\geq m_n,\quad M_{n+1}\leq M_n.
+ \label{eq:discrete-maximum}
+\end{equation}
+Par récurrence, $\min f\leq U^n_P\leq\max f$. La démonstration vaut
+pour Perona--Malik malgré sa non-linéarité : à l'étape considérée,
+les coefficients calculés depuis $U^n$ vérifient les mêmes bornes.
+
+Il ne s'agit pas d'une borne dans $[0,1]$. Si le bruit place une valeur
+initiale à $-0{,}1$ ou à $1{,}1$, le principe du maximum concerne cet
+intervalle initial. Il est donc compatible avec l'absence de troncature.
+Il ne prouve pas non plus une contraction entre deux solutions non
+linéaires distinctes : leurs conductances dépendent de leurs états
+respectifs. Aucune telle contraction n'est déduite de
+\eqref{eq:convex-update}.
+
+\subsection{Dissipation quadratique de la chaleur sur la grille}
+
+Pour la chaleur seule, $L_h=L$ est une matrice réelle symétrique.
+En regroupant les contributions par interface, on obtient
+\begin{equation}
+ \langle V,LV\rangle
+ =-\sum_{\{P,Q\}\in\mathcal E}
+    \frac{(V_Q-V_P)^2}{h_{PQ}^2}\leq0,
+ \label{eq:linear-discrete-form}
+\end{equation}
+où $\mathcal E$ contient chaque interface intérieure une fois.
+La matrice est négative semi-définie et annule les constantes.
+Pour le rectangle à flux nul, ses valeurs propres sont comprises
+entre $-4/\dx^2-4/\dy^2$ et zéro, comme le confirme la formule
+explicite des modes de la section~\ref{sec:verification}.
+
+Posons $V^n=U^n-\overline f$. Dans une base orthonormée de vecteurs
+propres, chaque composante d'Euler est multipliée par
+$1+\dt\lambda$, avec $\lambda\leq0$. Sous \eqref{eq:cfl},
+$-1\leq1+\dt\lambda\leq1$. Il en résulte
+\begin{equation}
+ \sum_P (U^{n+1}_P-\overline f)^2
+ \leq\sum_P (U^n_P-\overline f)^2.
+ \label{eq:linear-discrete-l2}
+\end{equation}
+Cette dissipation est celle d'une quantité discrète précisément
+définie, et non une affirmation sur l'erreur par rapport à l'image
+propre. Le test existant emploie un état non constant et vérifie une
+diminution stricte après plusieurs pas. La preuve spectrale précédente
+est linéaire ; elle n'est pas transférée ici à une énergie non linéaire
+de Perona--Malik.
+
+\subsection{Ce que ces propriétés ne démontrent pas}
+
+La \emph{stabilité discrète} examinée ici est le maintien de bornes
+et de propriétés conservatrices à grille fixée. La \emph{consistance}
+compare un opérateur discret à un opérateur différentiel sur des
+fonctions régulières. La \emph{convergence} demande un passage à la
+limite en raffinant la grille et le temps dans un cadre précisé.
+Enfin, la \emph{bonne position} du problème continu concerne
+l'existence, l'unicité et la dépendance vis-à-vis des données.
+Les preuves précédentes ne rendent pas ces quatre notions
+interchangeables. En particulier, elles ne prouvent pas une convergence
+de la variante directionnelle vers le modèle scalaire
+\eqref{eq:pm-continuous}, dont elle n'approche pas le même opérateur
+dans sa limite formelle intérieure.

@@ -1,0 +1,68 @@
+\section{Débruiter sans effacer les structures}
+\label{sec:context}
+
+Une image acquise contient des variations d'intensité qui proviennent
+à la fois de la scène et du processus d'observation. Certaines sont
+utiles : une frontière entre deux objets, une transition d'éclairage
+ou un détail fin. D'autres constituent du bruit. Débruiter consiste à
+réduire ces dernières sans effacer les premières. Ce compromis est
+difficile parce qu'un calcul local voit seulement les valeurs et leurs
+variations ; il ne connaît pas leur origine.
+
+Une moyenne locale atténue efficacement des fluctuations indépendantes,
+mais mélange également les intensités de part et d'autre d'une frontière.
+Une évolution par EDP organise ce lissage en une famille d'états : le
+temps de diffusion règle l'échelle de transformation. L'image initiale
+est l'observation, et chaque instant définit une reconstruction possible.
+Il ne s'agit pas de mesurer une durée physique d'acquisition. L'EDP
+constitue ici un modèle de traitement, dont la pertinence dépend de
+l'image, du bruit et du choix d'arrêt.
+
+La chaleur offre une référence simple, linéaire et analysable. Elle
+échange de l'intensité entre voisins sans adapter le coefficient aux
+variations. Perona--Malik propose au contraire un frein dépendant des
+pentes locales \cite{perona1990}. Cette idée motive une comparaison,
+mais pas une conclusion préalable : une grande différence peut aussi
+être produite par le bruit, et la conductance peut alors préserver ce
+qu'il faudrait éliminer.
+
+\subsection{Question et nature du travail}
+La question étudiée est :
+\begin{quote}
+Dans quelles conditions la diffusion dépendant du gradient modifie-t-elle
+le compromis entre réduction du bruit et préservation des contours,
+par rapport à la diffusion linéaire ?
+\end{quote}
+Le mot « conditions » inclut le niveau de bruit, le paramètre $K$, la
+conductance, la durée d'évolution et la nature de l'image. La réponse
+sera limitée à la grille expérimentale observée. Les figures apportent
+une lecture des transitions, tandis que les métriques quantifient des
+écarts à une référence connue. Aucune de ces lectures ne remplace toutes
+les autres.
+
+Le projet est un travail de cours de niveau M2, non une recherche
+nouvelle. Son apport pédagogique est de relier la modélisation aux
+équations, les équations à un schéma exact et les sorties à une
+interprétation traçable. Les hypothèses et limites sont donc aussi
+importantes que les scores. La stabilité d'un calcul, sa fidélité à un
+modèle et l'efficacité de son débruitage sont trois questions différentes.
+Le périmètre comprend la chaleur et les deux lois de conductance dans
+une variante directionnelle conservative. Il exclut le défloutage
+inverse, la segmentation, les modèles variationnels supplémentaires et
+les méthodes apprises. Les perspectives sont décrites comme telles,
+sans leur attribuer de simulations réalisées.
+
+\subsection{Une comparaison et non un concours présupposé}
+L'image propre est disponible parce que les données sont synthétiques.
+Elle permet de mesurer les reconstructions et d'illustrer un compromis
+qui serait plus difficile à quantifier sur une acquisition inconnue.
+Elle n'est utilisée par aucun solveur. En revanche, retenir après coup
+le meilleur réglage selon une métrique utilise cette information ; le
+rapport nomme ce choix « oracle exploratoire ».
+
+Le bruit non traité reste une méthode de référence à part entière.
+Une évolution peut améliorer une mesure et en détériorer une autre,
+ou devenir moins bonne que l'observation avec un arrêt trop tardif.
+Le protocole conserve donc tous les réglages prédéfinis et les cas
+défavorables. Cette organisation évite de confondre une illustration
+réussie avec une conclusion générale.

@@ -1,0 +1,13 @@
+Commande effectivement exécutée :
+& 'D:\academic-projects\_tools\tectonic\0.17.0\tectonic.exe' --version
+
+Extrait de la sortie réellement reçue de PowerShell :
+Le programme «tectonic.exe» n’a pas pu s’exécuter: Une stratégie de contrôle d’application a bloqué ce fichier
+CategoryInfo : ResourceUnavailable: (:) [], ApplicationFailedException
+FullyQualifiedErrorId : NativeCommandFailed
+Tectonic --version failed
+
+Le lancement a échoué avant toute compilation. Ce fichier est un justificatif
+du blocage de lancement, pas un journal LaTeX. Aucun PDF ni avertissement
+LaTeX local n'a été produit. La politique de sécurité n'a pas été modifiée
+ou contournée. Aucun nouveau téléchargement de ressources LaTeX effectué.

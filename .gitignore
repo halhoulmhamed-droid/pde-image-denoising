@@ -1,0 +1,60 @@
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.ipynb_checkpoints/
+.audit-local/
+build/
+dist/
+
+# Local secrets; a secret-free template may be tracked
+.env
+.env.*
+!.env.example
+
+# Scratch output only; keep the archived experiments and all six NPZ files
+results/tmp/
+results/**/.verification_tmp/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+!results/quick/run.log
+!results/extended/run.log
+!results/extended_probe/run.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.lof
+*.lot
+*.dvi
+*.xdv
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

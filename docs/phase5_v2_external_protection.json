@@ -1,0 +1,345 @@
+{
+  "scope": "Only protected files actually present in this documentary archive; not a full scientific reproduction check.",
+  "included_checked": 52,
+  "excluded_from_archive": 74,
+  "mismatches": [],
+  "included_files": [
+    {
+      "path": "results/extended/analysis.json",
+      "size_bytes": 84806,
+      "sha256": "075ff0f4c0ebafd0676a9305af17c4f7e0814bd45518d0f8b486435f916ce9b5"
+    },
+    {
+      "path": "results/extended/config_used.json",
+      "size_bytes": 807,
+      "sha256": "be549caca2fdeb0786f23da6c099f73e44524fcbc7845e056af443ef4f1fae84"
+    },
+    {
+      "path": "results/extended/environment.json",
+      "size_bytes": 1027,
+      "sha256": "873429cf5997e1526db34b3df8fd1983c2eb8c9e984d5640b2fdd0088d55a14f"
+    },
+    {
+      "path": "results/extended/figures/comparison.pdf",
+      "size_bytes": 75976,
+      "sha256": "abe40af1ed03e2b5d92929a0bfefda0dda99c5128f4a2b48bede4abc842958f3"
+    },
+    {
+      "path": "results/extended/figures/comparison.png",
+      "size_bytes": 139732,
+      "sha256": "e378058fb6c64c7a2ffba5d568f1310f6f84a9e1aaa3cddd9606d72d639ccbde"
+    },
+    {
+      "path": "results/extended/figures/gradient_maps.pdf",
+      "size_bytes": 77664,
+      "sha256": "2605b5ad62512556e6d9ba3d23665ef281634114c9eb67e32258fd5e20f94c72"
+    },
+    {
+      "path": "results/extended/figures/gradient_maps.png",
+      "size_bytes": 199121,
+      "sha256": "3178024e936b00084038a7bc996a9587f5f06c576a060497b7eae4b57148b441"
+    },
+    {
+      "path": "results/extended/figures/intensity_profile.pdf",
+      "size_bytes": 19440,
+      "sha256": "bf4f00cd5efa89884dbca936e82bef8a4c08013bf56ad97eaa1734174fe62ab2"
+    },
+    {
+      "path": "results/extended/figures/intensity_profile.png",
+      "size_bytes": 147586,
+      "sha256": "9ae45fcf7da24d2bac6ce5d3be83f952a3d551e1dc0451c3840d1ee80ea6f954"
+    },
+    {
+      "path": "results/extended/figures/k_comparison.pdf",
+      "size_bytes": 175574,
+      "sha256": "4a8b14137df714b37c961aec44bb8aeeb4652eb103b5e52e86994cbaefe7b184"
+    },
+    {
+      "path": "results/extended/figures/k_comparison.png",
+      "size_bytes": 291550,
+      "sha256": "9358d731b034429b5fd6eb943250c61c3acaf6c8213678b1c13093248098a9ec"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_geometric_shapes_sigma0p025.pdf",
+      "size_bytes": 29793,
+      "sha256": "58eacbdafcd825681f17261a5db2031efbf09c44f2a08e8681604b804037c3c3"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_geometric_shapes_sigma0p025.png",
+      "size_bytes": 225714,
+      "sha256": "bbf83f6401753c75d03bf0a1150445e6929121fc6f1cfad03eef2b03c02c224c"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_geometric_shapes_sigma0p05.pdf",
+      "size_bytes": 29705,
+      "sha256": "8d2bd2fc8d6025d482844f02c15699517f05d533f03b175bb8f0707214274bfd"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_geometric_shapes_sigma0p05.png",
+      "size_bytes": 225888,
+      "sha256": "f46cb05894388aae0deec0f82cbf3d43544c4077b8fb6d398b45fe6d98d54478"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_geometric_shapes_sigma0p1.pdf",
+      "size_bytes": 29827,
+      "sha256": "a223f07993dac72c377c8652dac99cbff17c2f8ea33cc142d5b2b8c6f1ac570e"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_geometric_shapes_sigma0p1.png",
+      "size_bytes": 245990,
+      "sha256": "c5f13fad6aa5ab0490eef6d53f79aad26a0da608cea7c07affa6b241f9d8ab6f"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_ramps_and_edges_sigma0p025.pdf",
+      "size_bytes": 29252,
+      "sha256": "2bfd9ce4c440fe6b0ff31c8fc5d0e4a6aeaee138bdda3e4807ea570217073357"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_ramps_and_edges_sigma0p025.png",
+      "size_bytes": 228405,
+      "sha256": "c671dd76643b0daf2b4e8b55d5163a6b943864f95e0e05e72c9cb24bcd1c03a6"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_ramps_and_edges_sigma0p05.pdf",
+      "size_bytes": 29795,
+      "sha256": "4244c77b87d3ea38f6f079b0c66c678dc6730da8a3d86f42e51ba6e8adb364fc"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_ramps_and_edges_sigma0p05.png",
+      "size_bytes": 237770,
+      "sha256": "860b245bc3a444881106981c43c7984d42253e31133da647e89dc4654a47f7b5"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_ramps_and_edges_sigma0p1.pdf",
+      "size_bytes": 29790,
+      "sha256": "65ea0ccf0ec5fe20c0f7a070c0efe2370a3eb741a0896d18f57b0b01aa8557e7"
+    },
+    {
+      "path": "results/extended/figures/k_sensitivity_ramps_and_edges_sigma0p1.png",
+      "size_bytes": 250663,
+      "sha256": "d6f3692f7362341991c9ef8f54113dbc7bf17c51ee479d4aa7e6eff2e10b23c1"
+    },
+    {
+      "path": "results/extended/figures/metric_curves.pdf",
+      "size_bytes": 29960,
+      "sha256": "b6fc0a016bf1e0326b0514adc31a83e60458ce80f3aa871dac805aeafa32a411"
+    },
+    {
+      "path": "results/extended/figures/metric_curves.png",
+      "size_bytes": 237424,
+      "sha256": "bdb2a45b258fe7939ca1f257fdebb154859af422e31cae3c520fbac670f7bdb9"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_geometric_shapes_sigma0p025.pdf",
+      "size_bytes": 35857,
+      "sha256": "d0cf901ecd7203cd16dd7b62847e7761511d6c2c335f8e0a7772e21289625b48"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_geometric_shapes_sigma0p025.png",
+      "size_bytes": 308324,
+      "sha256": "082e5657bc9a3f3c6291c9cc4b6d7f98626425858d3d5775f1f5cec3fad37b28"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_geometric_shapes_sigma0p05.pdf",
+      "size_bytes": 35791,
+      "sha256": "d3363f15db35e4885278d7f25cf9e15a936d9926f3c8f634f2ce0f9098030e34"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_geometric_shapes_sigma0p05.png",
+      "size_bytes": 315146,
+      "sha256": "ca6caa3258cbdf85083c55b967dcdce92901faef6db3d9bf8f2b1b5dfa85e3c9"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_geometric_shapes_sigma0p1.pdf",
+      "size_bytes": 35946,
+      "sha256": "1f6463086b6b6e81836101c8c6985988a2f4d1119c695cd22f414474bcb65f99"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_geometric_shapes_sigma0p1.png",
+      "size_bytes": 350423,
+      "sha256": "7e95bbe92101b9b57fd3153af49243260cad639d34c97088b995de3d19f3fd07"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_ramps_and_edges_sigma0p025.pdf",
+      "size_bytes": 35772,
+      "sha256": "c48afbcb5a1c45d9a9985ec9c1860b7a02b46f902d9576e67204c6849630a5b5"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_ramps_and_edges_sigma0p025.png",
+      "size_bytes": 331442,
+      "sha256": "7010926ce55eecaab639716781831826c6fb97381e61572a91b9645b72b2fc2e"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_ramps_and_edges_sigma0p05.pdf",
+      "size_bytes": 35767,
+      "sha256": "e938c4c6775ba743fc057707516e7d7815120370f45e79a7d2191fb829126940"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_ramps_and_edges_sigma0p05.png",
+      "size_bytes": 340618,
+      "sha256": "5bc3e484a0d18d11c2d06ac611bd4024fffa87e2aa501c6754187bedcad01fb5"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_ramps_and_edges_sigma0p1.pdf",
+      "size_bytes": 35874,
+      "sha256": "f93946dfb8300c957b02dbe25cd6b517cee2a42ff1b09f7cbf5bf3cc04a6d0a4"
+    },
+    {
+      "path": "results/extended/figures/metric_curves_ramps_and_edges_sigma0p1.png",
+      "size_bytes": 373323,
+      "sha256": "5fcde1fab53bb6ebbe461dfa0cdfa901c5219ae77f971f4aedd060ca1bf42f52"
+    },
+    {
+      "path": "results/extended/manifest.json",
+      "size_bytes": 8802,
+      "sha256": "7e0ff8d92deb5b7960eaeade12098902652733220f06aee4565f370260a8f1e3"
+    },
+    {
+      "path": "results/extended/metrics.csv",
+      "size_bytes": 1581475,
+      "sha256": "1819ba02cadcdd2a8c5b620bd0ac56f1e1c39f487c8093608bd2b5a7a0c01143"
+    },
+    {
+      "path": "results/extended/run.log",
+      "size_bytes": 403,
+      "sha256": "1f7152c704b646932912c8d2a906bff3e54f288e966236ecdc175fd4c73e8a53"
+    },
+    {
+      "path": "results/extended/summary.csv",
+      "size_bytes": 119661,
+      "sha256": "f3dbee8920b4c2c3c502791a6bd19a99919c157037c7ac5a3b4f61312e83a941"
+    },
+    {
+      "path": "results/extended/tables/extended_common_checkpoints.csv",
+      "size_bytes": 115732,
+      "sha256": "9863e29c921972dbcdbab807c7b7d828da6c41ae3d4fdba5bfb5214f889f09c7"
+    },
+    {
+      "path": "results/extended/tables/extended_common_checkpoints.tex",
+      "size_bytes": 80112,
+      "sha256": "85df9fe6e99876196da34b298fcda26815eef53d6e25a6eacc475c8491685c9b"
+    },
+    {
+      "path": "results/extended/tables/oracle_exploratory.csv",
+      "size_bytes": 3643,
+      "sha256": "1968f85d2aecf59517b0ef7816b62112574b612cd372d1d4ffc7ffb2e15e3d75"
+    },
+    {
+      "path": "results/extended/tables/oracle_exploratory.tex",
+      "size_bytes": 1825,
+      "sha256": "babfe1b956848ad428eb59ba24e22dcbc173774a83c836145052bc6ed05cf740"
+    },
+    {
+      "path": "results/extended/tables/representative_summary.tex",
+      "size_bytes": 891,
+      "sha256": "d39ef5b38afdfce6280a80b398cf7c874997ae328544cd2c75933fa71796c654"
+    },
+    {
+      "path": "results/extended/verification.json",
+      "size_bytes": 1959,
+      "sha256": "4ea006fbe9373fd8512c9864fd300f96c0428a979a64d1ab47bc6cd4a6767983"
+    },
+    {
+      "path": "configs/extended.json",
+      "size_bytes": 583,
+      "sha256": "ba86358c753e1949062c02a81bc1187c7a090bd2b6d291e6cbbb449fc35175ba"
+    },
+    {
+      "path": "configs/extended_probe.json",
+      "size_bytes": 530,
+      "sha256": "10129020864d736935877fbac2cff256162d56d5ad82eca4573162422c7ce143"
+    },
+    {
+      "path": "configs/quick.json",
+      "size_bytes": 519,
+      "sha256": "1a45203ea0719cc4eb9696c64a869ea913d2d615ecf04d58129919617260b36f"
+    },
+    {
+      "path": "docs/extended_protocol.md",
+      "size_bytes": 5501,
+      "sha256": "e8f7620e4bea6a61d7b6aa3bf5518f824b3bd322dd4a0581740e2293fd83cf85"
+    },
+    {
+      "path": "docs/phase4_protocol_freeze.json",
+      "size_bytes": 613,
+      "sha256": "8c6acb81872945db43b55f8e073470695ed174777bbbea68f8e55cb58c5731bd"
+    }
+  ],
+  "excluded_files": [
+    "results/quick/arrays/inputs.npz",
+    "results/quick/arrays/representative_outputs.npz",
+    "results/quick/config_used.json",
+    "results/quick/environment.json",
+    "results/quick/figures/comparison.pdf",
+    "results/quick/figures/comparison.png",
+    "results/quick/figures/gradient_maps.pdf",
+    "results/quick/figures/gradient_maps.png",
+    "results/quick/figures/intensity_profile.pdf",
+    "results/quick/figures/intensity_profile.png",
+    "results/quick/figures/k_comparison.pdf",
+    "results/quick/figures/k_comparison.png",
+    "results/quick/figures/metric_curves.pdf",
+    "results/quick/figures/metric_curves.png",
+    "results/quick/metrics.csv",
+    "results/quick/run.log",
+    "results/quick/summary.csv",
+    "results/quick/tables/quick_summary.tex",
+    "results/quick/verification.json",
+    "results/quick/verification_numerical.json",
+    "results/extended/arrays/inputs.npz",
+    "results/extended/arrays/representative_outputs.npz",
+    "results/extended_probe/analysis.json",
+    "results/extended_probe/arrays/inputs.npz",
+    "results/extended_probe/arrays/representative_outputs.npz",
+    "results/extended_probe/config_used.json",
+    "results/extended_probe/environment.json",
+    "results/extended_probe/figures/comparison.pdf",
+    "results/extended_probe/figures/comparison.png",
+    "results/extended_probe/figures/gradient_maps.pdf",
+    "results/extended_probe/figures/gradient_maps.png",
+    "results/extended_probe/figures/intensity_profile.pdf",
+    "results/extended_probe/figures/intensity_profile.png",
+    "results/extended_probe/figures/k_comparison.pdf",
+    "results/extended_probe/figures/k_comparison.png",
+    "results/extended_probe/figures/k_sensitivity_geometric_shapes_sigma0p1.pdf",
+    "results/extended_probe/figures/k_sensitivity_geometric_shapes_sigma0p1.png",
+    "results/extended_probe/figures/metric_curves.pdf",
+    "results/extended_probe/figures/metric_curves.png",
+    "results/extended_probe/figures/metric_curves_geometric_shapes_sigma0p1.pdf",
+    "results/extended_probe/figures/metric_curves_geometric_shapes_sigma0p1.png",
+    "results/extended_probe/manifest.json",
+    "results/extended_probe/metrics.csv",
+    "results/extended_probe/run.log",
+    "results/extended_probe/summary.csv",
+    "results/extended_probe/tables/extended_common_checkpoints.csv",
+    "results/extended_probe/tables/extended_common_checkpoints.tex",
+    "results/extended_probe/tables/oracle_exploratory.csv",
+    "results/extended_probe/tables/oracle_exploratory.tex",
+    "results/extended_probe/tables/representative_summary.tex",
+    "results/extended_probe/verification.json",
+    "results/phase4_checks/quick_numerical.json",
+    "results/phase4_checks/quick_strict.json",
+    "src/pde_image_denoising/__init__.py",
+    "src/pde_image_denoising/boundaries.py",
+    "src/pde_image_denoising/datasets.py",
+    "src/pde_image_denoising/experiments.py",
+    "src/pde_image_denoising/extended_analysis.py",
+    "src/pde_image_denoising/heat.py",
+    "src/pde_image_denoising/metrics.py",
+    "src/pde_image_denoising/noise.py",
+    "src/pde_image_denoising/perona_malik.py",
+    "src/pde_image_denoising/plotting.py",
+    "src/pde_image_denoising/run.py",
+    "src/pde_image_denoising/verify.py",
+    "tests/test_experiment.py",
+    "tests/test_extended_analysis.py",
+    "tests/test_extended_runner.py",
+    "tests/test_extended_verification.py",
+    "tests/test_noise_metrics_datasets.py",
+    "tests/test_solvers.py",
+    "tests/test_verification.py",
+    "pyproject.toml",
+    "requirements.txt"
+  ],
+  "baseline_sha256": "37644135b495da61cfcef006ad89896c489897ac799992b91f0930389b827cbb"
+}

@@ -1,0 +1,2 @@
+# Single source of dependency metadata: install the project and its dev extra.
+-e .[dev]

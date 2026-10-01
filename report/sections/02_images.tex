@@ -1,0 +1,74 @@
+\section{De la fonction image à l'observation numérique}
+\label{sec:images}
+
+\subsection{Domaine, intensités et échantillonnage}
+On considère un domaine rectangulaire
+$\Omega=(0,L_x)\times(0,L_y)\subset\R^2$ et une image propre
+$\utrue:\Omega\to[0,1]$. Il s'agit d'une intensité scalaire en niveaux
+de gris, non d'une image couleur. La normalisation fixe l'unité de
+mesure ; elle ne rend pas le phénomène physique de bruit universel.
+La représentation continue facilite l'écriture des opérateurs et des
+conditions aux limites. Une image comportant des sauts n'est toutefois
+pas une fonction partout différentiable.
+
+Dans le calcul, l'image est une matrice de $N_y\times N_x$ pixels. Les
+valeurs sont interprétées aux centres d'une grille uniforme, comme
+précisé en section~\ref{sec:schemes}. Avec les pas unitaires utilisés,
+$L_x=N_x$ et $L_y=N_y$ dans la convention pixel. Les coordonnées
+normalisées employées pour construire les motifs synthétiques sont
+une recette de génération ; elles ne remplacent pas les pas spatiaux
+du solveur par $1/127$.
+Les valeurs de référence sont construites dans $[0,1]$ avant tout
+ajout de bruit. Cette propriété ne signifie pas que chaque image utilise
+les deux extrémités de l'intervalle, ni qu'une méthode doit forcer ses
+sorties à y rester. Les mêmes tableaux propres sont utilisés pour
+toutes les réalisations d'un cas.
+
+\subsection{Bruit gaussien : une hypothèse sur les pixels}
+L'observation est écrite
+\begin{equation}
+ f=\utrue+\eta,\qquad
+ f_{ij}=(\utrue)_{ij}+\sigma Z_{ij},\qquad
+ Z_{ij}\overset{\mathrm{iid}}{\sim}\mathcal N(0,1).
+ \label{eq:noise-model}
+\end{equation}
+L'indépendance concerne les pixels au sein d'un champ tiré. La graine
+détermine une réalisation reproductible du générateur NumPy. Les
+couplages entre cas dus à la réutilisation des graines sont décrits en
+section~\ref{sec:protocol}. L'écriture fonctionnelle $f=\utrue+\eta$
+est une notation de modélisation : le code produit un bruit fini sur
+la grille. Il ne construit pas une fonction continue de bruit blanc,
+dont la définition mathématique nécessiterait un autre cadre.
+
+Même si chaque $\eta_{ij}$ a une espérance nulle, la moyenne du champ
+réalisé n'est pas exactement nulle. Sa conservation par les solveurs
+ne garantit donc pas une restauration exacte de la moyenne propre.
+Le paramètre $\sigma$ est l'écart-type d'intensité par pixel. Il vaut
+$0{,}025$, $0{,}05$ ou $0{,}10$ dans l'étude étendue.
+Une variable gaussienne n'est pas bornée. Certaines observations
+peuvent ainsi être négatives ou dépasser un. Les tronquer modifierait
+la distribution, notamment près des niveaux sombres et clairs, puis
+changerait les données et les métriques. Ni l'observation ni les états
+des solveurs ne sont donc tronqués dans le calcul scientifique.
+L'affichage des \emph{intensités} utilise seulement une échelle commune
+$[0,1]$ ; les tableaux évalués et archivés restent inchangés. Les cartes
+de gradient ont une échelle distincte explicitée dans leur légende.
+
+\subsection{Donnée initiale, frontière et temps}
+Les deux évolutions commencent au même état :
+\begin{equation}
+ u(x,y,0)=f(x,y).
+ \label{eq:initial-data}
+\end{equation}
+Un flux nul est imposé sur la frontière. Pour la chaleur, il s'écrit
+$\partial_{\boldsymbol n}u=0$ ; pour le modèle non linéaire,
+$c(|\nabla u|)\nabla u\cdot\boldsymbol n=0$. Aucune image périodique
+ni information extérieure n'est supposée. Sur la grille, la condition
+est réalisée par l'absence exacte d'interfaces sortantes, et non par
+l'ajout d'une bande de valeurs fixes.
+Les temps archivés sont $t_n=n\dt$, avec $\dt=0{,}20$ et
+$\dx=\dy=1$. Ils mesurent une échelle de diffusion dans cette convention
+numérique, pas une durée en secondes. Le temps machine est une autre
+variable, mesurée par chronomètre pour l'exécution informatique. Une
+même trajectoire peut avoir le même temps de diffusion et des durées
+informatiques différentes selon l'environnement.

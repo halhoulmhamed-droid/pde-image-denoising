@@ -1,0 +1,183 @@
+\documentclass[11pt,a4paper,oneside]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs,longtable,tabularx,array}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{hyperref}
+\definecolor{academicblue}{RGB}{29,63,91}
+\hypersetup{colorlinks=true,linkcolor=academicblue,citecolor=academicblue,
+ urlcolor=academicblue,pdftitle={Traitement d'images par des équations aux dérivées partielles},
+ pdfauthor={Mhamed Halhoul},bookmarksdepth=2}
+\graphicspath{{../results/extended/figures/}}
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parindent}{1.3em}
+\setlength{\parskip}{0.25em}
+\setlength{\emergencystretch}{2em}
+\setcounter{tocdepth}{1}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\utrue}{u_{\mathrm{true}}}
+\newcommand{\dt}{\Delta t}
+\newcommand{\dx}{\Delta x}
+\newcommand{\dy}{\Delta y}
+\lstset{columns=fullflexible,keepspaces=true,showstringspaces=false,
+ breaklines=true,basicstyle=\ttfamily\small}
+
+\begin{document}
+\selectlanguage{french}
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\centering
+{\large Abdelmalek Essaâdi University\par}
+\vspace{0.7cm}
+{\large M2 --- Modélisation, Mathématiques Appliquées\par et Apprentissage\par}
+\vspace{2.2cm}
+{\LARGE\bfseries Traitement d'images par des équations\par aux dérivées partielles\par}
+\vspace{0.8cm}
+{\Large Débruitage d'images par diffusion linéaire\par et diffusion de Perona--Malik\par}
+\vspace{0.7cm}
+{\large\itshape Image Denoising with PDEs:\par
+Linear Heat Diffusion and Perona--Malik Diffusion\par}
+\vspace{1.8cm}
+{\Large Mhamed Halhoul\par}
+\vfill
+{\normalsize Mini-projet scientifique de Master\par
+Modélisation, analyse numérique et expérimentation reproductible\par}
+\end{titlepage}
+\pagenumbering{roman}
+\hypersetup{pageanchor=true}
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé}
+Ce mini-projet étudie le débruitage d'images par évolution diffusive.
+L'équation de la chaleur sert de référence linéaire ; deux conductances
+de Perona--Malik, exponentielle et rationnelle, sont évaluées au moyen
+d'une variante discrète directionnelle à quatre voisins. Les échanges
+sont conservatifs, les frontières à flux nul et l'intégration temporelle
+est réalisée par Euler explicite. Le rapport distingue le modèle
+continu, le système semi-discret et l'algorithme effectivement exécuté.
+La condition suffisante de stabilité donne des démonstrations de
+conservation des constantes, de la moyenne et du principe du maximum
+discret ; elle ne résout pas les difficultés du modèle continu non linéaire.
+
+L'étude archivée porte sur deux images synthétiques de $128\times128$
+pixels, trois niveaux de bruit gaussien et dix réalisations par cas.
+Les méthodes partagent les mêmes observations non tronquées. Les 540
+trajectoires sont évaluées par MSE, erreur relative $L^2$, PSNR et SSIM,
+avec des mesures de durée séparées. Les résultats montrent un compromis
+conditionnel : certains réglages dépendant des variations locales
+réduisent le bruit tout en conservant mieux les transitions, tandis que
+des valeurs trop petites de $K$ préservent des fluctuations et que des
+durées excessives peuvent sur-lisser. Les classements PSNR et SSIM ne
+coïncident pas toujours. Les choix maximisant une métrique avec accès à
+l'image propre sont explicitement des oracles exploratoires. Ces
+observations ne constituent ni un benchmark d'images naturelles ni une
+règle universelle de sélection des paramètres. Tous les chiffres et
+figures proviennent des expériences déjà réalisées et auditées ; aucun
+calcul expérimental supplémentaire n'accompagne cette rédaction.
+
+\noindent\textbf{Mots-clés :} équations aux dérivées partielles ; chaleur ;
+Perona--Malik ; flux conservatifs ; débruitage ; reproductibilité.
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\selectlanguage{english}
+This Master's course project studies image denoising through diffusion
+equations. Linear heat diffusion is compared with exponential and
+rational Perona--Malik conduction laws, implemented as a conservative,
+four-neighbour directional scheme with zero boundary flux and explicit
+Euler time stepping. The continuous model, spatially discrete system
+and fully discrete algorithm are carefully distinguished. A sufficient
+step-size condition yields preservation of constants, mean conservation
+and a discrete maximum principle; it does not establish well-posedness
+of the nonlinear continuous model.
+
+The archived study uses two synthetic $128\times128$ images, three
+Gaussian noise levels and ten noise realisations per case. All methods
+share the same unclipped observations. A total of 540 trajectories is
+assessed using MSE, relative $L^2$ error, PSNR and a precisely specified
+SSIM variant, with separate runtime measurements. The evidence supports
+a parameter-dependent trade-off: some gradient-dependent settings reduce
+noise while better retaining transitions, whereas small conduction
+scales can preserve noise and long diffusion times can oversmooth
+structures. PSNR and SSIM rankings sometimes disagree. Ground-truth-based
+parameter choices are labelled exploratory oracles, not deployable tuning
+rules. The limited synthetic-image study does not establish general
+performance on natural images. All numerical claims and illustrations
+are derived from existing audited results; no new experiment was run
+during the writing phase.
+
+\noindent Programme description: Mathematical Modelling, Applied
+Mathematics and Machine Learning (descriptive English translation,
+not asserted as an official programme name).
+\selectlanguage{french}
+\begingroup
+\small
+\setlength{\parskip}{0pt}
+\tableofcontents
+\endgroup
+\chapter*{Notations et conventions de lecture}
+\addcontentsline{toc}{chapter}{Notations et conventions de lecture}
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3cm}X}
+\toprule
+Notation & Signification \\
+\midrule
+$\Omega$, $\boldsymbol n$ & Domaine rectangulaire et normale extérieure. \\
+$\utrue$, $f$, $\eta$ & Image propre, observation bruitée et bruit ajouté. \\
+$u(x,y,t)$ & Fonction décrivant l'évolution continue de l'image. \\
+$N_y$, $N_x$, $i$, $j$ & Nombre de lignes et colonnes ; indices vertical et horizontal. \\
+$U_{ij}(t)$, $U^n_{ij}$ & Valeurs semi-discrètes et état après $n$ pas d'Euler. \\
+$\dx$, $\dy$, $\dt$ & Pas spatiaux et pas de diffusion numérique. \\
+$t_n=n\dt$ & Temps de diffusion, distinct du temps machine. \\
+$\sigma$ & Écart-type du bruit gaussien pixel par pixel. \\
+$K$, $c(s)$ & Échelle de variation et conductance dépendant d'une pente. \\
+$a_{PQ}$, $Q$ & Conductance partagée et contribution d'interface à la divergence. \\
+$\overline U$, $\norm{U}_2$ & Moyenne des pixels et norme euclidienne des valeurs. \\
+$\mu$, $s$ dans les tables & Moyenne sur les graines et écart-type échantillonnal. \\
+\bottomrule
+\end{tabularx}
+
+Les noms de fichiers et de configurations sont conservés en anglais pour
+la traçabilité. Dans les tableaux, « PM » désigne toujours la variante
+directionnelle implémentée, non une approximation isotrope complète.
+Un signe $\pm$ signifie un écart-type échantillonnal sur dix graines,
+jamais un intervalle de confiance. Les annexes sont séparées du contenu
+principal afin de conserver les détails reproductibles sans alourdir
+la comparaison ciblée.
+\clearpage
+\pagenumbering{arabic}
+\chapter{Question scientifique et modèle des images}
+\input{sections/01_context}
+\input{sections/02_images}
+\chapter{Modèles continus et interprétation}
+\input{sections/03_heat}
+\input{sections/04_perona_malik}
+\chapter{Discrétisation conservative et analyse}
+\input{sections/05_schemes}
+\input{sections/06_properties}
+\chapter{Vérification, mesures et protocole}
+\input{sections/07_verification}
+\input{sections/08_metrics}
+\input{sections/09_protocol}
+\chapter{Résultats archivés et comparaison conditionnelle}
+\input{sections/10_results}
+\chapter{Reproductibilité, limites et conclusion}
+\input{sections/11_reproducibility}
+\input{sections/12_discussion}
+\input{sections/13_conclusion}
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliographie}
+\bibliographystyle{plain}
+\bibliography{references}
+\appendix
+\input{sections/appendices}
+\end{document}

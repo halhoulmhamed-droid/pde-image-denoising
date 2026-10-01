@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+message: "If you use this teaching project, please cite it using these metadata."
+type: software
+title: "Image Denoising with PDEs: Linear Heat Diffusion and Perona-Malik Diffusion"
+authors:
+  - family-names: "Halhoul"
+    given-names: "Mhamed"

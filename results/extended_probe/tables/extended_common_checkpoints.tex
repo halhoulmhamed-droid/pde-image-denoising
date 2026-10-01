@@ -1,0 +1,150 @@
+% Generated from extended_common_checkpoints.csv; means and sample standard deviations.
+% Requires booktabs and graphicx. Each table uses the same checkpoint budget.
+% Noisy n=0 is repeated as a common baseline, not evolved to comparison_n.
+\par\medskip\noindent
+geometric\_shapes, $\sigma=0.1$, $n=1$, 1 graines.
+\par\smallskip\noindent\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrr}
+\toprule
+Méthode & Conduction / $K$ & $n$ & MSE & L2 rel. & PSNR (dB) & SSIM & Durée (s) \\
+\midrule
+Chaleur & -- & 1 & $0.0027971 \pm 0$ & $0.12526 \pm 0$ & $25.533 \pm 0$ & $0.43068 \pm 0$ & $0.0003512 \pm 0$ \\
+Bruitée & -- & 0 & $0.0099229 \pm 0$ & $0.23592 \pm 0$ & $20.034 \pm 0$ & $0.21701 \pm 0$ & $0 \pm 0$ \\
+Perona--Malik & exponential / 0.025 & 1 & $0.0098952 \pm 0$ & $0.23559 \pm 0$ & $20.046 \pm 0$ & $0.21728 \pm 0$ & $0.000756 \pm 0$ \\
+Perona--Malik & exponential / 0.05 & 1 & $0.009718 \pm 0$ & $0.23347 \pm 0$ & $20.124 \pm 0$ & $0.21899 \pm 0$ & $0.0008051 \pm 0$ \\
+Perona--Malik & exponential / 0.1 & 1 & $0.0086796 \pm 0$ & $0.22065 \pm 0$ & $20.615 \pm 0$ & $0.23023 \pm 0$ & $0.0007649 \pm 0$ \\
+Perona--Malik & exponential / 0.2 & 1 & $0.0056267 \pm 0$ & $0.17765 \pm 0$ & $22.497 \pm 0$ & $0.28061 \pm 0$ & $0.0010186 \pm 0$ \\
+Perona--Malik & rational / 0.025 & 1 & $0.0095398 \pm 0$ & $0.23132 \pm 0$ & $20.205 \pm 0$ & $0.22068 \pm 0$ & $0.0004997 \pm 0$ \\
+Perona--Malik & rational / 0.05 & 1 & $0.0087197 \pm 0$ & $0.22116 \pm 0$ & $20.595 \pm 0$ & $0.22938 \pm 0$ & $0.0005283 \pm 0$ \\
+Perona--Malik & rational / 0.1 & 1 & $0.0068765 \pm 0$ & $0.1964 \pm 0$ & $21.626 \pm 0$ & $0.25473 \pm 0$ & $0.0008008 \pm 0$ \\
+Perona--Malik & rational / 0.2 & 1 & $0.0043519 \pm 0$ & $0.15624 \pm 0$ & $23.613 \pm 0$ & $0.31511 \pm 0$ & $0.0006187 \pm 0$ \\
+\bottomrule
+\end{tabular}%
+}
+
+\par\medskip\noindent
+geometric\_shapes, $\sigma=0.1$, $n=2$, 1 graines.
+\par\smallskip\noindent\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrr}
+\toprule
+Méthode & Conduction / $K$ & $n$ & MSE & L2 rel. & PSNR (dB) & SSIM & Durée (s) \\
+\midrule
+Chaleur & -- & 2 & $0.0021552 \pm 0$ & $0.10995 \pm 0$ & $26.665 \pm 0$ & $0.57819 \pm 0$ & $0.0005391 \pm 0$ \\
+Bruitée & -- & 0 & $0.0099229 \pm 0$ & $0.23592 \pm 0$ & $20.034 \pm 0$ & $0.21701 \pm 0$ & $0 \pm 0$ \\
+Perona--Malik & exponential / 0.025 & 2 & $0.0098699 \pm 0$ & $0.23529 \pm 0$ & $20.057 \pm 0$ & $0.21752 \pm 0$ & $0.0015872 \pm 0$ \\
+Perona--Malik & exponential / 0.05 & 2 & $0.009531 \pm 0$ & $0.23122 \pm 0$ & $20.209 \pm 0$ & $0.22086 \pm 0$ & $0.0016086 \pm 0$ \\
+Perona--Malik & exponential / 0.1 & 2 & $0.0075803 \pm 0$ & $0.2062 \pm 0$ & $21.203 \pm 0$ & $0.24512 \pm 0$ & $0.001349 \pm 0$ \\
+Perona--Malik & exponential / 0.2 & 2 & $0.003082 \pm 0$ & $0.13148 \pm 0$ & $25.112 \pm 0$ & $0.38001 \pm 0$ & $0.00175 \pm 0$ \\
+Perona--Malik & rational / 0.025 & 2 & $0.0091689 \pm 0$ & $0.22678 \pm 0$ & $20.377 \pm 0$ & $0.22448 \pm 0$ & $0.0008368 \pm 0$ \\
+Perona--Malik & rational / 0.05 & 2 & $0.0076228 \pm 0$ & $0.20678 \pm 0$ & $21.179 \pm 0$ & $0.24346 \pm 0$ & $0.0009648 \pm 0$ \\
+Perona--Malik & rational / 0.1 & 2 & $0.0046237 \pm 0$ & $0.16104 \pm 0$ & $23.35 \pm 0$ & $0.30756 \pm 0$ & $0.0012234 \pm 0$ \\
+Perona--Malik & rational / 0.2 & 2 & $0.0020219 \pm 0$ & $0.1065 \pm 0$ & $26.942 \pm 0$ & $0.46302 \pm 0$ & $0.0009384 \pm 0$ \\
+\bottomrule
+\end{tabular}%
+}
+
+\par\medskip\noindent
+geometric\_shapes, $\sigma=0.1$, $n=5$, 1 graines.
+\par\smallskip\noindent\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrr}
+\toprule
+Méthode & Conduction / $K$ & $n$ & MSE & L2 rel. & PSNR (dB) & SSIM & Durée (s) \\
+\midrule
+Chaleur & -- & 5 & $0.0024459 \pm 0$ & $0.11713 \pm 0$ & $26.116 \pm 0$ & $0.74113 \pm 0$ & $0.0008553 \pm 0$ \\
+Bruitée & -- & 0 & $0.0099229 \pm 0$ & $0.23592 \pm 0$ & $20.034 \pm 0$ & $0.21701 \pm 0$ & $0 \pm 0$ \\
+Perona--Malik & exponential / 0.025 & 5 & $0.0098065 \pm 0$ & $0.23453 \pm 0$ & $20.085 \pm 0$ & $0.21812 \pm 0$ & $0.0041559 \pm 0$ \\
+Perona--Malik & exponential / 0.05 & 5 & $0.0090576 \pm 0$ & $0.2254 \pm 0$ & $20.43 \pm 0$ & $0.22595 \pm 0$ & $0.0047231 \pm 0$ \\
+Perona--Malik & exponential / 0.1 & 5 & $0.0050494 \pm 0$ & $0.16829 \pm 0$ & $22.968 \pm 0$ & $0.30153 \pm 0$ & $0.0030296 \pm 0$ \\
+Perona--Malik & exponential / 0.2 & 5 & $0.00078947 \pm 0$ & $0.066545 \pm 0$ & $31.027 \pm 0$ & $0.70052 \pm 0$ & $0.0041793 \pm 0$ \\
+Perona--Malik & rational / 0.025 & 5 & $0.0081244 \pm 0$ & $0.21347 \pm 0$ & $20.902 \pm 0$ & $0.23673 \pm 0$ & $0.0017438 \pm 0$ \\
+Perona--Malik & rational / 0.05 & 5 & $0.0049257 \pm 0$ & $0.16622 \pm 0$ & $23.075 \pm 0$ & $0.29975 \pm 0$ & $0.0017792 \pm 0$ \\
+Perona--Malik & rational / 0.1 & 5 & $0.0013639 \pm 0$ & $0.087467 \pm 0$ & $28.652 \pm 0$ & $0.56424 \pm 0$ & $0.003069 \pm 0$ \\
+Perona--Malik & rational / 0.2 & 5 & $0.00075545 \pm 0$ & $0.065095 \pm 0$ & $31.218 \pm 0$ & $0.74875 \pm 0$ & $0.0020223 \pm 0$ \\
+\bottomrule
+\end{tabular}%
+}
+
+\par\medskip\noindent
+geometric\_shapes, $\sigma=0.1$, $n=10$, 1 graines.
+\par\smallskip\noindent\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrr}
+\toprule
+Méthode & Conduction / $K$ & $n$ & MSE & L2 rel. & PSNR (dB) & SSIM & Durée (s) \\
+\midrule
+Chaleur & -- & 10 & $0.0031495 \pm 0$ & $0.13291 \pm 0$ & $25.018 \pm 0$ & $0.80026 \pm 0$ & $0.0013458 \pm 0$ \\
+Bruitée & -- & 0 & $0.0099229 \pm 0$ & $0.23592 \pm 0$ & $20.034 \pm 0$ & $0.21701 \pm 0$ & $0 \pm 0$ \\
+Perona--Malik & exponential / 0.025 & 10 & $0.0097304 \pm 0$ & $0.23362 \pm 0$ & $20.119 \pm 0$ & $0.21885 \pm 0$ & $0.008135 \pm 0$ \\
+Perona--Malik & exponential / 0.05 & 10 & $0.0084488 \pm 0$ & $0.21769 \pm 0$ & $20.732 \pm 0$ & $0.23327 \pm 0$ & $0.0076757 \pm 0$ \\
+Perona--Malik & exponential / 0.1 & 10 & $0.0027651 \pm 0$ & $0.12454 \pm 0$ & $25.583 \pm 0$ & $0.42701 \pm 0$ & $0.0057559 \pm 0$ \\
+Perona--Malik & exponential / 0.2 & 10 & $0.00035774 \pm 0$ & $0.044795 \pm 0$ & $34.464 \pm 0$ & $0.87122 \pm 0$ & $0.0066507 \pm 0$ \\
+Perona--Malik & rational / 0.025 & 10 & $0.0065806 \pm 0$ & $0.19212 \pm 0$ & $21.817 \pm 0$ & $0.26085 \pm 0$ & $0.0031817 \pm 0$ \\
+Perona--Malik & rational / 0.05 & 10 & $0.0021631 \pm 0$ & $0.11015 \pm 0$ & $26.649 \pm 0$ & $0.46035 \pm 0$ & $0.0040875 \pm 0$ \\
+Perona--Malik & rational / 0.1 & 10 & $0.00044 \pm 0$ & $0.049679 \pm 0$ & $33.565 \pm 0$ & $0.83914 \pm 0$ & $0.005385 \pm 0$ \\
+Perona--Malik & rational / 0.2 & 10 & $0.00082752 \pm 0$ & $0.06813 \pm 0$ & $30.822 \pm 0$ & $0.85751 \pm 0$ & $0.003753 \pm 0$ \\
+\bottomrule
+\end{tabular}%
+}
+
+\par\medskip\noindent
+geometric\_shapes, $\sigma=0.1$, $n=20$, 1 graines.
+\par\smallskip\noindent\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrr}
+\toprule
+Méthode & Conduction / $K$ & $n$ & MSE & L2 rel. & PSNR (dB) & SSIM & Durée (s) \\
+\midrule
+Chaleur & -- & 20 & $0.004311 \pm 0$ & $0.1555 \pm 0$ & $23.654 \pm 0$ & $0.80009 \pm 0$ & $0.0022911 \pm 0$ \\
+Bruitée & -- & 0 & $0.0099229 \pm 0$ & $0.23592 \pm 0$ & $20.034 \pm 0$ & $0.21701 \pm 0$ & $0 \pm 0$ \\
+Perona--Malik & exponential / 0.025 & 20 & $0.0096303 \pm 0$ & $0.23242 \pm 0$ & $20.164 \pm 0$ & $0.21983 \pm 0$ & $0.017419 \pm 0$ \\
+Perona--Malik & exponential / 0.05 & 20 & $0.0075791 \pm 0$ & $0.20618 \pm 0$ & $21.204 \pm 0$ & $0.24587 \pm 0$ & $0.012631 \pm 0$ \\
+Perona--Malik & exponential / 0.1 & 20 & $0.0014218 \pm 0$ & $0.089304 \pm 0$ & $28.472 \pm 0$ & $0.62882 \pm 0$ & $0.010886 \pm 0$ \\
+Perona--Malik & exponential / 0.2 & 20 & $0.00025741 \pm 0$ & $0.037998 \pm 0$ & $35.894 \pm 0$ & $0.93617 \pm 0$ & $0.012214 \pm 0$ \\
+Perona--Malik & rational / 0.025 & 20 & $0.0041355 \pm 0$ & $0.1523 \pm 0$ & $23.835 \pm 0$ & $0.32955 \pm 0$ & $0.00565 \pm 0$ \\
+Perona--Malik & rational / 0.05 & 20 & $0.00045456 \pm 0$ & $0.050494 \pm 0$ & $33.424 \pm 0$ & $0.83268 \pm 0$ & $0.0085634 \pm 0$ \\
+Perona--Malik & rational / 0.1 & 20 & $0.0003358 \pm 0$ & $0.0434 \pm 0$ & $34.739 \pm 0$ & $0.92655 \pm 0$ & $0.0081022 \pm 0$ \\
+Perona--Malik & rational / 0.2 & 20 & $0.0019935 \pm 0$ & $0.10574 \pm 0$ & $27.004 \pm 0$ & $0.86464 \pm 0$ & $0.0068076 \pm 0$ \\
+\bottomrule
+\end{tabular}%
+}
+
+\par\medskip\noindent
+geometric\_shapes, $\sigma=0.1$, $n=40$, 1 graines.
+\par\smallskip\noindent\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrr}
+\toprule
+Méthode & Conduction / $K$ & $n$ & MSE & L2 rel. & PSNR (dB) & SSIM & Durée (s) \\
+\midrule
+Chaleur & -- & 40 & $0.0060424 \pm 0$ & $0.1841 \pm 0$ & $22.188 \pm 0$ & $0.76162 \pm 0$ & $0.0040934 \pm 0$ \\
+Bruitée & -- & 0 & $0.0099229 \pm 0$ & $0.23592 \pm 0$ & $20.034 \pm 0$ & $0.21701 \pm 0$ & $0 \pm 0$ \\
+Perona--Malik & exponential / 0.025 & 40 & $0.0095085 \pm 0$ & $0.23094 \pm 0$ & $20.219 \pm 0$ & $0.22107 \pm 0$ & $0.037458 \pm 0$ \\
+Perona--Malik & exponential / 0.05 & 40 & $0.0064199 \pm 0$ & $0.18976 \pm 0$ & $21.925 \pm 0$ & $0.26883 \pm 0$ & $0.02201 \pm 0$ \\
+Perona--Malik & exponential / 0.1 & 40 & $0.0010072 \pm 0$ & $0.075163 \pm 0$ & $29.969 \pm 0$ & $0.7417 \pm 0$ & $0.02004 \pm 0$ \\
+Perona--Malik & exponential / 0.2 & 40 & $0.00026225 \pm 0$ & $0.038353 \pm 0$ & $35.813 \pm 0$ & $0.95258 \pm 0$ & $0.021281 \pm 0$ \\
+Perona--Malik & rational / 0.025 & 40 & $0.001404 \pm 0$ & $0.088744 \pm 0$ & $28.526 \pm 0$ & $0.58039 \pm 0$ & $0.01248 \pm 0$ \\
+Perona--Malik & rational / 0.05 & 40 & $0.00019033 \pm 0$ & $0.032674 \pm 0$ & $37.205 \pm 0$ & $0.96024 \pm 0$ & $0.014515 \pm 0$ \\
+Perona--Malik & rational / 0.1 & 40 & $0.00051402 \pm 0$ & $0.053695 \pm 0$ & $32.89 \pm 0$ & $0.93281 \pm 0$ & $0.012586 \pm 0$ \\
+Perona--Malik & rational / 0.2 & 40 & $0.0045943 \pm 0$ & $0.16053 \pm 0$ & $23.378 \pm 0$ & $0.80008 \pm 0$ & $0.013117 \pm 0$ \\
+\bottomrule
+\end{tabular}%
+}
+
+\par\medskip\noindent
+geometric\_shapes, $\sigma=0.1$, $n=80$, 1 graines.
+\par\smallskip\noindent\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrr}
+\toprule
+Méthode & Conduction / $K$ & $n$ & MSE & L2 rel. & PSNR (dB) & SSIM & Durée (s) \\
+\midrule
+Chaleur & -- & 80 & $0.0085629 \pm 0$ & $0.21916 \pm 0$ & $20.674 \pm 0$ & $0.71292 \pm 0$ & $0.0076438 \pm 0$ \\
+Bruitée & -- & 0 & $0.0099229 \pm 0$ & $0.23592 \pm 0$ & $20.034 \pm 0$ & $0.21701 \pm 0$ & $0 \pm 0$ \\
+Perona--Malik & exponential / 0.025 & 80 & $0.0093619 \pm 0$ & $0.22916 \pm 0$ & $20.286 \pm 0$ & $0.22258 \pm 0$ & $0.075617 \pm 0$ \\
+Perona--Malik & exponential / 0.05 & 80 & $0.005215 \pm 0$ & $0.17103 \pm 0$ & $22.827 \pm 0$ & $0.30184 \pm 0$ & $0.041405 \pm 0$ \\
+Perona--Malik & exponential / 0.1 & 80 & $0.00083612 \pm 0$ & $0.068483 \pm 0$ & $30.777 \pm 0$ & $0.80594 \pm 0$ & $0.037454 \pm 0$ \\
+Perona--Malik & exponential / 0.2 & 80 & $0.00032507 \pm 0$ & $0.042701 \pm 0$ & $34.88 \pm 0$ & $0.953 \pm 0$ & $0.038975 \pm 0$ \\
+Perona--Malik & rational / 0.025 & 80 & $0.00020866 \pm 0$ & $0.034211 \pm 0$ & $36.806 \pm 0$ & $0.93276 \pm 0$ & $0.022812 \pm 0$ \\
+Perona--Malik & rational / 0.05 & 80 & $0.00030225 \pm 0$ & $0.041174 \pm 0$ & $35.196 \pm 0$ & $0.95503 \pm 0$ & $0.023505 \pm 0$ \\
+Perona--Malik & rational / 0.1 & 80 & $0.0012751 \pm 0$ & $0.084571 \pm 0$ & $28.945 \pm 0$ & $0.89884 \pm 0$ & $0.022383 \pm 0$ \\
+Perona--Malik & rational / 0.2 & 80 & $0.0075739 \pm 0$ & $0.20611 \pm 0$ & $21.207 \pm 0$ & $0.73053 \pm 0$ & $0.025124 \pm 0$ \\
+\bottomrule
+\end{tabular}%
+}
+

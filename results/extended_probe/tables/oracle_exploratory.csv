@@ -1,0 +1,3 @@
+oracle_criterion,image,sigma,method,conduction,K,dx,dy,dt,n,diffusion_time,n_seeds,mse_mean,mse_std,relative_l2_mean,relative_l2_std,psnr_mean,psnr_std,ssim_mean,ssim_std,duration_seconds_mean,duration_seconds_std
+psnr,geometric_shapes,0.1,perona_malik,rational,0.05,1.0,1.0,0.2,40,8.0,1,0.0001903314776119085,0.0,0.03267402898499289,0.0,37.204893808004535,0.0,0.9602357903621663,0.0,0.014514700014842674,0.0
+ssim,geometric_shapes,0.1,perona_malik,rational,0.05,1.0,1.0,0.2,40,8.0,1,0.0001903314776119085,0.0,0.03267402898499289,0.0,37.204893808004535,0.0,0.9602357903621663,0.0,0.014514700014842674,0.0

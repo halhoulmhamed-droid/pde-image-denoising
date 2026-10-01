@@ -1,0 +1,35 @@
+{
+  "recorded_date": "2026-10-01",
+  "scope": "Additional check against the unchanged original phase5 references; not a replacement baseline.",
+  "command": "Read-only standard-library Python -B SHA-256/size comparison using docs/phase5_protection_before.json and initial hashes recorded before v2 editing.",
+  "status": "passed",
+  "original_reference_files": {
+    "docs/phase5_protection_before.json": {
+      "expected_initial_sha256": "37644135b495da61cfcef006ad89896c489897ac799992b91f0930389b827cbb",
+      "actual_final_sha256": "37644135b495da61cfcef006ad89896c489897ac799992b91f0930389b827cbb",
+      "matches_initial": true
+    },
+    "docs/phase5_protection_after.json": {
+      "expected_initial_sha256": "e6cdadebc56dbb5c54f62aeae0a58b109f370fc612c7b638f3fa0796edb4eb00",
+      "actual_final_sha256": "e6cdadebc56dbb5c54f62aeae0a58b109f370fc612c7b638f3fa0796edb4eb00",
+      "matches_initial": true
+    }
+  },
+  "protected_files_checked": 126,
+  "changed": [],
+  "missing": [],
+  "previous_archive": {
+    "path": "D:\\academic-projects\\pde-image-denoising-audit-phase5.zip",
+    "exists": true,
+    "size_bytes": 5553595,
+    "sha256": "eeca28f4760f71aa30ced157aefb1f33830f287fb94665fbe6be8a55878bbe8a",
+    "matches_initial_sha256": true
+  },
+  "required_compiled_pdfs_exist": {
+    "report/main.pdf": false,
+    "slides/main.pdf": false
+  },
+  "phase5_v2_archives_found": [],
+  "scientific_execution": false,
+  "source_writes": false
+}
