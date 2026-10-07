@@ -1,7 +1,8 @@
 \documentclass[aspectratio=169,11pt]{beamer}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[french]{babel}
+\usepackage{babel}
+\babelprovide[import,main]{french}
 \usepackage{lmodern}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
@@ -20,7 +21,7 @@
 \setbeamerfont{subtitle}{size=\normalsize}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{%
-  \hspace{0.6cm}\scriptsize Mhamed Halhoul\hfill
+  \hspace{0.6cm}\scriptsize Mhamed Halhoul et Khalil Amraoui\hfill
   \insertframenumber\hspace{0.6cm}\vspace{0.2cm}}
 \setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
 \setlength{\emergencystretch}{1em}
@@ -83,10 +84,17 @@
 
 \title{Traitement d'images par des équations aux dérivées partielles}
 \subtitle{Débruitage par diffusion linéaire\\et diffusion de Perona--Malik}
-\author{Mhamed Halhoul}
-\institute{M2 -- Modélisation, Mathématiques Appliquées et Apprentissage\\
-Abdelmalek Essaâdi University}
+\author[Mhamed Halhoul et Khalil Amraoui]{Réalisé par : Mhamed Halhoul et Khalil Amraoui}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{institute}{size=\small}
+\institute{Faculté Polydisciplinaire de Larache\\
+Master : Modélisation mathématique\\et applications et apprentissages\\
+M2 en cours\\
+Module : Modélisation déterministe et applications\\
+Enseignant du module : Pr. Hatim Tayeq}
 \date{}
+\hypersetup{pdfauthor={Mhamed Halhoul et Khalil Amraoui},
+pdftitle={Traitement d'images par des équations aux dérivées partielles}}
 
 \begin{document}
 

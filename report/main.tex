@@ -1,7 +1,8 @@
 \documentclass[11pt,a4paper,oneside]{report}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[english,french]{babel}
+\usepackage[english]{babel}
+\babelprovide[import,main]{french}
 \usepackage{lmodern}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}
@@ -15,7 +16,8 @@
 \definecolor{academicblue}{RGB}{29,63,91}
 \hypersetup{colorlinks=true,linkcolor=academicblue,citecolor=academicblue,
  urlcolor=academicblue,pdftitle={Traitement d'images par des équations aux dérivées partielles},
- pdfauthor={Mhamed Halhoul},bookmarksdepth=2}
+ pdfauthor={Mhamed Halhoul et Khalil Amraoui},bookmarksdepth=2}
+\author{Mhamed Halhoul et Khalil Amraoui}
 \graphicspath{{../results/extended/figures/}}
 \captionsetup{font=small,labelfont=bf}
 \setlength{\parindent}{1.3em}
@@ -37,10 +39,14 @@
 \hypersetup{pageanchor=false}
 \begin{titlepage}
 \centering
-{\large Abdelmalek Essaâdi University\par}
+{\large Faculté Polydisciplinaire de Larache\par}
 \vspace{0.7cm}
-{\large M2 --- Modélisation, Mathématiques Appliquées\par et Apprentissage\par}
-\vspace{2.2cm}
+{\large Master : Modélisation mathématique\par et applications et apprentissages\par}
+{\normalsize M2 en cours\par}
+\vspace{0.6cm}
+{\normalsize Module : Modélisation déterministe et applications\par}
+{\normalsize Enseignant du module : Pr. Hatim Tayeq\par}
+\vspace{1.5cm}
 {\LARGE\bfseries Traitement d'images par des équations\par aux dérivées partielles\par}
 \vspace{0.8cm}
 {\Large Débruitage d'images par diffusion linéaire\par et diffusion de Perona--Malik\par}
@@ -48,7 +54,7 @@
 {\large\itshape Image Denoising with PDEs:\par
 Linear Heat Diffusion and Perona--Malik Diffusion\par}
 \vspace{1.8cm}
-{\Large Mhamed Halhoul\par}
+{\large Réalisé par : Mhamed Halhoul et Khalil Amraoui\par}
 \vfill
 {\normalsize Mini-projet scientifique de Master\par
 Modélisation, analyse numérique et expérimentation reproductible\par}
@@ -114,9 +120,8 @@ performance on natural images. All numerical claims and illustrations
 are derived from existing audited results; no new experiment was run
 during the writing phase.
 
-\noindent Programme description: Mathematical Modelling, Applied
-Mathematics and Machine Learning (descriptive English translation,
-not asserted as an official programme name).
+\noindent Programme (French title):
+\foreignlanguage{french}{Modélisation mathématique et applications et apprentissages}.
 \selectlanguage{french}
 \begingroup
 \small

@@ -8,10 +8,20 @@ exponential and rational conduction. The scientific question is:
 > between noise reduction and edge preservation compared with linear heat
 > diffusion?
 
-Author: Mhamed Halhoul
+Code author: Mhamed Halhoul.
 
-Programme: M2, Modélisation, Mathématiques Appliquées et Apprentissage,
-Abdelmalek Essaâdi University.
+Report and presentation — Réalisé par : Mhamed Halhoul et Khalil Amraoui.
+
+Institution: Faculté Polydisciplinaire de Larache.
+
+Master: Modélisation mathématique et applications et apprentissages.
+Status: M2 en cours (degree not yet obtained).
+
+Module: Modélisation déterministe et applications.
+
+Enseignant du module : Pr. Hatim Tayeq.
+This identifies the module teacher, not a coauthor or an endorsement of the
+scientific results. Software attribution and the MIT licence are unchanged.
 
 ## Status
 
@@ -29,15 +39,22 @@ page; the archived scientific figures and values are unchanged.
 The original Windows compilation attempt remains blocked by Application
 Control, and its historical evidence is retained without alteration.
 See docs/phase5_v2_external_compilation.json for actual commands, versions,
-PDF checks and the limited scope of the archive. Work stops before
-phase 6/publication.
+PDF checks and the limited scope of that historical archive.
+
+The report and presentation credit Mhamed Halhoul and Khalil Amraoui and
+state the complete academic affiliation, current Master status, module and
+module teacher. The corresponding PDFs have been rebuilt and reviewed:
+49 report pages and 32 slides, with the two names also in PDF author metadata.
+This documentary revision reuses the archived scientific figures and values;
+no new experiment or scientific test accompanies it.
 
 The current documents were reintegrated into this complete local project.
-This README has since been updated for safe local preparation of a first
-commit. Consequently, it no longer matches its historical entry in
+This README has since evolved, including the academic identity revision.
+Consequently, it no longer matches its historical entry in
 docs/phase5_v2_external_bundle_inventory.json. That inventory describes
 the externally compiled edition and is preserved without rewriting.
-The numerical results, compiled PDFs and historical evidence are unchanged.
+The numerical results and historical evidence are unchanged. The two PDF
+entry points now contain the revised academic identity.
 
 The extended run contains 60 shared noisy observations, 540 solver trajectories,
 4,380 metric rows and 438 summary groups. It took 44.4073 seconds for the whole
@@ -45,7 +62,7 @@ pipeline on the recorded CPU environment. All 165 tests passed in phase 4
 and the independent audit; they were not rerun for writing. Archived local
 strict verification reproduces arrays, metrics and output hashes exactly
 in the recorded Windows environment. Separately, the independent audit
-supplied by the user reports successful cross-environment numerical
+reports successful cross-environment numerical
 verification (rtol=1e-10, atol=1e-12), not bitwise equality.
 All quick/extended results, frozen configurations, scientific code and
 tests are protected by the phase-5 SHA-256 inventory.
@@ -181,14 +198,15 @@ Copyright (c) 2026 Mhamed Halhoul.
 
 ## Reading and building the phase-5 documents
 
-Current reading material:
+Current PDFs and retained historical review material:
 
-- [French report (compiled PDF)](report/main.pdf)
-- [Presentation (compiled PDF)](slides/main.pdf)
+- [French report (49 pages; revised academic identity)](report/main.pdf)
+- [Presentation (32 slides; revised academic identity)](slides/main.pdf)
 - [Speaker notes](slides/speaker_notes.md)
 - [External compilation and review record](docs/phase5_v2_external_compilation.md)
 
-Sources: [report/main.tex](report/main.tex) and [slides/main.tex](slides/main.tex).
+Editable sources matching the revised PDFs: [report/main.tex](report/main.tex) and
+[slides/main.tex](slides/main.tex).
 The phase logs, protection inventories and earlier build/reproduction notes
 are historical evidence, not an instruction to repeat old writes. Preserve
 their original contents and interpret their status in its recorded context.
@@ -220,12 +238,15 @@ attempt and fallback commands. Its unresolved checks describe that earlier
 attempt, not the subsequent external compilation.
 The compiler download/version metadata are in
 [docs/phase5_v2_build/compiler.json](docs/phase5_v2_build/compiler.json).
+This historical diagnostic has a public version with local personal paths
+redacted. The original is preserved separately; historical inventories
+describe that original rather than the redacted public version.
 Static source validation is separate from successful compilation. The
-external edition has been compiled, all 49 pages and 32 slides rendered
+revised edition has been compiled, all 49 pages and 32 slides rendered
 and inspected, and internal PDF destinations checked. The slide notes
 allocate 23 minutes, excluding backup frames and questions. Actual delivery
-time still depends on the speaker. See the external compilation record for
-the two harmless report typography warnings.
+time still depends on the speaker. The earlier compilation record describes
+the historical edition; its commands and warnings are preserved in context.
 
 The compiled phase-5 review ZIP is documentary: it omits scientific src,
 tests, quick results and the already audited large NPZ arrays. It supplies
@@ -239,8 +260,7 @@ The following archive command applies to the complete original repository:
 
 It refuses to create the archive unless both report/main.pdf and
 slides/main.pdf exist. The previous phase-5 ZIP is preserved.
-No experiment, new scientific figure, Python dependency installation,
-staging, commit, push or publication is performed in this writing phase.
-The user-authorized portable compiler download is confined to
-D:\academic-projects\_tools\tectonic; no global installation, security-policy
-change or permanent PATH modification was made.
+The historical portable-compiler attempt is documented in the retained
+build records. The academic revision consists of documentary source changes
+and rebuilding the report and slides. It does not rerun solvers or scientific
+tests, change recorded measurements or regenerate scientific figures.
