@@ -12,6 +12,7 @@ Code author: Mhamed Halhoul.
 
 Report and presentation — Réalisé par : Mhamed Halhoul et Khalil Amraoui.
 
+University: Université Abdelmalek Essaâdi.
 Institution: Faculté Polydisciplinaire de Larache.
 
 Master: Modélisation mathématique et applications et apprentissages.
@@ -19,9 +20,9 @@ Status: M2 en cours (degree not yet obtained).
 
 Module: Modélisation déterministe et applications.
 
-Enseignant du module : Pr. Hatim Tayeq.
-This identifies the module teacher, not a coauthor or an endorsement of the
-scientific results. Software attribution and the MIT licence are unchanged.
+Project supervisor: Prof. Hatim Tayeq.
+Supervision does not imply coauthorship or endorsement of the scientific
+results. Software attribution and the MIT licence are unchanged.
 
 ## Status
 
@@ -43,10 +44,15 @@ PDF checks and the limited scope of that historical archive.
 
 The report and presentation credit Mhamed Halhoul and Khalil Amraoui and
 state the complete academic affiliation, current Master status, module and
-module teacher. The corresponding PDFs have been rebuilt and reviewed:
+project supervisor. The corresponding PDFs have been rebuilt and reviewed:
 49 report pages and 32 slides, with the two names also in PDF author metadata.
 This documentary revision reuses the archived scientific figures and values;
 no new experiment or scientific test accompanies it.
+
+The published TeX sources, institutional logos and PDFs belong to the same
+revision. See the [official logo sources and provenance](assets/logos/SOURCES.md).
+The software's MIT licence is unchanged; these institutional identities are
+not assigned a new licence by this project.
 
 The current documents were reintegrated into this complete local project.
 This README has since evolved, including the academic identity revision.

@@ -87,11 +87,11 @@
 \author[Mhamed Halhoul et Khalil Amraoui]{Réalisé par : Mhamed Halhoul et Khalil Amraoui}
 \setbeamerfont{author}{size=\normalsize}
 \setbeamerfont{institute}{size=\small}
-\institute{Faculté Polydisciplinaire de Larache\\
+\institute{Université Abdelmalek Essaâdi\\
+Faculté Polydisciplinaire de Larache\\
 Master : Modélisation mathématique\\et applications et apprentissages\\
 M2 en cours\\
-Module : Modélisation déterministe et applications\\
-Enseignant du module : Pr. Hatim Tayeq}
+Module : Modélisation déterministe et applications}
 \date{}
 \hypersetup{pdfauthor={Mhamed Halhoul et Khalil Amraoui},
 pdftitle={Traitement d'images par des équations aux dérivées partielles}}
@@ -100,7 +100,22 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles}}
 
 % 25 diapositives principales. Les labels correspondent aux notes orales.
 \begin{frame}[label=titre,plain]
-  \titlepage
+  \centering
+  \noindent\begin{minipage}[c]{0.48\textwidth}
+    \raggedright\includegraphics[width=4.3cm,height=1.25cm,keepaspectratio]{../assets/logos/uae.png}
+  \end{minipage}\hfill\begin{minipage}[c]{0.48\textwidth}
+    \raggedleft\includegraphics[height=1.25cm,keepaspectratio]{../assets/logos/fpl.png}
+  \end{minipage}\par
+  \vspace{0.25cm}
+  {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+  \vspace{0.16cm}
+  {\usebeamerfont{subtitle}\insertsubtitle\par}
+  \vspace{0.24cm}
+  {\usebeamerfont{author}\insertauthor\par}
+  \vspace{0.20cm}
+  {\usebeamerfont{institute}\insertinstitute\par}
+  \vfill
+  {\small Professeur encadrant : Pr. Hatim Tayeq\par}
 \end{frame}
 
 \begin{frame}[label=question]{Réduction du bruit et conservation des structures}
