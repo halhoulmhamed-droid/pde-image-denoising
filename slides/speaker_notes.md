@@ -12,12 +12,15 @@ Les propriétés démontrées du schéma sont distinguées des constats expérim
 ## 1. Titre (titre) — 0,5 minute
 
 Présenter le sujet officiel et le périmètre : débruitage par chaleur et par
-diffusion de Perona–Malik. C'est un mini-projet de Master associant
+diffusion de Perona–Malik. C'est un projet de Master associant
 modélisation, analyse numérique et expérimentation reproductible, pas une
 méthode nouvelle.
 
-L'auteur et la formation sont ceux indiqués sur la page. Ne pas ajouter
-d'encadrant, de date ou de revendication institutionnelle.
+Présenter les deux auteurs du rapport et de la présentation : Mhamed Halhoul
+et Khalil Amraoui. Affiliation : Université Abdelmalek Essaâdi, Faculté
+Polydisciplinaire de Larache. Master : Modélisation mathématique et
+applications et apprentissages ; M2 en cours. Module : Modélisation
+déterministe et applications. Professeur encadrant : Pr. Hatim Tayeq.
 
 Transition : le bruit et les structures de l'image peuvent avoir tous deux
 de fortes variations locales.

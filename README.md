@@ -49,6 +49,11 @@ project supervisor. The corresponding PDFs have been rebuilt and reviewed:
 This documentary revision reuses the archived scientific figures and values;
 no new experiment or scientific test accompanies it.
 
+The current edition is presented as a scientific Master's project. The
+report cover, 16:9 slide theme and oral notes use the same academic identity.
+The report contains 49 pages and the presentation 32 slides; their numerical
+content, archived figures and documented limitations are preserved.
+
 The published TeX sources, institutional logos and PDFs belong to the same
 revision. See the [official logo sources and provenance](assets/logos/SOURCES.md).
 The software's MIT licence is unchanged; these institutional identities are
