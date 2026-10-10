@@ -10,13 +10,15 @@ exponential and rational conduction. The scientific question is:
 
 Code author: Mhamed Halhoul.
 
-Report and presentation — Réalisé par : Mhamed Halhoul et Khalil Amraoui.
+Report and presentation — Réalisé par : Halhoul Mhamed et Khalil Amraoui.
+The two document authors have equal standing; software authorship is unchanged.
 
 University: Université Abdelmalek Essaâdi.
 Institution: Faculté Polydisciplinaire de Larache.
 
 Master: Modélisation mathématique et applications et apprentissages.
 Status: M2 en cours (degree not yet obtained).
+Academic year: 2026–2027.
 
 Module: Modélisation déterministe et applications.
 
@@ -26,46 +28,69 @@ results. Software attribution and the MIT licence are unchanged.
 
 ## Status
 
+Documentary sources prepared on 9 October 2026 add document authorship,
+figure provenance and a single named contact section. Their scientific
+reference is [ae03109cdb2150b760e5a4b8bcffb56bba1b98e0](https://github.com/halhoulmhamed-droid/pde-image-denoising/commit/ae03109cdb2150b760e5a4b8bcffb56bba1b98e0),
+the sealed code/data archive, not the unknown future PDF-edition commit.
+See the [figure provenance registry](docs/figure_provenance.md) for file hashes,
+data/code permalinks, individual versus aggregate figures and inspection limits.
+No experiment, metric computation or statistical aggregation was rerun.
+
+The report and slides were rebuilt and reviewed in an external LaTeX
+environment on 10 October 2026: **52 report pages and 33 slides**. The two
+authors have equal cover typography and identical PDF-author metadata.
+The report groups contacts in its final annex; the presentation preserves
+the 25 main and seven backup frames and adds one unnumbered “Sources et contact”
+frame. Figure references are clickable. All pages were inspected, and text,
+metadata, decoded streams and PDF links were checked. The 11 archived
+scientific figure PDFs remain byte-identical. No scientific execution was
+performed. The original Windows compiler restriction was not bypassed.
+These files are prepared for a documentary commit; publication is a separate
+step. The new registry URL on main must be checked after that publication.
+
+### Previously published editions and retained evidence
+
 Phases 1--4 are implemented: initial documentation, numerical solvers, tests,
 the audited quick experiment, and a reproducible extended parameter study.
 The study is conditional on two synthetic images; this is not a general image
 benchmark. Phase 5 now supplies the complete French report sources,
 a 16:9 Beamer presentation and oral notes. The phase-5 v2 sources correct
 report composition and split dense graphs into separate PSNR/SSIM views.
-The report and Beamer have now been compiled and visually inspected in an
+That earlier report and Beamer were compiled and visually inspected in an
 external Linux environment: 49 report pages and 32 slides (25 main frames
-plus seven backup frames). The compiled PDFs accompany the documentary
-sources. Layout corrections address slide legends and the report contents
+plus seven backup frames). Their compiled PDFs are retained as the preceding
+edition. Layout corrections addressed slide legends and the report contents
 page; the archived scientific figures and values are unchanged.
 The original Windows compilation attempt remains blocked by Application
 Control, and its historical evidence is retained without alteration.
 See docs/phase5_v2_external_compilation.json for actual commands, versions,
 PDF checks and the limited scope of that historical archive.
 
-The report and presentation credit Mhamed Halhoul and Khalil Amraoui and
+The preceding report and presentation credit Mhamed Halhoul and Khalil Amraoui and
 state the complete academic affiliation, current Master status, module and
 project supervisor. The corresponding PDFs have been rebuilt and reviewed:
 49 report pages and 32 slides, with the two names also in PDF author metadata.
 This documentary revision reuses the archived scientific figures and values;
 no new experiment or scientific test accompanies it.
 
-The current edition is presented as a scientific Master's project. The
+The preceding edition is presented as a scientific Master's project. The
 report cover, 16:9 slide theme and oral notes use the same academic identity.
 The report contains 49 pages and the presentation 32 slides; their numerical
 content, archived figures and documented limitations are preserved.
 
-The published TeX sources, institutional logos and PDFs belong to the same
-revision. See the [official logo sources and provenance](assets/logos/SOURCES.md).
+The preceding published TeX sources, institutional logos and PDFs belonged to
+the same revision. This working edition supplies its matching rebuilt PDFs.
+See the [official logo sources and provenance](assets/logos/SOURCES.md).
 The software's MIT licence is unchanged; these institutional identities are
 not assigned a new licence by this project.
 
-The current documents were reintegrated into this complete local project.
+The preceding documents were reintegrated into the complete local project.
 This README has since evolved, including the academic identity revision.
 Consequently, it no longer matches its historical entry in
 docs/phase5_v2_external_bundle_inventory.json. That inventory describes
 the externally compiled edition and is preserved without rewriting.
 The numerical results and historical evidence are unchanged. The two PDF
-entry points now contain the revised academic identity.
+entry points now use the equal document authorship and contacts of this edition.
 
 The extended run contains 60 shared noisy observations, 540 solver trajectories,
 4,380 metric rows and 438 summary groups. It took 44.4073 seconds for the whole
@@ -185,7 +210,8 @@ wall-clock time.
 - docs: mathematical model, protocol, limitations, and resumable phase status
 - report: six scientific chapters, bilingual summaries, notation,
   bibliography, reproducible annexes and CSV-derived tables
-- slides: 25 main Beamer frames, seven backup frames and matching oral notes
+- slides: 25 main Beamer frames, seven backup frames with retained oral notes,
+  and one unnumbered sources/contact frame
 - scripts: standard-library documentary exports and static checks only
 - references: source-verification ledger
 
@@ -211,13 +237,17 @@ Copyright (c) 2026 Mhamed Halhoul.
 
 Current PDFs and retained historical review material:
 
-- [French report (49 pages; revised academic identity)](report/main.pdf)
-- [Presentation (32 slides; revised academic identity)](slides/main.pdf)
+- [French report (52 pages; authorship and provenance edition)](report/main.pdf)
+- [Presentation (33 slides; authorship and provenance edition)](slides/main.pdf)
 - [Speaker notes](slides/speaker_notes.md)
 - [External compilation and review record](docs/phase5_v2_external_compilation.md)
 
-Editable sources matching the revised PDFs: [report/main.tex](report/main.tex) and
-[slides/main.tex](slides/main.tex).
+Editable sources of this edition: [report/main.tex](report/main.tex),
+[report sections](report/sections/), [report bibliography](report/references.bib)
+and [slides/main.tex](slides/main.tex). They match the rebuilt PDFs.
+The [provenance annex source](report/sections/provenance.tex) complements the
+[figure registry](docs/figure_provenance.md). Existing sections, bibliography,
+generated tables, scientific figures, results and code are unchanged.
 The phase logs, protection inventories and earlier build/reproduction notes
 are historical evidence, not an instruction to repeat old writes. Preserve
 their original contents and interpret their status in its recorded context.
@@ -253,7 +283,7 @@ This historical diagnostic has a public version with local personal paths
 redacted. The original is preserved separately; historical inventories
 describe that original rather than the redacted public version.
 Static source validation is separate from successful compilation. The
-revised edition has been compiled, all 49 pages and 32 slides rendered
+preceding edition was compiled, all 49 pages and 32 slides rendered
 and inspected, and internal PDF destinations checked. The slide notes
 allocate 23 minutes, excluding backup frames and questions. Actual delivery
 time still depends on the speaker. The earlier compilation record describes
@@ -275,3 +305,16 @@ The historical portable-compiler attempt is documented in the retained
 build records. The academic revision consists of documentary source changes
 and rebuilding the report and slides. It does not rerun solvers or scientific
 tests, change recorded measurements or regenerate scientific figures.
+
+## Contact de Halhoul Mhamed
+
+These confirmed contacts belong only to Halhoul Mhamed, not to both document
+authors. No contact information for Khalil Amraoui has been supplied.
+
+- Institutional: [halhoul.mhamed@etu.uae.ac.ma](mailto:halhoul.mhamed@etu.uae.ac.ma)
+- Personal: [halhoulmhamed@gmail.com](mailto:halhoulmhamed@gmail.com)
+- Project: [GitHub repository](https://github.com/halhoulmhamed-droid/pde-image-denoising)
+
+The Git noreply identity is a commit identity, not a public contact address.
+Software attribution and the MIT licence remain unchanged. CITATION.cff retains
+the software author and adds a separate two-author report citation.

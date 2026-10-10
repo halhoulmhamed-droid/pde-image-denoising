@@ -5,3 +5,12 @@ title: "Image Denoising with PDEs: Linear Heat Diffusion and Perona-Malik Diffus
 authors:
   - family-names: "Halhoul"
     given-names: "Mhamed"
+preferred-citation:
+  type: report
+  title: "Traitement d'images par des équations aux dérivées partielles : débruitage par diffusion linéaire et diffusion de Perona-Malik"
+  authors:
+    - family-names: "Halhoul"
+      given-names: "Mhamed"
+    - family-names: "Amraoui"
+      given-names: "Khalil"
+  url: "https://github.com/halhoulmhamed-droid/pde-image-denoising/blob/main/report/main.pdf"

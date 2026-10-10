@@ -16,11 +16,26 @@
 \definecolor{academicblue}{RGB}{29,63,91}
 \hypersetup{colorlinks=true,linkcolor=academicblue,citecolor=academicblue,
  urlcolor=academicblue,pdftitle={Traitement d'images par des équations aux dérivées partielles},
- pdfauthor={Mhamed Halhoul et Khalil Amraoui},
+ pdfauthor={Halhoul Mhamed et Khalil Amraoui},
  pdfsubject={Projet scientifique de Master : Modélisation déterministe et applications},bookmarksdepth=2}
-\author{Mhamed Halhoul et Khalil Amraoui}
+\author{Halhoul Mhamed et Khalil Amraoui}
 \graphicspath{{../results/extended/figures/}}
 \captionsetup{font=small,labelfont=bf}
+% Short registry references for the seven archived figure floats in chapter 5.
+% Their scientific captions and source PDFs are kept unchanged.
+\DeclareCaptionTextFormat{figureprovenance}{#1%
+  \ifnum\value{chapter}=5\relax
+    \ifcase\value{figure}\relax
+    \or\space\textit{Provenance : \hyperref[ann:figure-provenance]{F01}.}
+    \or\space\textit{Provenance : \hyperref[ann:figure-provenance]{F02}.}
+    \or\space\textit{Provenance : \hyperref[ann:figure-provenance]{F03}.}
+    \or\space\textit{Provenance : \hyperref[ann:figure-provenance]{F04--F05}.}
+    \or\space\textit{Provenance : \hyperref[ann:figure-provenance]{F06--F07}.}
+    \or\space\textit{Provenance : \hyperref[ann:figure-provenance]{F08--F09}.}
+    \or\space\textit{Provenance : \hyperref[ann:figure-provenance]{F10--F11}.}
+    \fi
+  \fi}
+\captionsetup[figure]{textformat=figureprovenance}
 \setlength{\parindent}{1.3em}
 \setlength{\parskip}{0.25em}
 \setlength{\emergencystretch}{2em}
@@ -81,7 +96,7 @@ Traitement d'images\\par des équations\\aux dérivées partielles\par}
 \begin{minipage}[t]{0.45\linewidth}
 {\small\color{coverteal} Réalisé par\par}
 \vspace{0.12cm}
-{\large\bfseries Mhamed Halhoul\\Khalil Amraoui\par}
+{\large\bfseries Halhoul Mhamed\\Khalil Amraoui\par}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 \raggedleft
@@ -205,6 +220,8 @@ la comparaison ciblée.
 \input{sections/08_metrics}
 \input{sections/09_protocol}
 \chapter{Résultats archivés et comparaison conditionnelle}
+Les identifiants F01 à F11 relient les illustrations à l'annexe
+\ref{ann:figure-provenance} et au registre de provenance du dépôt.
 \input{sections/10_results}
 \chapter{Reproductibilité, limites et conclusion}
 \input{sections/11_reproducibility}
@@ -217,4 +234,5 @@ la comparaison ciblée.
 \bibliography{references}
 \appendix
 \input{sections/appendices}
+\input{sections/provenance}
 \end{document}

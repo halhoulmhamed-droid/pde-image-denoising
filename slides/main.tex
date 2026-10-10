@@ -43,7 +43,7 @@
 \setbeamertemplate{footline}{%
   \begin{beamercolorbox}[wd=\paperwidth,ht=0.36cm,dp=0.12cm,leftskip=0.7cm,rightskip=0.7cm]{footline}
   \fontsize{6.5}{8}\selectfont
-  Mhamed Halhoul et Khalil Amraoui\hfill\sectionlabel\hfill
+  Halhoul Mhamed et Khalil Amraoui\hfill\sectionlabel\hfill
   \insertframenumber\,/\,\inserttotalframenumber
   \end{beamercolorbox}}
 \setlength{\emergencystretch}{1em}
@@ -51,6 +51,7 @@
 \newcommand{\utrue}{u_{\mathrm{true}}}
 \newcommand{\figpath}{../results/extended/figures/}
 \newcommand{\figcaption}[1]{\par\vspace{0.1cm}{\footnotesize #1\par}}
+\newcommand{\provenanceref}[1]{\space\textit{(\href{https://github.com/halhoulmhamed-droid/pde-image-denoising/blob/main/docs/figure_provenance.md}{prov.\ #1})}}
 \newcommand{\smallgap}{\vspace{0.18cm}}
 
 % Presentation-only legends: same series, colours and line/marker encodings
@@ -106,7 +107,7 @@
 
 \title{Traitement d'images par des équations aux dérivées partielles}
 \subtitle{Débruitage par diffusion linéaire\\et diffusion de Perona--Malik}
-\author[Mhamed Halhoul et Khalil Amraoui]{Réalisé par : Mhamed Halhoul et Khalil Amraoui}
+\author[Halhoul Mhamed et Khalil Amraoui]{Réalisé par : Halhoul Mhamed et Khalil Amraoui}
 \setbeamerfont{author}{size=\normalsize}
 \setbeamerfont{institute}{size=\small}
 \institute{Université Abdelmalek Essaâdi\\
@@ -115,7 +116,7 @@ Master : Modélisation mathématique\\et applications et apprentissages\\
 M2 en cours\\
 Module : Modélisation déterministe et applications}
 \date{}
-\hypersetup{pdfauthor={Mhamed Halhoul et Khalil Amraoui},
+\hypersetup{pdfauthor={Halhoul Mhamed et Khalil Amraoui},
 pdftitle={Traitement d'images par des équations aux dérivées partielles},
  pdfsubject={Projet scientifique de Master : Modélisation déterministe et applications}}
 
@@ -154,7 +155,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
 \node[anchor=north west,text=white!75,font=\fontsize{8}{10}\selectfont]
  at ([xshift=0.74cm,yshift=2.13cm]current page.south west) {RÉALISÉ PAR};
 \node[anchor=north west,text=white,text width=8.0cm,font=\fontsize{13}{16}\selectfont\bfseries]
- at ([xshift=0.74cm,yshift=1.67cm]current page.south west) {Mhamed Halhoul\\Khalil Amraoui};
+ at ([xshift=0.74cm,yshift=1.67cm]current page.south west) {Halhoul Mhamed\\Khalil Amraoui};
 \node[anchor=north west,text=white!75,font=\fontsize{8}{10}\selectfont]
  at ([xshift=9.15cm,yshift=2.13cm]current page.south west) {PROFESSEUR ENCADRANT :};
 \node[anchor=north west,text=white,font=\fontsize{14}{17}\selectfont\bfseries]
@@ -351,7 +352,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
     {\figpath comparison.pdf}
   \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, graine $0$.
   Chaleur et PM : $n=20$, $t=4$, PM : $K=0{,}10$.
-  Même observation, affichage $[0,1]$, calculs non tronqués.}
+  Même observation, affichage $[0,1]$, calculs non tronqués.\provenanceref{F01}}
   \smallgap
   \raggedright
   La chaleur élargit les transitions. L'exponentielle laisse des pixels
@@ -364,7 +365,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
     {\figpath intensity_profile.pdf}
   \figcaption{Profil horizontal ligne $42$ : \texttt{geometric\_shapes},
   $\sigma=0{,}10$, graine $0$, $n=20$, $K=0{,}10$.
-  Intensités non tronquées, sans agrégation.}
+  Intensités non tronquées, sans agrégation.\provenanceref{F02}}
 \end{frame}
 
 \begin{frame}[label=gradients]{Les cartes de gradient visualisent les structures}
@@ -373,7 +374,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
     {\figpath gradient_maps.pdf}
   \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, graine $0$,
   $n=20$, $K=0{,}10$. Norme calculée par \texttt{np.gradient},
-  même échelle de couleurs, plafond au maximum des 99es percentiles.}
+  même échelle de couleurs, plafond au maximum des 99es percentiles.\provenanceref{F03}}
   \smallgap
   \raggedright
   Le bruit résiduel apparaît aussi dans le gradient.
@@ -395,7 +396,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
   \end{columns}
   \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
   Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
-  $n\in\{0,1,2,5,10,20,40,80\}$. Toutes les configurations sont visibles.}
+  $n\in\{0,1,2,5,10,20,40,80\}$. Toutes les configurations sont visibles.\provenanceref{F08}}
 \end{frame}
 
 \begin{frame}[label=courbes-formes-ssim]{Formes géométriques : SSIM et temps de diffusion}
@@ -411,7 +412,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
   \end{columns}
   \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
   Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
-  $n\in\{0,1,2,5,10,20,40,80\}$. Mêmes trajectoires que le PSNR.}
+  $n\in\{0,1,2,5,10,20,40,80\}$. Mêmes trajectoires que le PSNR.\provenanceref{F08}}
 \end{frame}
 
 \begin{frame}[label=courbes-rampes]{Rampes et contours : PSNR et temps de diffusion}
@@ -427,7 +428,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
   \end{columns}
   \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
   Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
-  $n\in\{0,1,2,5,10,20,40,80\}$. Toutes les configurations sont visibles.}
+  $n\in\{0,1,2,5,10,20,40,80\}$. Toutes les configurations sont visibles.\provenanceref{F09}}
 \end{frame}
 
 \begin{frame}[label=courbes-rampes-ssim]{Rampes et contours : SSIM et temps de diffusion}
@@ -443,7 +444,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
   \end{columns}
   \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
   Bandes : $\pm$ un écart-type échantillonnal. $dt=0{,}20$,
-  $n\in\{0,1,2,5,10,20,40,80\}$. Mêmes trajectoires que le PSNR.}
+  $n\in\{0,1,2,5,10,20,40,80\}$. Mêmes trajectoires que le PSNR.\provenanceref{F09}}
 \end{frame}
 
 \begin{frame}[label=sensibilite]{Formes géométriques : sensibilité du PSNR à K}
@@ -459,7 +460,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
   \end{columns}
   \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
   $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
-  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.}
+  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.\provenanceref{F10}}
 \end{frame}
 
 \begin{frame}[label=sensibilite-ssim]{Formes géométriques : sensibilité du SSIM à K}
@@ -475,7 +476,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
   \end{columns}
   \figcaption{\texttt{geometric\_shapes}, $\sigma=0{,}10$, dix graines.
   $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
-  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.}
+  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.\provenanceref{F10}}
 \end{frame}
 
 \begin{frame}[label=desaccord]{PSNR et SSIM peuvent classer différemment}
@@ -658,7 +659,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
   \end{columns}
   \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
   $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
-  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.}
+  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.\provenanceref{F11}}
 \end{frame}
 
 \begin{frame}[label=reserve-sensibilite-rampes-ssim]{Réserve : sensibilité du SSIM sur les rampes}
@@ -674,7 +675,7 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
   \end{columns}
   \figcaption{\texttt{ramps\_and\_edges}, $\sigma=0{,}10$, dix graines.
   $n=5,20,80$ ($t=1,4,16$). Barres : $\pm$ un écart-type échantillonnal.
-  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.}
+  Tous les $K\in\{0{,}025;0{,}05;0{,}10;0{,}20\}$, axe logarithmique.\provenanceref{F11}}
 \end{frame}
 
 \begin{frame}[label=reserve-continu]{Réserve : dérivée du flux et modèle continu}
@@ -694,6 +695,25 @@ pdftitle={Traitement d'images par des équations aux dérivées partielles},
   \smallgap
   Catté et al. évaluent la conductance sur un gradient spatialement lissé.
   Cette régularisation bibliographique n'a pas été implémentée.
+\end{frame}
+
+% One unnumbered documentary frame; the 25 main and 7 backup frames are preserved.
+\begin{frame}[label=sources-contact,plain,noframenumbering]{Sources et contact}
+  \textbf{Provenance scientifique}\par
+  \href{https://github.com/halhoulmhamed-droid/pde-image-denoising/commit/ae03109cdb2150b760e5a4b8bcffb56bba1b98e0}{Archive de référence : ae03109cdb21}.
+  Édition documentaire : 9 octobre 2026.
+  \smallgap
+  \begin{itemize}
+    \item \href{https://github.com/halhoulmhamed-droid/pde-image-denoising/blob/main/docs/figure_provenance.md}{Tableau de provenance : F01--F11, données et code.}
+    \item Intégrité et lecture de la chaîne archivée ; pas de nouveau calcul.
+    \item Rapport : annexe « Provenance des figures et contact ».
+  \end{itemize}
+  \smallgap
+  \textbf{Contact de Halhoul Mhamed}\par
+  \href{mailto:halhoul.mhamed@etu.uae.ac.ma}{\nolinkurl{halhoul.mhamed@etu.uae.ac.ma}}\par
+  \href{mailto:halhoulmhamed@gmail.com}{\nolinkurl{halhoulmhamed@gmail.com}}\par
+  \smallgap
+  \href{https://github.com/halhoulmhamed-droid/pde-image-denoising}{Dépôt GitHub : halhoulmhamed-droid/pde-image-denoising}
 \end{frame}
 
 \end{document}
